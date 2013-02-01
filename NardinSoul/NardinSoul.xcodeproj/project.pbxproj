@@ -1,0 +1,548 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4C1155BE16B3377800AB563A /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1155BD16B3377800AB563A /* NSString+MD5.m */; };
+		4C22E47D16B592840099D524 /* NSPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C22E47C16B592840099D524 /* NSPacket.m */; };
+		4C22E48116B593410099D524 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C22E48016B593410099D524 /* User.m */; };
+		4C8DAF5916B2F188003C7E19 /* NetsoulProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8DAF5816B2F188003C7E19 /* NetsoulProtocol.m */; };
+		4C916C9816AD62CA00CA1295 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916C9716AD62CA00CA1295 /* UIKit.framework */; };
+		4C916C9A16AD62CA00CA1295 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916C9916AD62CA00CA1295 /* Foundation.framework */; };
+		4C916C9C16AD62CA00CA1295 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916C9B16AD62CA00CA1295 /* CoreGraphics.framework */; };
+		4C916CA216AD62CA00CA1295 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C916CA016AD62CA00CA1295 /* InfoPlist.strings */; };
+		4C916CA416AD62CA00CA1295 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C916CA316AD62CA00CA1295 /* main.m */; };
+		4C916CA816AD62CA00CA1295 /* RootAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C916CA716AD62CA00CA1295 /* RootAppDelegate.m */; };
+		4C916CAA16AD62CA00CA1295 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C916CA916AD62CA00CA1295 /* Default.png */; };
+		4C916CAC16AD62CA00CA1295 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C916CAB16AD62CA00CA1295 /* Default@2x.png */; };
+		4C916CAE16AD62CA00CA1295 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C916CAD16AD62CA00CA1295 /* Default-568h@2x.png */; };
+		4C916CB116AD62CA00CA1295 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C916CAF16AD62CA00CA1295 /* MainStoryboard.storyboard */; };
+		4C916CB416AD62CA00CA1295 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C916CB316AD62CA00CA1295 /* RootViewController.m */; };
+		4C916CBC16AD62CA00CA1295 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916CBB16AD62CA00CA1295 /* SenTestingKit.framework */; };
+		4C916CBD16AD62CA00CA1295 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916C9716AD62CA00CA1295 /* UIKit.framework */; };
+		4C916CBE16AD62CA00CA1295 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916C9916AD62CA00CA1295 /* Foundation.framework */; };
+		4C916CC616AD62CA00CA1295 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C916CC416AD62CA00CA1295 /* InfoPlist.strings */; };
+		4C916CC916AD62CA00CA1295 /* NardinSoulTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C916CC816AD62CA00CA1295 /* NardinSoulTests.m */; };
+		4C916CDE16AD942900CA1295 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C916CDD16AD942900CA1295 /* GCDAsyncSocket.m */; };
+		4C916CE116AD96D400CA1295 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916CE016AD96D400CA1295 /* CFNetwork.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4C916CBF16AD62CA00CA1295 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C916C8A16AD62CA00CA1295 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C916C9216AD62CA00CA1295;
+			remoteInfo = NardinSoul;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4C1155BC16B3377800AB563A /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
+		4C1155BD16B3377800AB563A /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		4C22E47B16B592840099D524 /* NSPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPacket.h; sourceTree = "<group>"; };
+		4C22E47C16B592840099D524 /* NSPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPacket.m; sourceTree = "<group>"; };
+		4C22E47F16B593410099D524 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		4C22E48016B593410099D524 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		4C22E48216B5E6FB0099D524 /* NetsoulViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetsoulViewProtocol.h; sourceTree = "<group>"; };
+		4C8DAF5716B2F188003C7E19 /* NetsoulProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetsoulProtocol.h; sourceTree = "<group>"; };
+		4C8DAF5816B2F188003C7E19 /* NetsoulProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetsoulProtocol.m; sourceTree = "<group>"; };
+		4C916C9316AD62CA00CA1295 /* NardinSoul.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NardinSoul.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C916C9716AD62CA00CA1295 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4C916C9916AD62CA00CA1295 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4C916C9B16AD62CA00CA1295 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4C916C9F16AD62CA00CA1295 /* NardinSoul-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NardinSoul-Info.plist"; sourceTree = "<group>"; };
+		4C916CA116AD62CA00CA1295 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4C916CA316AD62CA00CA1295 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4C916CA516AD62CA00CA1295 /* NardinSoul-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NardinSoul-Prefix.pch"; sourceTree = "<group>"; };
+		4C916CA616AD62CA00CA1295 /* RootAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootAppDelegate.h; sourceTree = "<group>"; };
+		4C916CA716AD62CA00CA1295 /* RootAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootAppDelegate.m; sourceTree = "<group>"; };
+		4C916CA916AD62CA00CA1295 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		4C916CAB16AD62CA00CA1295 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		4C916CAD16AD62CA00CA1295 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		4C916CB016AD62CA00CA1295 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		4C916CB216AD62CA00CA1295 /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		4C916CB316AD62CA00CA1295 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		4C916CBA16AD62CA00CA1295 /* NardinSoulTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NardinSoulTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C916CBB16AD62CA00CA1295 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		4C916CC316AD62CA00CA1295 /* NardinSoulTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NardinSoulTests-Info.plist"; sourceTree = "<group>"; };
+		4C916CC516AD62CA00CA1295 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4C916CC716AD62CA00CA1295 /* NardinSoulTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NardinSoulTests.h; sourceTree = "<group>"; };
+		4C916CC816AD62CA00CA1295 /* NardinSoulTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NardinSoulTests.m; sourceTree = "<group>"; };
+		4C916CDC16AD942900CA1295 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = NardinSoul/GCDAsyncSocket.h; sourceTree = "<group>"; };
+		4C916CDD16AD942900CA1295 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = NardinSoul/GCDAsyncSocket.m; sourceTree = "<group>"; };
+		4C916CE016AD96D400CA1295 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4C916C9016AD62CA00CA1295 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C916CE116AD96D400CA1295 /* CFNetwork.framework in Frameworks */,
+				4C916C9816AD62CA00CA1295 /* UIKit.framework in Frameworks */,
+				4C916C9A16AD62CA00CA1295 /* Foundation.framework in Frameworks */,
+				4C916C9C16AD62CA00CA1295 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C916CB616AD62CA00CA1295 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C916CBC16AD62CA00CA1295 /* SenTestingKit.framework in Frameworks */,
+				4C916CBD16AD62CA00CA1295 /* UIKit.framework in Frameworks */,
+				4C916CBE16AD62CA00CA1295 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4C916C8816AD62CA00CA1295 = {
+			isa = PBXGroup;
+			children = (
+				4C916C9D16AD62CA00CA1295 /* NardinSoul */,
+				4C916CC116AD62CA00CA1295 /* NardinSoulTests */,
+				4C916C9616AD62CA00CA1295 /* Frameworks */,
+				4C916C9416AD62CA00CA1295 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4C916C9416AD62CA00CA1295 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4C916C9316AD62CA00CA1295 /* NardinSoul.app */,
+				4C916CBA16AD62CA00CA1295 /* NardinSoulTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4C916C9616AD62CA00CA1295 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C916CE016AD96D400CA1295 /* CFNetwork.framework */,
+				4C916C9716AD62CA00CA1295 /* UIKit.framework */,
+				4C916C9916AD62CA00CA1295 /* Foundation.framework */,
+				4C916C9B16AD62CA00CA1295 /* CoreGraphics.framework */,
+				4C916CBB16AD62CA00CA1295 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4C916C9D16AD62CA00CA1295 /* NardinSoul */ = {
+			isa = PBXGroup;
+			children = (
+				4C916CDF16AD943200CA1295 /* Network */,
+				4C916CA616AD62CA00CA1295 /* RootAppDelegate.h */,
+				4C916CA716AD62CA00CA1295 /* RootAppDelegate.m */,
+				4C916CAF16AD62CA00CA1295 /* MainStoryboard.storyboard */,
+				4C9261B516BA8D330023EDB4 /* Views */,
+				4C9261B416BA8D250023EDB4 /* Netsoul */,
+				4C9261B316BA8D180023EDB4 /* User */,
+				4C9261B216BA8D0D0023EDB4 /* NSPacket */,
+				4C9261B116BA8CFE0023EDB4 /* MD5 */,
+				4C916C9E16AD62CA00CA1295 /* Supporting Files */,
+			);
+			path = NardinSoul;
+			sourceTree = "<group>";
+		};
+		4C916C9E16AD62CA00CA1295 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C916C9F16AD62CA00CA1295 /* NardinSoul-Info.plist */,
+				4C916CA016AD62CA00CA1295 /* InfoPlist.strings */,
+				4C916CA316AD62CA00CA1295 /* main.m */,
+				4C916CA516AD62CA00CA1295 /* NardinSoul-Prefix.pch */,
+				4C916CA916AD62CA00CA1295 /* Default.png */,
+				4C916CAB16AD62CA00CA1295 /* Default@2x.png */,
+				4C916CAD16AD62CA00CA1295 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4C916CC116AD62CA00CA1295 /* NardinSoulTests */ = {
+			isa = PBXGroup;
+			children = (
+				4C916CC716AD62CA00CA1295 /* NardinSoulTests.h */,
+				4C916CC816AD62CA00CA1295 /* NardinSoulTests.m */,
+				4C916CC216AD62CA00CA1295 /* Supporting Files */,
+			);
+			path = NardinSoulTests;
+			sourceTree = "<group>";
+		};
+		4C916CC216AD62CA00CA1295 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C916CC316AD62CA00CA1295 /* NardinSoulTests-Info.plist */,
+				4C916CC416AD62CA00CA1295 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4C916CDF16AD943200CA1295 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				4C916CDC16AD942900CA1295 /* GCDAsyncSocket.h */,
+				4C916CDD16AD942900CA1295 /* GCDAsyncSocket.m */,
+			);
+			name = Network;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		4C9261B116BA8CFE0023EDB4 /* MD5 */ = {
+			isa = PBXGroup;
+			children = (
+				4C1155BC16B3377800AB563A /* NSString+MD5.h */,
+				4C1155BD16B3377800AB563A /* NSString+MD5.m */,
+			);
+			name = MD5;
+			sourceTree = "<group>";
+		};
+		4C9261B216BA8D0D0023EDB4 /* NSPacket */ = {
+			isa = PBXGroup;
+			children = (
+				4C22E47B16B592840099D524 /* NSPacket.h */,
+				4C22E47C16B592840099D524 /* NSPacket.m */,
+			);
+			name = NSPacket;
+			sourceTree = "<group>";
+		};
+		4C9261B316BA8D180023EDB4 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				4C22E47F16B593410099D524 /* User.h */,
+				4C22E48016B593410099D524 /* User.m */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		4C9261B416BA8D250023EDB4 /* Netsoul */ = {
+			isa = PBXGroup;
+			children = (
+				4C8DAF5716B2F188003C7E19 /* NetsoulProtocol.h */,
+				4C8DAF5816B2F188003C7E19 /* NetsoulProtocol.m */,
+				4C22E48216B5E6FB0099D524 /* NetsoulViewProtocol.h */,
+			);
+			name = Netsoul;
+			sourceTree = "<group>";
+		};
+		4C9261B516BA8D330023EDB4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4C916CB216AD62CA00CA1295 /* RootViewController.h */,
+				4C916CB316AD62CA00CA1295 /* RootViewController.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4C916C9216AD62CA00CA1295 /* NardinSoul */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C916CCC16AD62CA00CA1295 /* Build configuration list for PBXNativeTarget "NardinSoul" */;
+			buildPhases = (
+				4C916C8F16AD62CA00CA1295 /* Sources */,
+				4C916C9016AD62CA00CA1295 /* Frameworks */,
+				4C916C9116AD62CA00CA1295 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NardinSoul;
+			productName = NardinSoul;
+			productReference = 4C916C9316AD62CA00CA1295 /* NardinSoul.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4C916CB916AD62CA00CA1295 /* NardinSoulTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C916CCF16AD62CA00CA1295 /* Build configuration list for PBXNativeTarget "NardinSoulTests" */;
+			buildPhases = (
+				4C916CB516AD62CA00CA1295 /* Sources */,
+				4C916CB616AD62CA00CA1295 /* Frameworks */,
+				4C916CB716AD62CA00CA1295 /* Resources */,
+				4C916CB816AD62CA00CA1295 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4C916CC016AD62CA00CA1295 /* PBXTargetDependency */,
+			);
+			name = NardinSoulTests;
+			productName = NardinSoulTests;
+			productReference = 4C916CBA16AD62CA00CA1295 /* NardinSoulTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4C916C8A16AD62CA00CA1295 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = Root;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Morgan Collino";
+			};
+			buildConfigurationList = 4C916C8D16AD62CA00CA1295 /* Build configuration list for PBXProject "NardinSoul" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4C916C8816AD62CA00CA1295;
+			productRefGroup = 4C916C9416AD62CA00CA1295 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4C916C9216AD62CA00CA1295 /* NardinSoul */,
+				4C916CB916AD62CA00CA1295 /* NardinSoulTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4C916C9116AD62CA00CA1295 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C916CA216AD62CA00CA1295 /* InfoPlist.strings in Resources */,
+				4C916CAA16AD62CA00CA1295 /* Default.png in Resources */,
+				4C916CAC16AD62CA00CA1295 /* Default@2x.png in Resources */,
+				4C916CAE16AD62CA00CA1295 /* Default-568h@2x.png in Resources */,
+				4C916CB116AD62CA00CA1295 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C916CB716AD62CA00CA1295 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C916CC616AD62CA00CA1295 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4C916CB816AD62CA00CA1295 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4C916C8F16AD62CA00CA1295 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C916CA416AD62CA00CA1295 /* main.m in Sources */,
+				4C916CA816AD62CA00CA1295 /* RootAppDelegate.m in Sources */,
+				4C916CB416AD62CA00CA1295 /* RootViewController.m in Sources */,
+				4C916CDE16AD942900CA1295 /* GCDAsyncSocket.m in Sources */,
+				4C8DAF5916B2F188003C7E19 /* NetsoulProtocol.m in Sources */,
+				4C1155BE16B3377800AB563A /* NSString+MD5.m in Sources */,
+				4C22E47D16B592840099D524 /* NSPacket.m in Sources */,
+				4C22E48116B593410099D524 /* User.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C916CB516AD62CA00CA1295 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C916CC916AD62CA00CA1295 /* NardinSoulTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4C916CC016AD62CA00CA1295 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C916C9216AD62CA00CA1295 /* NardinSoul */;
+			targetProxy = 4C916CBF16AD62CA00CA1295 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4C916CA016AD62CA00CA1295 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C916CA116AD62CA00CA1295 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4C916CAF16AD62CA00CA1295 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C916CB016AD62CA00CA1295 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+		4C916CC416AD62CA00CA1295 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C916CC516AD62CA00CA1295 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4C916CCA16AD62CA00CA1295 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4C916CCB16AD62CA00CA1295 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4C916CCD16AD62CA00CA1295 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NardinSoul/NardinSoul-Prefix.pch";
+				INFOPLIST_FILE = "NardinSoul/NardinSoul-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4C916CCE16AD62CA00CA1295 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NardinSoul/NardinSoul-Prefix.pch";
+				INFOPLIST_FILE = "NardinSoul/NardinSoul-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		4C916CD016AD62CA00CA1295 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NardinSoul.app/NardinSoul";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NardinSoul/NardinSoul-Prefix.pch";
+				INFOPLIST_FILE = "NardinSoulTests/NardinSoulTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		4C916CD116AD62CA00CA1295 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NardinSoul.app/NardinSoul";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NardinSoul/NardinSoul-Prefix.pch";
+				INFOPLIST_FILE = "NardinSoulTests/NardinSoulTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4C916C8D16AD62CA00CA1295 /* Build configuration list for PBXProject "NardinSoul" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C916CCA16AD62CA00CA1295 /* Debug */,
+				4C916CCB16AD62CA00CA1295 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C916CCC16AD62CA00CA1295 /* Build configuration list for PBXNativeTarget "NardinSoul" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C916CCD16AD62CA00CA1295 /* Debug */,
+				4C916CCE16AD62CA00CA1295 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C916CCF16AD62CA00CA1295 /* Build configuration list for PBXNativeTarget "NardinSoulTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C916CD016AD62CA00CA1295 /* Debug */,
+				4C916CD116AD62CA00CA1295 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4C916C8A16AD62CA00CA1295 /* Project object */;
+}
