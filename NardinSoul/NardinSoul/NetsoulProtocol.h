@@ -45,6 +45,10 @@ enum NS_ACTION {
     NSString *timestamp;
     
     id <NetsoulViewProtocol> delegate;
+    NSMutableDictionary *cmdSelector;
+    NSMutableDictionary *treatSelector;
+
+    BOOL    isConnected;
 }
 
 
@@ -88,9 +92,13 @@ enum NS_ACTION {
 
 - (id)   initWithPort: (int) port andAddress: (NSString *) address;
 - (void) resetSocketWithPort:(int)port andAdress: (NSString *) address;
-- (bool) connect;
-- (bool) disconnect;
-- (bool) sendMsg:(NSString *)msg to:(NSArray *)users;
-- (NSString *) hashForAuthentificationWithLogin: (NSString *) login andPassword: (NSString *) password;
+- (void) connect;
+- (void) disconnect;
+- (void) sendMsg:(NSString *)msg to:(NSArray *)users;
+- (void) authentificateWithLogin: (NSString *) login andPassword: (NSString *) password;
+- (void) whoUsers: (NSArray *) users;
+- (void) watchUsers: (NSArray *) users;
+- (void) listUsers: (NSArray *) users;
+- (void) setStatus: (NSString *) newStatus;
 
 @end

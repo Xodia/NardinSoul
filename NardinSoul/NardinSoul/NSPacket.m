@@ -17,7 +17,7 @@
 {
     if (self = [super init])
     {
-        command = _command;
+        command = [[NSString alloc] initWithString: _command];
         from = _sender;
         parameters = _params;
     }

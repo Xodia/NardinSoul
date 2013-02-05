@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RWm-oE-nDt">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Message View Controller - MessageViewController-->
         <scene sceneID="5">
             <objects>
-                <viewController id="2" customClass="RootViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MessageViewController" title="MessageViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2" customClass="MessageViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -53,10 +53,10 @@
                                 <color key="textColor" red="0.18219776979999999" green="0.60627481679999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="_________Hey I just met you _______" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="26" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="293" translatesAutoresizingMaskIntoConstraints="NO" id="fLx-zO-EuK">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="_________Hey I just met you _______" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="26" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="292" translatesAutoresizingMaskIntoConstraints="NO" id="fLx-zO-EuK">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="293" id="dB1-xE-ADt"/>
-                                    <constraint firstAttribute="height" constant="89" id="pui-Ve-eTL"/>
+                                    <constraint firstAttribute="height" constant="181" id="Jp6-pF-mGv"/>
+                                    <constraint firstAttribute="width" constant="292" id="fOe-cv-VCc"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.49844945149999997" green="0.57441798060000004" blue="0.77643087639999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -73,47 +73,96 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="0l8-pE-7is" firstAttribute="baseline" secondItem="W4j-V2-tPZ" secondAttribute="baseline" type="default" id="1vy-0c-juc"/>
                             <constraint firstItem="0l8-pE-7is" firstAttribute="trailing" secondItem="W7E-gS-jHI" secondAttribute="trailing" type="default" id="4Qa-hA-Ymm"/>
-                            <constraint firstItem="W4j-V2-tPZ" firstAttribute="baseline" secondItem="0l8-pE-7is" secondAttribute="baseline" type="default" id="9Nc-JE-QmX"/>
+                            <constraint firstItem="fLx-zO-EuK" firstAttribute="baseline" secondItem="0l8-pE-7is" secondAttribute="baseline" type="default" id="4om-R9-mAC"/>
+                            <constraint firstItem="W4j-V2-tPZ" firstAttribute="trailing" secondItem="Fyi-Ti-AKu" secondAttribute="trailing" type="default" id="Ark-TQ-PP4"/>
                             <constraint firstItem="Fyi-Ti-AKu" firstAttribute="baseline" secondItem="jd7-yY-YzU" secondAttribute="baseline" type="default" id="CNY-S6-eeZ"/>
                             <constraint firstItem="W7E-gS-jHI" firstAttribute="trailing" secondItem="jd7-yY-YzU" secondAttribute="trailing" type="default" id="G7d-ZP-tNg"/>
-                            <constraint firstItem="fLx-zO-EuK" firstAttribute="centerX" secondItem="qq2-FD-JcL" secondAttribute="centerX" type="default" id="N0P-6u-y3j"/>
-                            <constraint firstItem="fLx-zO-EuK" firstAttribute="top" secondItem="3" secondAttribute="top" constant="195" id="O7g-lR-qrP"/>
-                            <constraint firstAttribute="bottom" secondItem="0l8-pE-7is" secondAttribute="bottom" constant="143" id="RUd-3Z-c4m"/>
-                            <constraint firstItem="fLx-zO-EuK" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="15" id="Xh5-DJ-kTf"/>
-                            <constraint firstItem="W4j-V2-tPZ" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="117" id="acf-mI-1v3"/>
+                            <constraint firstItem="0l8-pE-7is" firstAttribute="top" secondItem="W4j-V2-tPZ" secondAttribute="top" type="default" id="UGG-4e-9z7"/>
                             <constraint firstItem="qq2-FD-JcL" firstAttribute="top" secondItem="3" secondAttribute="top" constant="50" id="b7V-wx-Tw4"/>
                             <constraint firstItem="jd7-yY-YzU" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="cnv-qU-FBN"/>
-                            <constraint firstItem="W4j-V2-tPZ" firstAttribute="trailing" secondItem="Fyi-Ti-AKu" secondAttribute="trailing" type="default" id="fP5-AD-MO1"/>
+                            <constraint firstItem="qq2-FD-JcL" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="72" id="j12-7h-ses"/>
                             <constraint firstItem="W7E-gS-jHI" firstAttribute="top" secondItem="3" secondAttribute="top" constant="175" id="lS0-Wt-19z"/>
+                            <constraint firstItem="fLx-zO-EuK" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="mE5-pg-Xm7"/>
                             <constraint firstItem="0l8-pE-7is" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="mSy-0R-brP"/>
                             <constraint firstItem="jd7-yY-YzU" firstAttribute="top" secondItem="qq2-FD-JcL" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="oYt-AM-eya"/>
                             <constraint firstItem="Fyi-Ti-AKu" firstAttribute="top" secondItem="qq2-FD-JcL" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="ofS-2m-anI"/>
                             <constraint firstItem="W7E-gS-jHI" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="pTQ-4A-Hoh"/>
-                            <constraint firstItem="W4j-V2-tPZ" firstAttribute="top" secondItem="0l8-pE-7is" secondAttribute="top" type="default" id="weG-ud-G9P"/>
+                            <constraint firstAttribute="bottom" secondItem="fLx-zO-EuK" secondAttribute="bottom" constant="78" id="qbD-Hp-cvZ"/>
+                            <constraint firstItem="W4j-V2-tPZ" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="117" id="qpf-vo-BjK"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="cmd" destination="Fyi-Ti-AKu" id="4rg-yE-G0B"/>
-                        <outlet property="from" destination="W4j-V2-tPZ" id="Q35-SQ-8cV"/>
-                        <outlet property="params" destination="fLx-zO-EuK" id="p4n-dO-R8B"/>
+                        <outlet property="lcmd" destination="Fyi-Ti-AKu" id="N3d-sP-K6U"/>
+                        <outlet property="lfrom" destination="W4j-V2-tPZ" id="uJf-kY-DIc"/>
+                        <outlet property="lparams" destination="fLx-zO-EuK" id="Ro3-gv-o6I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="958" y="-60"/>
+        </scene>
+        <!--Root View Controller - Root View Controller-->
+        <scene sceneID="DeW-2V-O5E">
+            <objects>
+                <tableViewController id="cG0-63-SkW" customClass="RootViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="GhR-qP-HIw">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="pW9-gF-ZIY">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="cG0-63-SkW" id="Rzb-m1-ZJn"/>
+                            <outlet property="delegate" destination="cG0-63-SkW" id="SAK-ml-IGg"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="EEn-ny-1uh"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XwP-Ws-uQ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="509" y="-60"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tqc-E5-a8B">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="RWm-oE-nDt" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zYZ-pH-Ap4">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="cG0-63-SkW" kind="relationship" relationship="rootViewController" id="sPA-vF-6m2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Ye-vt-i8i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-177" y="-60"/>
         </scene>
     </scenes>
     <classes>
+        <class className="MessageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MessageViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="lcmd" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lfrom" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lparams" candidateClass="UILabel"/>
+            </relationships>
+        </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
         </class>
-        <class className="RootViewController" superclassName="UIViewController">
+        <class className="RootViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RootViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cmd" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="from" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="params" candidateClass="UILabel"/>
-            </relationships>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

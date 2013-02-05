@@ -21,15 +21,18 @@
 
 - (void) didAuthentificate: (bool) real;
 - (void) didDisconnect;
-- (void) didReceiveMessageFrom: (User *) who content: (NSString *) msg;
-- (void) didChangeStatusFrom: (NSString *) oldStatus to: (NSString *) newStatus;
-- (void) didReceiveTypingFrom: (User *) from;
-- (void) didCancelTypingFrom: (User *) from;
-- (void) didReceiveWhoInformations: (NSArray *) arrayUser;
-- (void) didReceiveListUserInformations: (NSArray *) arrayUser;
-- (void) didReceiveLogOfUser: (NSArray *) arrayUser;
+- (void) didReceiveMessage: (NSPacket *) pkg;
+- (void) didReceiveTypingFrom: (NSPacket *) from;
+- (void) didCancelTypingFrom: (NSPacket *) from;
+- (void) didReceiveWhoInformations: (NSPacket*) info;
+- (void) didReceiveListUserInformations: (NSPacket *) info;
+- (void) didReceiveLogOfUser: (NSPacket*) info;
+
+- (void) didReceiveStatusResponse: (bool) response;
+
 - (bool) reconnectIfDisconnected;
-- (bool) didReceiveMsgInBackground: (User*) from withMsg: (NSString *)msg;
+
+//- (bool) didReceiveMsgInBackground: (User*) from withMsg: (NSString *)msg;
 
 #pragma TODO  IMPLEMENT_METHOD_TO_NETSOUL_PROTOCOL
 @end

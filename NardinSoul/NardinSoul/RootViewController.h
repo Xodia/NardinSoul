@@ -11,15 +11,21 @@
 
 #import "NetsoulViewProtocol.h"
 
-@interface RootViewController : UIViewController <NetsoulViewProtocol>
+@interface RootViewController : UITableViewController <NetsoulViewProtocol, UITableViewDelegate, UITableViewDataSource>
 {
-
+    NSMutableArray *msgReceived;
 }
 
 - (void) didReceivePaquetFromNS: (NSPacket *) packet;
 
-@property (nonatomic, retain) IBOutlet UILabel *cmd;
-@property (nonatomic, retain) IBOutlet UILabel *params;
-@property (nonatomic, retain) IBOutlet UILabel *from;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+
+//@property (nonatomic, retain) IBOutlet UILabel *cmd;
+//@property (nonatomic, retain) IBOutlet UILabel *params;
+//@property (nonatomic, retain) IBOutlet UILabel *from;
 
 @end

@@ -10,6 +10,7 @@
 		4C1155BE16B3377800AB563A /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1155BD16B3377800AB563A /* NSString+MD5.m */; };
 		4C22E47D16B592840099D524 /* NSPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C22E47C16B592840099D524 /* NSPacket.m */; };
 		4C22E48116B593410099D524 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C22E48016B593410099D524 /* User.m */; };
+		4C61F02B16C136A8001964A9 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61F02A16C136A8001964A9 /* MessageViewController.m */; };
 		4C8DAF5916B2F188003C7E19 /* NetsoulProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8DAF5816B2F188003C7E19 /* NetsoulProtocol.m */; };
 		4C916C9816AD62CA00CA1295 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916C9716AD62CA00CA1295 /* UIKit.framework */; };
 		4C916C9A16AD62CA00CA1295 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916C9916AD62CA00CA1295 /* Foundation.framework */; };
@@ -49,6 +50,8 @@
 		4C22E47F16B593410099D524 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		4C22E48016B593410099D524 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		4C22E48216B5E6FB0099D524 /* NetsoulViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetsoulViewProtocol.h; sourceTree = "<group>"; };
+		4C61F02916C136A8001964A9 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		4C61F02A16C136A8001964A9 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
 		4C8DAF5716B2F188003C7E19 /* NetsoulProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetsoulProtocol.h; sourceTree = "<group>"; };
 		4C8DAF5816B2F188003C7E19 /* NetsoulProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetsoulProtocol.m; sourceTree = "<group>"; };
 		4C916C9316AD62CA00CA1295 /* NardinSoul.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NardinSoul.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -234,6 +237,8 @@
 		4C9261B516BA8D330023EDB4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C61F02916C136A8001964A9 /* MessageViewController.h */,
+				4C61F02A16C136A8001964A9 /* MessageViewController.m */,
 				4C916CB216AD62CA00CA1295 /* RootViewController.h */,
 				4C916CB316AD62CA00CA1295 /* RootViewController.m */,
 			);
@@ -359,6 +364,7 @@
 				4C1155BE16B3377800AB563A /* NSString+MD5.m in Sources */,
 				4C22E47D16B592840099D524 /* NSPacket.m in Sources */,
 				4C22E48116B593410099D524 /* User.m in Sources */,
+				4C61F02B16C136A8001964A9 /* MessageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

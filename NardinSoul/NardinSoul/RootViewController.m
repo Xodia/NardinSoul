@@ -13,6 +13,7 @@
 #import "NetsoulProtocol.h"
 #import "NSPacket.h"
 #import "User.h"
+#import "MessageViewController.h"
 
 @interface RootViewController ()
 
@@ -20,10 +21,11 @@
 
 @implementation RootViewController
 
-@synthesize cmd, params, from;
+//@synthesize cmd, params, from;
 
 - (void)viewDidLoad
 {
+    msgReceived = [[NSMutableArray alloc] init];
     NetsoulProtocol *netsoul = [NetsoulProtocol sharePointer];
     [netsoul resetSocketWithPort: 4242 andAdress: @"ns-server.epita.fr"];
     
@@ -48,14 +50,72 @@
 
 - (void) didReceivePaquetFromNS: (NSPacket *) packet;
 {
-    User *user = [packet from];
+    /*User *user = [packet from];
     NSString *login = [user login];
     NSString *paramsString = [[[packet parameters] objectAtIndex: 0] stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
     NSString *cmdString = [packet command];
 
     [cmd setText: cmdString];
     [params setText: paramsString];
-    [from setText: login];
+    [from setText: login];*/
+    
+    NSLog(@"Packet recu par la vue !");
+    
+    if ([[packet command] isEqualToString: @"msg"])
+    {
+        [msgReceived addObject: packet];
+        NSLog(@"Reload");
+        [[self tableView] reloadData];
+        NSLog(@"didReload");
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSPacket *packet = [msgReceived objectAtIndex: indexPath.row];
+    
+    // push view -> avec le packet
+    
+    MessageViewController *messageViewController = [[self storyboard] instantiateViewControllerWithIdentifier: @"MessageViewController"];
+    
+    [messageViewController setPacket: packet];
+    
+    [[self navigationController] pushViewController: messageViewController animated:YES];
+    
+    [msgReceived removeObjectAtIndex: indexPath.row];
+    [[self tableView] reloadData];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return @"Messages";
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [msgReceived count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"CountryCell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    }
+        
+    NSPacket *packet = [msgReceived objectAtIndex: indexPath.row];
+    
+    cell.textLabel.text = [packet.from login];    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    return cell;
 }
 
 @end

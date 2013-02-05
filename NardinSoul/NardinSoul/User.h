@@ -24,11 +24,12 @@
     long lastStatusChangeTimestamp;
 }
 
-@property (nonatomic, retain) NSString *login;
+@property (nonatomic, assign) NSString *login;
 
 - (id) initWithUserInformations: (NSString *) infos;
-- (id) initWithWhoInformations: (NSString *) whoInfo;
-
+- (id) initWithListUserInformations: (NSString *) whoInfo;
+- (id) initWithWhoInformations: (NSString *) info;
+- (id) initWithWhoInformationsWithArray:(NSArray *) array;
 
 #pragma TODO PROPERTY_4_OTHERS_VAR
 

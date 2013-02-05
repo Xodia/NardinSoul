@@ -51,6 +51,27 @@ static NetsoulProtocol *sharePointer = nil;
 {
     if (sharePointer)
     {
+        if (!cmdSelector)
+        {
+            cmdSelector = [[NSMutableDictionary alloc] init];
+
+            [cmdSelector setObject: @"didReceiveMessage:" forKey: @"msg"];
+            [cmdSelector setObject: @"didReceiveTypingFrom:" forKey: @"dotnetSoul_UserTyping"];
+            [cmdSelector setObject: @"didCancelTypingFrom:" forKey: @"dotnetSoul_UserCancelledTyping"];
+            [cmdSelector setObject: @"didReceiveWhoInformations:" forKey: @"who"];
+            [cmdSelector setObject: @"didReceiveListUserInformations:" forKey: @"list_users"];
+            [cmdSelector setObject: @"didReceiveLogOfUser:" forKey: @"watch_log"];
+            [cmdSelector setObject: @"didAuthentificate:" forKey: @"auth"];
+            [cmdSelector setObject: @"didDisconnect:" forKey: @"disc"];
+        }
+        
+        if (!treatSelector)
+        {
+            treatSelector = [[NSMutableDictionary alloc] init];
+            [treatSelector setObject: @"parseCommand:" forKey: @"user_cmd"];
+            [treatSelector setObject: @"sendPing:" forKey: @"ping"];
+        }
+        
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         _socket =  [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue: mainQueue];
         NSError *error;
@@ -91,16 +112,17 @@ static NetsoulProtocol *sharePointer = nil;
     NSPacket *packet = [[NSPacket alloc] initPacketWithUser: user withCommand: [array objectAtIndex:3] andParameters: params];
 
     // call delegate's method.
-    if ([delegate respondsToSelector: @selector(didReceivePaquetFromNS:)])
+    
+    NSString *str = [cmdSelector objectForKey: [array objectAtIndex: 3]];
+    if (str && [delegate respondsToSelector: NSSelectorFromString(str)])
+    {
+        [delegate performSelector: NSSelectorFromString(str) withObject: packet];
+    }
+    else if ([delegate respondsToSelector: @selector(didReceivePaquetFromNS:)])
     {
         [delegate didReceivePaquetFromNS: packet];
     }
     
-    /*
-     
-        To erase -> Notification when you get a message from the server
-     
-     */
     
     if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive && [[packet command] isEqualToString: @"msg"])
     {
@@ -116,22 +138,26 @@ static NetsoulProtocol *sharePointer = nil;
     }
 }
 
+
+- (void) sendPing: (NSArray *) array
+{
+    [_socket writeData: [@"ping 600\n" dataUsingEncoding: NSUTF8StringEncoding] withTimeout: -1 tag: 42];
+    [_socket readDataWithTimeout: -1 tag: 42];
+}
+
 - (void) interpretCommand: (NSString *) command
 {
     NSArray *array = [command componentsSeparatedByString: @" "];
     
     if ([array count] > 0)
     {
-        if ([[array objectAtIndex: 0] isEqualToString: @"user_cmd"])
-            [self parseCommand: array];
-        else if ([[array objectAtIndex: 0] isEqualToString: @"ping"])
+        if ([treatSelector objectForKey: [array objectAtIndex: 0]])
         {
-            [_socket writeData: [@"ping 600\n" dataUsingEncoding: NSUTF8StringEncoding] withTimeout: -1 tag: 42];
-            [_socket readDataWithTimeout: -1 tag: 42];
+            NSLog(@"Selector: %@", [treatSelector objectForKey: [array objectAtIndex: 0]]);
+            [self performSelector: NSSelectorFromString([treatSelector objectForKey: [array objectAtIndex: 0]]) withObject: array];
         }
         else
         {
-            // e.g. : "184 collin_m 92.138.99.155 1359318517 1359318517 3 1 ~ NardinSoul.v1 epitech_2015 actif:1359318591 Somewhere"
             NSArray *sub = [command componentsSeparatedByString: @"\n"];
             
             for (NSString *s in sub)
@@ -140,13 +166,14 @@ static NetsoulProtocol *sharePointer = nil;
                 {
                     break;
                 }
-                User *user = [[User alloc] initWithWhoInformations: s];
+                //User *user = [[User alloc] initWith: s];
                 // send user to an delegate's method
+                
+               // [cmdSelector objectForKey: @"w"];
             }
         }
     }
-    else
-        NSLog(@"Command: %@", command);
+    NSLog(@"Command: %@", command);
 }
 
 /*
@@ -155,27 +182,23 @@ static NetsoulProtocol *sharePointer = nil;
  
  */
 
-- (NSString *) hashForAuthentificationWithLogin: (NSString *) login andPassword: (NSString *) password
+- (void) authentificateWithLogin: (NSString *) login andPassword: (NSString *) password
 {    
     NSString *hash = [NSString stringWithFormat: @"%@-%@/%@%@", hashMD5, hostClient, portClient, password];
     NSString *hashr = [hash MD5String];
     
     NSString *str = [NSString stringWithFormat: @"ext_user_log %@ %@ %@ %@\n", login, [hashr lowercaseString], @"@NardinSoul.v1", @"Somewhere"];
     [_socket writeData: [str dataUsingEncoding: NSUTF8StringEncoding]  withTimeout: 20 tag: CONNECT];
-    
-    return @"";
 }
 
 #pragma  TODO DO_CONNECT_METH 
-- (bool) connect
+- (void) connect
 {
-    return YES;
 }
 
 #pragma  TODO DO_DISCONNECT_METH
-- (bool) disconnect
+- (void) disconnect
 {
-    return YES; 
 }
 
 /*
@@ -207,7 +230,7 @@ static NetsoulProtocol *sharePointer = nil;
     return varUser;
 }
 
-- (bool) sendMsg:(NSString *)msg to:(NSArray *)users
+- (void) sendMsg:(NSString *)msg to:(NSArray *)users
 {
     NSString *escapedUrlString =[msg stringByAddingPercentEscapesUsingEncoding:
      NSASCIIStringEncoding];
@@ -216,7 +239,7 @@ static NetsoulProtocol *sharePointer = nil;
     if ([users count] > 0)
          varUser = [self stringForGroupOfUsers: users];
     else
-        return NO;
+        return;
     
     /*
     
@@ -225,12 +248,8 @@ static NetsoulProtocol *sharePointer = nil;
      
      */
     
-    
     NSString *real = [NSString stringWithFormat: @"user_cmd msg_user %@ msg %@\n", varUser, escapedUrlString];
-
     [_socket writeData: [real dataUsingEncoding: NSUTF8StringEncoding] withTimeout:-1 tag: SEND_MSG];
-    
-    return YES;
 }
 
 /*
@@ -239,24 +258,23 @@ static NetsoulProtocol *sharePointer = nil;
  */
 
 
-- (bool) setStatus: (NSString *) newStatus
+- (void) setStatus: (NSString *) newStatus
 {
     NSDate *date = [NSDate date];
     NSString *real = [NSString stringWithFormat: @"state %@:%li\n", newStatus, (long)[date timeIntervalSince1970]];
     [_socket writeData: [real dataUsingEncoding: NSUTF8StringEncoding] withTimeout: 20 tag:MDFY_STATUS];
     [_socket readDataWithTimeout: 20 tag: MDFY_STATUS];
-    return true;
 }
 
 
-- (bool) listUsers: (NSArray *) users
+- (void) listUsers: (NSArray *) users
 {
     NSString *varUser = @"";
     
     if ([users count] > 0)
         varUser = [self stringForGroupOfUsers: users];
     else
-        return NO;
+        return;
     
     /*
         one user : "list_users toto\n"
@@ -266,16 +284,15 @@ static NetsoulProtocol *sharePointer = nil;
     NSString *real = [NSString stringWithFormat: @"list_users %@\n", varUser];
     [_socket writeData: [real dataUsingEncoding: NSUTF8StringEncoding] withTimeout: 20 tag: LIST_USERS];
     [_socket readDataWithTimeout: 20 tag: LIST_USERS];
-    return true;
 }
 
-- (bool) watchUsers: (NSArray *) users
+- (void) watchUsers: (NSArray *) users
 {
     NSString *varUser = @"";
     if ([users count] > 0)
         varUser = [self stringForGroupOfUsers: users];
     else
-        return NO;
+        return;
     
     /*
         one user: user_cmd watch_log_user toto\n"
@@ -284,16 +301,15 @@ static NetsoulProtocol *sharePointer = nil;
     
     NSString *real = [NSString stringWithFormat: @"user_cmd watch_log_user %@\n", varUser];
     [_socket writeData: [real dataUsingEncoding: NSUTF8StringEncoding] withTimeout: -1 tag: WATCH_USERS];
-    return (true);
 }
 
-- (bool) whoUsers: (NSArray *) users
+- (void) whoUsers: (NSArray *) users
 {
     NSString *varUser = @"";
     if ([users count] > 0)
         varUser = [self stringForGroupOfUsers: users];
     else
-        return NO;
+        return;
     
     /*
      one user: user_cmd who toto\n"
@@ -302,7 +318,6 @@ static NetsoulProtocol *sharePointer = nil;
     
     NSString *real = [NSString stringWithFormat: @"user_cmd who %@\n", varUser];
     [_socket writeData: [real dataUsingEncoding: NSUTF8StringEncoding] withTimeout: -1 tag: WHO_USERS];
-    return (true);
 }
 
 
@@ -353,6 +368,9 @@ static NetsoulProtocol *sharePointer = nil;
         
         // e.g. authentification : [self hashForAuthentificationWithLogin: @"login" andPassword: @"password"];
         //                         [_socket readDataWithTimeout: 30 tag: CONNECT];
+        
+        //[self authentificateWithLogin: @"login" andPassword: @"mdp"];
+        //[_socket readDataWithTimeout: 30 tag: CONNECT];
     }
     else if (tag == CONNECT)
     {
@@ -361,13 +379,21 @@ static NetsoulProtocol *sharePointer = nil;
         if ([res isEqualToString: @"002"])
         {
             NSLog(@"User connected successfully !");
+            
+            isConnected = YES;
             [self setStatus: @"actif"];
         }
         else
         {
+            isConnected = NO;
             [self disconnect];
             NSLog(@"User failed to connect");
             return;
+        }
+        
+        if ([delegate respondsToSelector: NSSelectorFromString([cmdSelector objectForKey: @"auth"])])
+        {
+            [delegate performSelector: NSSelectorFromString([cmdSelector objectForKey: @"auth"]) withObject: [self isConnected]];
         }
     }
     else if (tag == AUTORISE_CO)
@@ -382,6 +408,7 @@ static NetsoulProtocol *sharePointer = nil;
         // parsecmd
         [self interpretCommand: dataStr];
     }
+    
 #pragma TODO DO_PTR_TO_SELECTOR
 }
 
