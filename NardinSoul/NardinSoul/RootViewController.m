@@ -21,18 +21,14 @@
 
 @implementation RootViewController
 
+@synthesize msgReceived;
 //@synthesize cmd, params, from;
 
 - (void)viewDidLoad
 {
-    msgReceived = [[NSMutableArray alloc] init];
+    //msgReceived = [[NSMutableArray alloc] init];
     NetsoulProtocol *netsoul = [NetsoulProtocol sharePointer];
-    [netsoul resetSocketWithPort: 4242 andAdress: @"ns-server.epita.fr"];
-    
-    //NetsoulProtocol *netsoul = [[NetsoulProtocol alloc] initWithPort: 4242 andAddress: @"ns-server.epita.fr"];
-    
     [netsoul setDelegate: self];
-    [netsoul connect];
     [super viewDidLoad];
 }
 
@@ -40,6 +36,14 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    NetsoulProtocol *n = [NetsoulProtocol sharePointer];
+    [n setDelegate: self];
+    [[[self navigationController] navigationBar] setHidden: NO];
+    [super viewWillAppear: animated];
 }
 
 /* 
@@ -64,9 +68,7 @@
     if ([[packet command] isEqualToString: @"msg"])
     {
         [msgReceived addObject: packet];
-        NSLog(@"Reload");
         [[self tableView] reloadData];
-        NSLog(@"didReload");
     }
 }
 
@@ -82,7 +84,9 @@
     
     [[self navigationController] pushViewController: messageViewController animated:YES];
     
+    NSPacket *pkt = [msgReceived objectAtIndex: indexPath.row];
     [msgReceived removeObjectAtIndex: indexPath.row];
+    [pkt release];
     [[self tableView] reloadData];
 }
 
@@ -116,6 +120,15 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
+}
+
+- (void) dealloc
+{
+    for (NSPacket *p in msgReceived)
+         [p release];
+    
+    [msgReceived release];
+    [super dealloc];
 }
 
 @end

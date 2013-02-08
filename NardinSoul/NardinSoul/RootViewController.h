@@ -16,6 +16,8 @@
     NSMutableArray *msgReceived;
 }
 
+@property (nonatomic, retain) NSMutableArray *msgReceived;
+
 - (void) didReceivePaquetFromNS: (NSPacket *) packet;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;

@@ -21,7 +21,8 @@ static NetsoulProtocol *sharePointer = nil;
 
 + (NetsoulProtocol *)sharePointer
 {
-    if (sharePointer == nil) {
+    if (sharePointer == nil)
+    {
         sharePointer = [[NetsoulProtocol alloc] init];
     }
     return sharePointer;
@@ -51,6 +52,7 @@ static NetsoulProtocol *sharePointer = nil;
 {
     if (sharePointer)
     {
+        // init des selectors
         if (!cmdSelector)
         {
             cmdSelector = [[NSMutableDictionary alloc] init];
@@ -100,6 +102,7 @@ static NetsoulProtocol *sharePointer = nil;
     NSMutableArray *params = [[NSMutableArray alloc] init];
     
     int it = 0;
+    // recup les params des methods
     for (NSString *i in array)
     {
         if (it >= 4)
@@ -183,12 +186,13 @@ static NetsoulProtocol *sharePointer = nil;
  */
 
 - (void) authentificateWithLogin: (NSString *) login andPassword: (NSString *) password
-{    
+{
     NSString *hash = [NSString stringWithFormat: @"%@-%@/%@%@", hashMD5, hostClient, portClient, password];
     NSString *hashr = [hash MD5String];
     
     NSString *str = [NSString stringWithFormat: @"ext_user_log %@ %@ %@ %@\n", login, [hashr lowercaseString], @"@NardinSoul.v1", @"Somewhere"];
     [_socket writeData: [str dataUsingEncoding: NSUTF8StringEncoding]  withTimeout: 20 tag: CONNECT];
+    [_socket readDataWithTimeout: 30 tag: CONNECT];
 }
 
 #pragma  TODO DO_CONNECT_METH 
@@ -356,21 +360,19 @@ static NetsoulProtocol *sharePointer = nil;
     NSString *dataStr = [NSString stringWithUTF8String: [data bytes]];
         
     if (tag == AUTH)
-    {        
+    {
         NSArray *array = [dataStr componentsSeparatedByString: @" "];
         
-        socketNumber = [array objectAtIndex: 1];
-        hashMD5 = [array objectAtIndex: 2];
-        hostClient = [array objectAtIndex: 3];
-        portClient = [array objectAtIndex: 4];
-        timestamp = [array objectAtIndex: 5];
+        socketNumber = [[NSString alloc] initWithString: [array objectAtIndex: 1]];
+        hashMD5 = [[NSString alloc] initWithString: [array objectAtIndex: 2]];
+        hostClient = [[NSString alloc] initWithString: [array objectAtIndex: 3]];
+        portClient = [[NSString alloc] initWithString: [array objectAtIndex: 4]];
+        timestamp = [[NSString alloc] initWithString: [array objectAtIndex: 5]];
         
+        NSLog(@"%@ %@ %@ %@ %@", socketNumber, hashMD5, hostClient, portClient, timestamp);
         
-        // e.g. authentification : [self hashForAuthentificationWithLogin: @"login" andPassword: @"password"];
+        // e.g. authentification : [self authentificateWithLogin: @"login" andPassword: @"password"];
         //                         [_socket readDataWithTimeout: 30 tag: CONNECT];
-        
-        //[self authentificateWithLogin: @"login" andPassword: @"mdp"];
-        //[_socket readDataWithTimeout: 30 tag: CONNECT];
     }
     else if (tag == CONNECT)
     {
@@ -393,7 +395,7 @@ static NetsoulProtocol *sharePointer = nil;
         
         if ([delegate respondsToSelector: NSSelectorFromString([cmdSelector objectForKey: @"auth"])])
         {
-            [delegate performSelector: NSSelectorFromString([cmdSelector objectForKey: @"auth"]) withObject: [self isConnected]];
+            [delegate performSelector: NSSelectorFromString([cmdSelector objectForKey: @"auth"]) withObject: isConnected];
         }
     }
     else if (tag == AUTORISE_CO)
@@ -440,5 +442,24 @@ static NetsoulProtocol *sharePointer = nil;
 -> send "ping 600"
  
  */
+
+- (void) dealloc
+{
+    if (sharePointer)
+        [sharePointer release];
+    if (cmdSelector)
+        [cmdSelector release];
+    if (treatSelector)
+        [treatSelector release];
+    
+    
+    [socketNumber release];
+    [hashMD5 release];
+    [hostClient release];
+    [portClient release];
+    [timestamp release];
+
+    [super dealloc];
+}
 
 @end

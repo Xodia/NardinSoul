@@ -48,4 +48,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) dealloc
+{
+    [lcmd release];
+    [lparams release];
+    [lfrom release];
+    [packet release];
+    [super dealloc];
+}
+
 @end

@@ -51,7 +51,6 @@ enum NS_ACTION {
     BOOL    isConnected;
 }
 
-
 @property(nonatomic, assign, readwrite ) id<NetsoulViewProtocol> delegate;
 
 

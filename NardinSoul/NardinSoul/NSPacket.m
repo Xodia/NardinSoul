@@ -24,4 +24,13 @@
     return self;
 }
 
+- (void) dealloc
+{
+    if (command)
+        [command release];
+    if (from)
+        [from release];
+    [super dealloc];
+}
+
 @end
