@@ -59,7 +59,6 @@
 
 - (void) didAuthentificate: (bool) real
 {
-    NSLog(@"Authentification !");
     if (real)
     {
         MainViewController *mainView = [[self storyboard] instantiateViewControllerWithIdentifier: @"mainViewController"];

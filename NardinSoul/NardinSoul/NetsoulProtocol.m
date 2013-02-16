@@ -156,7 +156,6 @@ static NetsoulProtocol *sharePointer = nil;
     {
         if ([treatSelector objectForKey: [array objectAtIndex: 0]])
         {
-            NSLog(@"Selector: %@", [treatSelector objectForKey: [array objectAtIndex: 0]]);
             [self performSelector: NSSelectorFromString([treatSelector objectForKey: [array objectAtIndex: 0]]) withObject: array];
         }
         else
@@ -358,7 +357,7 @@ static NetsoulProtocol *sharePointer = nil;
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag;
 {
     NSString *dataStr = [NSString stringWithUTF8String: [data bytes]];
-        
+    NSLog(@"didReadData");
     if (tag == AUTH)
     {
         NSArray *array = [dataStr componentsSeparatedByString: @" "];
@@ -368,9 +367,7 @@ static NetsoulProtocol *sharePointer = nil;
         hostClient = [[NSString alloc] initWithString: [array objectAtIndex: 3]];
         portClient = [[NSString alloc] initWithString: [array objectAtIndex: 4]];
         timestamp = [[NSString alloc] initWithString: [array objectAtIndex: 5]];
-        
-        NSLog(@"%@ %@ %@ %@ %@", socketNumber, hashMD5, hostClient, portClient, timestamp);
-        
+                
         // e.g. authentification : [self authentificateWithLogin: @"login" andPassword: @"password"];
         //                         [_socket readDataWithTimeout: 30 tag: CONNECT];
     }

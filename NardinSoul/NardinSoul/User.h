@@ -31,6 +31,7 @@
 - (id) initWithWhoInformations: (NSString *) info;
 - (id) initWithWhoInformationsWithArray:(NSArray *) array;
 
+- (void) dealloc;
 #pragma TODO PROPERTY_4_OTHERS_VAR
 
 /*

@@ -29,7 +29,6 @@
 - (void) didReceiveLogOfUser: (NSPacket*) info;
 
 - (void) didReceiveStatusResponse: (bool) response;
-
 - (bool) reconnectIfDisconnected;
 
 //- (bool) didReceiveMsgInBackground: (User*) from withMsg: (NSString *)msg;

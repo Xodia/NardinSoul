@@ -30,4 +30,13 @@
 }
 */
 
+- (void) dealloc
+{
+    if (image)
+        [image release];
+    if (label)
+        [label release];
+    [super dealloc];
+}
+
 @end

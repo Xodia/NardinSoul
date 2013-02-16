@@ -16,4 +16,7 @@
 
 @property (nonatomic, retain) IBOutlet UILabel *label;
 @property (nonatomic, retain) IBOutlet UIImageView *image;
+
+- (void) dealloc;
+
 @end

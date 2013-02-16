@@ -62,9 +62,7 @@
     [cmd setText: cmdString];
     [params setText: paramsString];
     [from setText: login];*/
-    
-    NSLog(@"Packet recu par la vue !");
-    
+        
     if ([[packet command] isEqualToString: @"msg"])
     {
         [msgReceived addObject: packet];

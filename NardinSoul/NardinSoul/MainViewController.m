@@ -11,6 +11,8 @@
 #import "RootViewController.h"
 #import "NSPacket.h"
 #import "NetsoulProtocol.h"
+#import "CollectionIcon.h"
+#import "UserCollectionViewController.h"
 
 @interface MainViewController ()
 
@@ -25,6 +27,10 @@
         if (!msgReceived)
             msgReceived = [[NSMutableArray alloc]init];
         [msgReceived addObject: packet];
+
+       CollectionViewCell *cell = (CollectionViewCell *) [[self collectionView] cellForItemAtIndexPath: [NSIndexPath indexPathForItem: 0 inSection:0]];
+        [[cell label] setText: [NSString stringWithFormat: @"Messages(%d)", [msgReceived count]]];
+        
     }
 }
 
@@ -49,11 +55,27 @@
     [[[self navigationController] navigationBar] setHidden: YES];
     NetsoulProtocol *n = [NetsoulProtocol sharePointer];
     [n setDelegate: self];
+    CollectionViewCell *cell = (CollectionViewCell *) [[self collectionView] cellForItemAtIndexPath: [NSIndexPath indexPathForItem: 0 inSection:0]];
+    [[cell label] setText: [NSString stringWithFormat: @"Messages(%d)", [msgReceived count]]];
+
     
     // reset le tableau des outlets
     // Messages | Fonctionalite1 | Fonctionalite2 | Fonctionalite3 | GroupeX | + Ajout Groupe 
     
-    items = [[NSArray alloc] initWithArray: @[@"Message", @"Who", @"Statut", @"Contacts", @"Recherche", @"Groupe1", @"+Ajout groupe", @"Deconnection"]];
+    if (!items)
+    {
+        CollectionIcon *obj1 = [[CollectionIcon alloc] initWithPath: @"msg.png" andKey: @"Message"];
+        CollectionIcon *obj2 = [[CollectionIcon alloc] initWithPath: @"who.png" andKey: @"Who"];
+        CollectionIcon *obj3 = [[CollectionIcon alloc] initWithPath: @"statut.png" andKey: @"Statut"];
+        CollectionIcon *obj4 = [[CollectionIcon alloc] initWithPath: @"contacts.png" andKey: @"Contact"];
+        CollectionIcon *obj5 = [[CollectionIcon alloc] initWithPath: @"search.png" andKey: @"Recherhe"];
+        CollectionIcon *obj6 = [[CollectionIcon alloc] initWithPath: @"star.png" andKey: @"Groupe"];
+        CollectionIcon *obj7 = [[CollectionIcon alloc] initWithPath: @"plus.png" andKey: @"Ajouter un groupe"];
+        CollectionIcon *obj8 = [[CollectionIcon alloc] initWithPath: @"exit.png" andKey: @"Deconnection"];
+
+        items = [[NSArray alloc] initWithArray: @[obj1, obj2, obj3, obj4, obj5, obj6, obj7, obj8]];
+
+    }
     
     [super viewWillAppear: animated];
 }
@@ -93,20 +115,20 @@
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier: @"Cell" forIndexPath: indexPath];
     NSLog(@"Init: %d", (indexPath.section * 3) + indexPath.row);
     
-    cell.label.text = [items objectAtIndex: (indexPath.section * 3) + indexPath.row] ;
-    //cell.image.image = [UIImage imageNamed: @"nardin.jpg"];
+    CollectionIcon *icon = [items objectAtIndex: (indexPath.section * 3) + indexPath.row];
+    
+    cell.label.text = [icon key];
+    cell.image.image = [UIImage imageNamed: [icon path]];
     
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSLog(@"Selected row: %d in section: %d", indexPath.row, indexPath.section);
-        
+{        
     if (indexPath.row == 0 && indexPath.section == 0)
     {
-        RootViewController *rootView = [[self storyboard] instantiateViewControllerWithIdentifier:@"rootViewController"];
-        [rootView setMsgReceived: msgReceived];
+        UserCollectionViewController *rootView = [[self storyboard] instantiateViewControllerWithIdentifier:@"userCollectionViewController"];
+        [rootView setMsg: msgReceived];
         
         [[self navigationController] pushViewController: rootView animated: YES];
     }

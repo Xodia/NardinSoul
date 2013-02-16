@@ -21,5 +21,6 @@
 @property (nonatomic, retain) IBOutlet UILabel *lparams;
 @property (nonatomic, retain) IBOutlet UILabel *lfrom;
 
+- (void) dealloc;
 
 @end

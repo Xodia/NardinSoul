@@ -30,4 +30,6 @@
 //@property (nonatomic, retain) IBOutlet UILabel *params;
 //@property (nonatomic, retain) IBOutlet UILabel *from;
 
+- (void) dealloc;
+
 @end
