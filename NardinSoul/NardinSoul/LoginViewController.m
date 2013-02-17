@@ -10,6 +10,7 @@
 #import "NetsoulProtocol.h"
 #import "RootViewController.h"
 #import "MainViewController.h"
+#import "SettingsViewController.h"
 
 @interface LoginViewController ()
 
@@ -17,7 +18,7 @@
 
 @implementation LoginViewController
 
-@synthesize login, password, req;
+@synthesize login, password, req, settings;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,6 +30,13 @@
     return self;
 }
 
+- (IBAction)launchSettingsView:(id)sender
+{
+    SettingsViewController *mainView = [[self storyboard] instantiateViewControllerWithIdentifier: @"settingsViewController"];
+    
+    [[self navigationController] pushViewController: mainView animated: YES];
+}
+
 - (void)viewDidLoad
 {
     NetsoulProtocol *netsoul = [NetsoulProtocol sharePointer];
@@ -37,6 +45,18 @@
     [netsoul setDelegate: self];
     [netsoul connect];
     [super viewDidLoad];
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+
+    NSString *log = [prefs stringForKey:@"login"];
+    NSString *pass = [prefs stringForKey:@"pass"];
+    
+    if (log)
+        [login setText: log];
+    if (pass)
+            [password setText: pass];
+    
+    
 	// Do any additional setup after loading the view.
 }
 
@@ -63,7 +83,6 @@
     {
         MainViewController *mainView = [[self storyboard] instantiateViewControllerWithIdentifier: @"mainViewController"];
         
-        //RootViewController *rootView = [[self storyboard] instantiateViewControllerWithIdentifier: //@"rootViewController"];
         [[self navigationController] pushViewController: mainView animated: YES];
     }
 }
@@ -79,6 +98,7 @@
     [login release];
     [password release];
     [req release];
+    [settings release];
     [super dealloc];
 }
 

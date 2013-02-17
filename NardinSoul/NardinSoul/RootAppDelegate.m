@@ -29,7 +29,8 @@
     backgroundAccepted = NO;
 }
 
-- (void)backgroundHandler {
+- (void)backgroundHandler
+{
 
     /*
      

@@ -17,12 +17,16 @@
     UITextField *password;
     BOOL        isConnected;
     UIButton    *req;
+    UIButton *settings;
 }
 
 @property (nonatomic, retain) IBOutlet UITextField *login;
 @property (nonatomic, retain) IBOutlet UITextField *password;
 @property (nonatomic, retain) IBOutlet UIButton *req;
+@property (nonatomic, retain) IBOutlet UIButton *settings;
 
+
+- (IBAction)launchSettingsView:(id)sender;
 - (IBAction)launchAuthentification:(id)sender;
 - (void) didReceivePaquetFromNS: (NSPacket *) packet;
 - (void) didAuthentificate: (bool) real;

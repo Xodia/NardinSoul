@@ -32,6 +32,27 @@ static NetsoulProtocol *sharePointer = nil;
 {
     if (self = [super init])
     {
+        if (!cmdSelector)
+        {
+            cmdSelector = [[NSMutableDictionary alloc] init];
+            
+            [cmdSelector setObject: @"didReceiveMessage:" forKey: @"msg"];
+            [cmdSelector setObject: @"didReceiveTypingFrom:" forKey: @"dotnetSoul_UserTyping"];
+            [cmdSelector setObject: @"didCancelTypingFrom:" forKey: @"dotnetSoul_UserCancelledTyping"];
+            [cmdSelector setObject: @"didReceiveWhoInformations:" forKey: @"who"];
+            [cmdSelector setObject: @"didReceiveListUserInformations:" forKey: @"list_users"];
+            [cmdSelector setObject: @"didReceiveLogOfUser:" forKey: @"watch_log"];
+            [cmdSelector setObject: @"didAuthentificate:" forKey: @"auth"];
+            [cmdSelector setObject: @"didDisconnect:" forKey: @"disc"];
+        }
+        
+        if (!treatSelector)
+        {
+            treatSelector = [[NSMutableDictionary alloc] init];
+            [treatSelector setObject: @"parseCommand:" forKey: @"user_cmd"];
+            [treatSelector setObject: @"sendPing:" forKey: @"ping"];
+        }
+        
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         _socket =  [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue: mainQueue];
         NSError *error;
@@ -186,6 +207,11 @@ static NetsoulProtocol *sharePointer = nil;
 
 - (void) authentificateWithLogin: (NSString *) login andPassword: (NSString *) password
 {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:login forKey:@"login"];
+    [prefs setObject:password forKey:@"pass"];
+
+    
     NSString *hash = [NSString stringWithFormat: @"%@-%@/%@%@", hashMD5, hostClient, portClient, password];
     NSString *hashr = [hash MD5String];
     
