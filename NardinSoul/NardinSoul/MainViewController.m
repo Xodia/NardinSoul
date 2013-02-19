@@ -133,6 +133,11 @@
         [[self navigationController] pushViewController: rootView animated: YES];
     }
     
+    if (indexPath.section == 2 && indexPath.row == 1)
+    {
+        [[NetsoulProtocol sharePointer] disconnect];
+        [self.navigationController popViewControllerAnimated: YES];
+    }
 }
 
 @end

@@ -37,17 +37,33 @@
     [[self navigationController] pushViewController: mainView animated: YES];
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
     NetsoulProtocol *netsoul = [NetsoulProtocol sharePointer];
-    [netsoul resetSocketWithPort: 4242 andAdress: @"ns-server.epita.fr"];
+    //[netsoul resetSocketWithPort: 4242 andAdress: @"ns-server.epita.fr"];
     
     [netsoul setDelegate: self];
-    [netsoul connect];
+}
+
+- (void)viewDidLoad
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    if (![prefs objectForKey: @"server"])
+        [prefs setObject: @"ns-server.epita.fr" forKey:@"server"];
+    if (![prefs objectForKey: @"port"])
+        [prefs setObject: @"4242" forKey:@"port"];
+    if (![prefs objectForKey: @"location"])
+        [prefs setObject: @"@NardinSoul.v1" forKey:@"location"];
+    if (![prefs objectForKey: @"comments"])
+        [prefs setObject: @"Somewhere on earth !" forKey:@"comments"];
+
+    NetsoulProtocol *netsoul = [NetsoulProtocol sharePointer];
+    //[netsoul resetSocketWithPort: 4242 andAdress: @"ns-server.epita.fr"];
+    
+    [netsoul setDelegate: self];
     [super viewDidLoad];
     
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-
     NSString *log = [prefs stringForKey:@"login"];
     NSString *pass = [prefs stringForKey:@"pass"];
     
@@ -79,6 +95,7 @@
 
 - (void) didAuthentificate: (bool) real
 {
+    NSLog(@"Auth: %d", real ? 1 : 0);
     if (real)
     {
         MainViewController *mainView = [[self storyboard] instantiateViewControllerWithIdentifier: @"mainViewController"];
@@ -90,6 +107,13 @@
 - (BOOL) textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    if (textField == password)
+        [prefs setObject: password.text forKey: @"pass"];
+    if (textField == login)
+        [prefs setObject: login.text forKey: @"login"];
+    
     return YES;
 }
 

@@ -28,6 +28,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+
+    [_location setText: [prefs stringForKey: @"location"]];
+    [_port setText: [prefs stringForKey: @"port"]];
+    [_comments setText: [prefs stringForKey: @"comments"]];
+    [_server setText: [prefs stringForKey: @"server"]];
+    
 	// Do any additional setup after loading the view.
 }
 

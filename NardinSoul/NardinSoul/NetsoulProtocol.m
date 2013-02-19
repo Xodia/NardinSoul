@@ -18,19 +18,9 @@
 
 static NetsoulProtocol *sharePointer = nil;
 
-
-+ (NetsoulProtocol *)sharePointer
+- (id) init
 {
-    if (sharePointer == nil)
-    {
-        sharePointer = [[NetsoulProtocol alloc] init];
-    }
-    return sharePointer;
-}
-
-- (id) initWithPort: (int) port andAddress:(NSString *) address
-{
-    if (self = [super init])
+    if (self)
     {
         if (!cmdSelector)
         {
@@ -53,6 +43,23 @@ static NetsoulProtocol *sharePointer = nil;
             [treatSelector setObject: @"sendPing:" forKey: @"ping"];
         }
         
+    }
+    return (self);
+}
+
++ (NetsoulProtocol *)sharePointer
+{
+    if (sharePointer == nil)
+    {
+        sharePointer = [[NetsoulProtocol alloc] init];
+    }
+    return sharePointer;
+}
+
+- (id) initWithPort: (int) port andAddress:(NSString *) address
+{
+    if (self = [super init])
+    {
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         _socket =  [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue: mainQueue];
         NSError *error;
@@ -73,28 +80,6 @@ static NetsoulProtocol *sharePointer = nil;
 {
     if (sharePointer)
     {
-        // init des selectors
-        if (!cmdSelector)
-        {
-            cmdSelector = [[NSMutableDictionary alloc] init];
-
-            [cmdSelector setObject: @"didReceiveMessage:" forKey: @"msg"];
-            [cmdSelector setObject: @"didReceiveTypingFrom:" forKey: @"dotnetSoul_UserTyping"];
-            [cmdSelector setObject: @"didCancelTypingFrom:" forKey: @"dotnetSoul_UserCancelledTyping"];
-            [cmdSelector setObject: @"didReceiveWhoInformations:" forKey: @"who"];
-            [cmdSelector setObject: @"didReceiveListUserInformations:" forKey: @"list_users"];
-            [cmdSelector setObject: @"didReceiveLogOfUser:" forKey: @"watch_log"];
-            [cmdSelector setObject: @"didAuthentificate:" forKey: @"auth"];
-            [cmdSelector setObject: @"didDisconnect:" forKey: @"disc"];
-        }
-        
-        if (!treatSelector)
-        {
-            treatSelector = [[NSMutableDictionary alloc] init];
-            [treatSelector setObject: @"parseCommand:" forKey: @"user_cmd"];
-            [treatSelector setObject: @"sendPing:" forKey: @"ping"];
-        }
-        
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         _socket =  [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue: mainQueue];
         NSError *error;
@@ -157,7 +142,7 @@ static NetsoulProtocol *sharePointer = nil;
 		localNF.alertBody = [NSString stringWithFormat: @"%@: %@", [[packet from] login], [[packet parameters] objectAtIndex: 0]];
         localNF.alertAction = nil;
         localNF.soundName = UILocalNotificationDefaultSoundName;
-        localNF.applicationIconBadgeNumber = 1;
+        localNF.applicationIconBadgeNumber = localNF.applicationIconBadgeNumber + 1;
         [[UIApplication sharedApplication] scheduleLocalNotification:localNF];
     }
 }
@@ -207,27 +192,27 @@ static NetsoulProtocol *sharePointer = nil;
 
 - (void) authentificateWithLogin: (NSString *) login andPassword: (NSString *) password
 {
+    [self connect];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:login forKey:@"login"];
     [prefs setObject:password forKey:@"pass"];
-
-    
-    NSString *hash = [NSString stringWithFormat: @"%@-%@/%@%@", hashMD5, hostClient, portClient, password];
-    NSString *hashr = [hash MD5String];
-    
-    NSString *str = [NSString stringWithFormat: @"ext_user_log %@ %@ %@ %@\n", login, [hashr lowercaseString], @"@NardinSoul.v1", @"Somewhere"];
-    [_socket writeData: [str dataUsingEncoding: NSUTF8StringEncoding]  withTimeout: 20 tag: CONNECT];
-    [_socket readDataWithTimeout: 30 tag: CONNECT];
 }
 
 #pragma  TODO DO_CONNECT_METH 
 - (void) connect
 {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+
+    NSString *port = [prefs stringForKey: @"port"];
+    NSString *server = [prefs stringForKey: @"server"];
+    
+    [self resetSocketWithPort: [port intValue] andAdress: server];
 }
 
 #pragma  TODO DO_DISCONNECT_METH
 - (void) disconnect
 {
+    [_socket disconnect];
 }
 
 /*
@@ -387,13 +372,31 @@ static NetsoulProtocol *sharePointer = nil;
     if (tag == AUTH)
     {
         NSArray *array = [dataStr componentsSeparatedByString: @" "];
+        NSLog(@"Array: %@", array);
         
-        socketNumber = [[NSString alloc] initWithString: [array objectAtIndex: 1]];
-        hashMD5 = [[NSString alloc] initWithString: [array objectAtIndex: 2]];
-        hostClient = [[NSString alloc] initWithString: [array objectAtIndex: 3]];
-        portClient = [[NSString alloc] initWithString: [array objectAtIndex: 4]];
-        timestamp = [[NSString alloc] initWithString: [array objectAtIndex: 5]];
-                
+        if ([array count] > 5)
+        {
+            socketNumber = [[NSString alloc] initWithString: [array objectAtIndex: 1]];
+            hashMD5 = [[NSString alloc] initWithString: [array objectAtIndex: 2]];
+            hostClient = [[NSString alloc] initWithString: [array objectAtIndex: 3]];
+            portClient = [[NSString alloc] initWithString: [array objectAtIndex: 4]];
+            timestamp = [[NSString alloc] initWithString: [array objectAtIndex: 5]];
+            
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+
+            
+            NSString *hash = [NSString stringWithFormat: @"%@-%@/%@%@", hashMD5, hostClient, portClient, [prefs stringForKey: @"pass"]];
+            NSString *hashr = [hash MD5String];
+            
+            NSLog(@"HASH: %@", hash);
+            NSString *str = [NSString stringWithFormat: @"ext_user_log %@ %@ %@ %@\n", [prefs stringForKey:@"login"], [hashr lowercaseString], [[prefs stringForKey:@"location"] stringByAddingPercentEscapesUsingEncoding:
+                                                                                                                        NSASCIIStringEncoding], [[prefs stringForKey:@"comments"] stringByAddingPercentEscapesUsingEncoding:
+                                                                                                                                                 NSASCIIStringEncoding]];
+            NSLog(@"STRING : %@", str);
+            [_socket writeData: [str dataUsingEncoding: NSUTF8StringEncoding]  withTimeout: 20 tag: CONNECT];
+            [_socket readDataWithTimeout: 30 tag: CONNECT];
+
+        }
         // e.g. authentification : [self authentificateWithLogin: @"login" andPassword: @"password"];
         //                         [_socket readDataWithTimeout: 30 tag: CONNECT];
     }

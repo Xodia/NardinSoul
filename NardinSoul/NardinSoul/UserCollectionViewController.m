@@ -14,6 +14,7 @@
 #import "CollectionIcon.h"
 #import "MessageViewController.h"
 #import "User.h"
+#import "ConversationViewController.h"
 
 @implementation UserCollectionViewController
 @synthesize msg;
@@ -121,7 +122,7 @@
     NSPacket *packet = [msg objectAtIndex: indexPath.row];
     
     // push view -> avec le packet
-    
+   /*
     MessageViewController *messageViewController = [[self storyboard] instantiateViewControllerWithIdentifier: @"MessageViewController"];
     
     [messageViewController setPacket: packet];
@@ -135,6 +136,20 @@
     [pkt release];
     [icon release];
     [[self collectionView] reloadData];
+    
+    */
+    
+    ConversationViewController *ctrl = [[ConversationViewController alloc] initWithNibName: nil bundle:nil];
+    [[self navigationController] pushViewController: ctrl animated:YES];
+
+    NSPacket *pkt = [msg objectAtIndex: (indexPath.section * 3) + indexPath.row];
+    CollectionIcon *icon = [items objectAtIndex: (indexPath.section * 3) + indexPath.row];
+    [msg removeObjectAtIndex: (indexPath.section * 3) + indexPath.row];
+    [items removeObjectAtIndex: (indexPath.section * 3) + indexPath.row];
+    [pkt release];
+    [icon release];
+    [[self collectionView] reloadData];
+    
 }
 
 - (void) dealloc
