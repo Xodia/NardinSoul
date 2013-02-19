@@ -48,6 +48,7 @@
 		4CAC97FA16C53E7200BE141B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC97F916C53E7200BE141B /* MainViewController.m */; };
 		4CAC97FD16C544CA00BE141B /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC97FC16C544CA00BE141B /* CollectionViewCell.m */; };
 		FF06E98516D3DFE30004B0F0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF06E98416D3DFE30004B0F0 /* CoreData.framework */; };
+		FF06E98916D3EAD70004B0F0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FF06E98716D3EAD70004B0F0 /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +122,7 @@
 		4CAC97FB16C544CA00BE141B /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
 		4CAC97FC16C544CA00BE141B /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
 		FF06E98416D3DFE30004B0F0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		FF06E98816D3EAD70004B0F0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 		4C916C9D16AD62CA00CA1295 /* NardinSoul */ = {
 			isa = PBXGroup;
 			children = (
+				FF06E98616D3EAA70004B0F0 /* Bdd */,
 				4C916CDF16AD943200CA1295 /* Network */,
 				4C916CA616AD62CA00CA1295 /* RootAppDelegate.h */,
 				4C916CA716AD62CA00CA1295 /* RootAppDelegate.m */,
@@ -318,6 +321,14 @@
 				4C22130416C6517900F63BF4 /* CollectionViewCell */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		FF06E98616D3EAA70004B0F0 /* Bdd */ = {
+			isa = PBXGroup;
+			children = (
+				FF06E98716D3EAD70004B0F0 /* Model.xcdatamodeld */,
+			);
+			name = Bdd;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -457,6 +468,7 @@
 				4C22130716C651C800F63BF4 /* CollectionIcon.m in Sources */,
 				4C22130A16C65CD900F63BF4 /* UserCollectionViewController.m in Sources */,
 				4C139FC916D0482600952EA1 /* SettingsViewController.m in Sources */,
+				FF06E98916D3EAD70004B0F0 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,6 +655,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FF06E98716D3EAD70004B0F0 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FF06E98816D3EAD70004B0F0 /* Model.xcdatamodel */,
+			);
+			currentVersion = FF06E98816D3EAD70004B0F0 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4C916C8A16AD62CA00CA1295 /* Project object */;
 }
