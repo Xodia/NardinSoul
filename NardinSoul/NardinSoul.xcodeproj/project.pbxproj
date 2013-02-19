@@ -47,6 +47,7 @@
 		4C916CE116AD96D400CA1295 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916CE016AD96D400CA1295 /* CFNetwork.framework */; };
 		4CAC97FA16C53E7200BE141B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC97F916C53E7200BE141B /* MainViewController.m */; };
 		4CAC97FD16C544CA00BE141B /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC97FC16C544CA00BE141B /* CollectionViewCell.m */; };
+		FF06E98516D3DFE30004B0F0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF06E98416D3DFE30004B0F0 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +120,7 @@
 		4CAC97F916C53E7200BE141B /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4CAC97FB16C544CA00BE141B /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
 		4CAC97FC16C544CA00BE141B /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
+		FF06E98416D3DFE30004B0F0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF06E98516D3DFE30004B0F0 /* CoreData.framework in Frameworks */,
 				4C916CE116AD96D400CA1295 /* CFNetwork.framework in Frameworks */,
 				4C916C9816AD62CA00CA1295 /* UIKit.framework in Frameworks */,
 				4C916C9A16AD62CA00CA1295 /* Foundation.framework in Frameworks */,
@@ -160,6 +163,7 @@
 		4C916C8816AD62CA00CA1295 = {
 			isa = PBXGroup;
 			children = (
+				FF06E98416D3DFE30004B0F0 /* CoreData.framework */,
 				4C916C9D16AD62CA00CA1295 /* NardinSoul */,
 				4C916CC116AD62CA00CA1295 /* NardinSoulTests */,
 				4C916C9616AD62CA00CA1295 /* Frameworks */,
