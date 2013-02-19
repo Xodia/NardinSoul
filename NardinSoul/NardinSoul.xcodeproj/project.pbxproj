@@ -24,6 +24,7 @@
 		4C22130A16C65CD900F63BF4 /* UserCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C22130916C65CD900F63BF4 /* UserCollectionViewController.m */; };
 		4C22E47D16B592840099D524 /* NSPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C22E47C16B592840099D524 /* NSPacket.m */; };
 		4C22E48116B593410099D524 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C22E48016B593410099D524 /* User.m */; };
+		4C2C5D5E16D3DBFD0070A02A /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2C5D5D16D3DBFD0070A02A /* ConversationViewController.m */; };
 		4C61F02B16C136A8001964A9 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61F02A16C136A8001964A9 /* MessageViewController.m */; };
 		4C671C9E16C4716B0014CFC4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C671C9D16C4716B0014CFC4 /* LoginViewController.m */; };
 		4C8DAF5916B2F188003C7E19 /* NetsoulProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8DAF5816B2F188003C7E19 /* NetsoulProtocol.m */; };
@@ -47,8 +48,26 @@
 		4C916CE116AD96D400CA1295 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916CE016AD96D400CA1295 /* CFNetwork.framework */; };
 		4CAC97FA16C53E7200BE141B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC97F916C53E7200BE141B /* MainViewController.m */; };
 		4CAC97FD16C544CA00BE141B /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC97FC16C544CA00BE141B /* CollectionViewCell.m */; };
+<<<<<<< HEAD
 		FF06E98516D3DFE30004B0F0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF06E98416D3DFE30004B0F0 /* CoreData.framework */; };
 		FF06E98916D3EAD70004B0F0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FF06E98716D3EAD70004B0F0 /* Model.xcdatamodeld */; };
+=======
+		4CB3F76316D3C9340043EF79 /* libSSToolkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB3F75C16D3C8FF0043EF79 /* libSSToolkit.a */; };
+		4CB3F76516D3C94A0043EF79 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB3F76416D3C94A0043EF79 /* QuartzCore.framework */; };
+		4CB3F77C16D3D0B90043EF79 /* SSMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB3F76C16D3D0B90043EF79 /* SSMessagesViewController.m */; };
+		4CB3F77D16D3D0B90043EF79 /* SSMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB3F76E16D3D0B90043EF79 /* SSMessageTableViewCell.m */; };
+		4CB3F77E16D3D0B90043EF79 /* SSMessageTableViewCellBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB3F77016D3D0B90043EF79 /* SSMessageTableViewCellBubbleView.m */; };
+		4CB3F77F16D3D0B90043EF79 /* SSMessagesViewControllerInputBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB3F77216D3D0B90043EF79 /* SSMessagesViewControllerInputBackground.png */; };
+		4CB3F78016D3D0B90043EF79 /* SSMessagesViewControllerInputBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB3F77316D3D0B90043EF79 /* SSMessagesViewControllerInputBackground@2x.png */; };
+		4CB3F78116D3D0B90043EF79 /* SSMessagesViewControllerSendButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB3F77416D3D0B90043EF79 /* SSMessagesViewControllerSendButtonBackground.png */; };
+		4CB3F78216D3D0B90043EF79 /* SSMessagesViewControllerSendButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB3F77516D3D0B90043EF79 /* SSMessagesViewControllerSendButtonBackground@2x.png */; };
+		4CB3F78316D3D0B90043EF79 /* SSMessagesViewControllerTextFieldBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB3F77616D3D0B90043EF79 /* SSMessagesViewControllerTextFieldBackground.png */; };
+		4CB3F78416D3D0B90043EF79 /* SSMessagesViewControllerTextFieldBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB3F77716D3D0B90043EF79 /* SSMessagesViewControllerTextFieldBackground@2x.png */; };
+		4CB3F78516D3D0B90043EF79 /* SSMessageTableViewCellBackgroundClear.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB3F77816D3D0B90043EF79 /* SSMessageTableViewCellBackgroundClear.png */; };
+		4CB3F78616D3D0B90043EF79 /* SSMessageTableViewCellBackgroundClear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB3F77916D3D0B90043EF79 /* SSMessageTableViewCellBackgroundClear@2x.png */; };
+		4CB3F78716D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB3F77A16D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen.png */; };
+		4CB3F78816D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB3F77B16D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen@2x.png */; };
+>>>>>>> 027cfad4a701da7fbe9a76bed55856d3ce9d6e33
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +77,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4C916C9216AD62CA00CA1295;
 			remoteInfo = NardinSoul;
+		};
+		4CB3F75B16D3C8FF0043EF79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4CB3F6ED16D3C8FE0043EF79 /* SSToolkit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = SSToolkit;
+		};
+		4CB3F75D16D3C8FF0043EF79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4CB3F6ED16D3C8FE0043EF79 /* SSToolkit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B239101D1357DC3E00ADE21B;
+			remoteInfo = SSToolkitTests;
+		};
+		4CB3F75F16D3C90F0043EF79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4CB3F6ED16D3C8FE0043EF79 /* SSToolkit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = SSToolkit;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -86,6 +126,8 @@
 		4C22E47F16B593410099D524 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		4C22E48016B593410099D524 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		4C22E48216B5E6FB0099D524 /* NetsoulViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetsoulViewProtocol.h; sourceTree = "<group>"; };
+		4C2C5D5C16D3DBFD0070A02A /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
+		4C2C5D5D16D3DBFD0070A02A /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
 		4C61F02916C136A8001964A9 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
 		4C61F02A16C136A8001964A9 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
 		4C671C9C16C4716B0014CFC4 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -121,8 +163,30 @@
 		4CAC97F916C53E7200BE141B /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4CAC97FB16C544CA00BE141B /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
 		4CAC97FC16C544CA00BE141B /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		FF06E98416D3DFE30004B0F0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		FF06E98816D3EAD70004B0F0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+=======
+		4CB3F6ED16D3C8FE0043EF79 /* SSToolkit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SSToolkit.xcodeproj; sourceTree = "<group>"; };
+		4CB3F76416D3C94A0043EF79 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4CB3F76616D3C9B20043EF79 /* SSToolkit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SSToolkit.bundle; path = SSToolkit/Resources/SSToolkit.bundle; sourceTree = "<group>"; };
+		4CB3F76B16D3D0B90043EF79 /* SSMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMessagesViewController.h; sourceTree = "<group>"; };
+		4CB3F76C16D3D0B90043EF79 /* SSMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMessagesViewController.m; sourceTree = "<group>"; };
+		4CB3F76D16D3D0B90043EF79 /* SSMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMessageTableViewCell.h; sourceTree = "<group>"; };
+		4CB3F76E16D3D0B90043EF79 /* SSMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMessageTableViewCell.m; sourceTree = "<group>"; };
+		4CB3F76F16D3D0B90043EF79 /* SSMessageTableViewCellBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMessageTableViewCellBubbleView.h; sourceTree = "<group>"; };
+		4CB3F77016D3D0B90043EF79 /* SSMessageTableViewCellBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMessageTableViewCellBubbleView.m; sourceTree = "<group>"; };
+		4CB3F77216D3D0B90043EF79 /* SSMessagesViewControllerInputBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SSMessagesViewControllerInputBackground.png; sourceTree = "<group>"; };
+		4CB3F77316D3D0B90043EF79 /* SSMessagesViewControllerInputBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SSMessagesViewControllerInputBackground@2x.png"; sourceTree = "<group>"; };
+		4CB3F77416D3D0B90043EF79 /* SSMessagesViewControllerSendButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SSMessagesViewControllerSendButtonBackground.png; sourceTree = "<group>"; };
+		4CB3F77516D3D0B90043EF79 /* SSMessagesViewControllerSendButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SSMessagesViewControllerSendButtonBackground@2x.png"; sourceTree = "<group>"; };
+		4CB3F77616D3D0B90043EF79 /* SSMessagesViewControllerTextFieldBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SSMessagesViewControllerTextFieldBackground.png; sourceTree = "<group>"; };
+		4CB3F77716D3D0B90043EF79 /* SSMessagesViewControllerTextFieldBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SSMessagesViewControllerTextFieldBackground@2x.png"; sourceTree = "<group>"; };
+		4CB3F77816D3D0B90043EF79 /* SSMessageTableViewCellBackgroundClear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SSMessageTableViewCellBackgroundClear.png; sourceTree = "<group>"; };
+		4CB3F77916D3D0B90043EF79 /* SSMessageTableViewCellBackgroundClear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SSMessageTableViewCellBackgroundClear@2x.png"; sourceTree = "<group>"; };
+		4CB3F77A16D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SSMessageTableViewCellBackgroundGreen.png; sourceTree = "<group>"; };
+		4CB3F77B16D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SSMessageTableViewCellBackgroundGreen@2x.png"; sourceTree = "<group>"; };
+>>>>>>> 027cfad4a701da7fbe9a76bed55856d3ce9d6e33
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +194,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
 				FF06E98516D3DFE30004B0F0 /* CoreData.framework in Frameworks */,
+=======
+				4CB3F76516D3C94A0043EF79 /* QuartzCore.framework in Frameworks */,
+				4CB3F76316D3C9340043EF79 /* libSSToolkit.a in Frameworks */,
+>>>>>>> 027cfad4a701da7fbe9a76bed55856d3ce9d6e33
 				4C916CE116AD96D400CA1295 /* CFNetwork.framework in Frameworks */,
 				4C916C9816AD62CA00CA1295 /* UIKit.framework in Frameworks */,
 				4C916C9A16AD62CA00CA1295 /* Foundation.framework in Frameworks */,
@@ -165,7 +234,13 @@
 		4C916C8816AD62CA00CA1295 = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				FF06E98416D3DFE30004B0F0 /* CoreData.framework */,
+=======
+				4CB3F76616D3C9B20043EF79 /* SSToolkit.bundle */,
+				4CB3F76416D3C94A0043EF79 /* QuartzCore.framework */,
+				4CB3F64D16D3C8FE0043EF79 /* SSToolkit */,
+>>>>>>> 027cfad4a701da7fbe9a76bed55856d3ce9d6e33
 				4C916C9D16AD62CA00CA1295 /* NardinSoul */,
 				4C916CC116AD62CA00CA1295 /* NardinSoulTests */,
 				4C916C9616AD62CA00CA1295 /* Frameworks */,
@@ -319,16 +394,76 @@
 				4CAC97F816C53E7200BE141B /* MainViewController.h */,
 				4CAC97F916C53E7200BE141B /* MainViewController.m */,
 				4C22130416C6517900F63BF4 /* CollectionViewCell */,
+				4C2C5D5C16D3DBFD0070A02A /* ConversationViewController.h */,
+				4C2C5D5D16D3DBFD0070A02A /* ConversationViewController.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		FF06E98616D3EAA70004B0F0 /* Bdd */ = {
 			isa = PBXGroup;
 			children = (
 				FF06E98716D3EAD70004B0F0 /* Model.xcdatamodeld */,
 			);
 			name = Bdd;
+=======
+		4CB3F64D16D3C8FE0043EF79 /* SSToolkit */ = {
+			isa = PBXGroup;
+			children = (
+				4CB3F76916D3D0B90043EF79 /* SSMessageViewController */,
+				4CB3F6ED16D3C8FE0043EF79 /* SSToolkit.xcodeproj */,
+			);
+			path = SSToolkit;
+			sourceTree = "<group>";
+		};
+		4CB3F6EE16D3C8FE0043EF79 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4CB3F75C16D3C8FF0043EF79 /* libSSToolkit.a */,
+				4CB3F75E16D3C8FF0043EF79 /* SSToolkitTests.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4CB3F76916D3D0B90043EF79 /* SSMessageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4CB3F76A16D3D0B90043EF79 /* Classes */,
+				4CB3F77116D3D0B90043EF79 /* Images */,
+			);
+			path = SSMessageViewController;
+			sourceTree = "<group>";
+		};
+		4CB3F76A16D3D0B90043EF79 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				4CB3F76B16D3D0B90043EF79 /* SSMessagesViewController.h */,
+				4CB3F76C16D3D0B90043EF79 /* SSMessagesViewController.m */,
+				4CB3F76D16D3D0B90043EF79 /* SSMessageTableViewCell.h */,
+				4CB3F76E16D3D0B90043EF79 /* SSMessageTableViewCell.m */,
+				4CB3F76F16D3D0B90043EF79 /* SSMessageTableViewCellBubbleView.h */,
+				4CB3F77016D3D0B90043EF79 /* SSMessageTableViewCellBubbleView.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		4CB3F77116D3D0B90043EF79 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				4CB3F77216D3D0B90043EF79 /* SSMessagesViewControllerInputBackground.png */,
+				4CB3F77316D3D0B90043EF79 /* SSMessagesViewControllerInputBackground@2x.png */,
+				4CB3F77416D3D0B90043EF79 /* SSMessagesViewControllerSendButtonBackground.png */,
+				4CB3F77516D3D0B90043EF79 /* SSMessagesViewControllerSendButtonBackground@2x.png */,
+				4CB3F77616D3D0B90043EF79 /* SSMessagesViewControllerTextFieldBackground.png */,
+				4CB3F77716D3D0B90043EF79 /* SSMessagesViewControllerTextFieldBackground@2x.png */,
+				4CB3F77816D3D0B90043EF79 /* SSMessageTableViewCellBackgroundClear.png */,
+				4CB3F77916D3D0B90043EF79 /* SSMessageTableViewCellBackgroundClear@2x.png */,
+				4CB3F77A16D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen.png */,
+				4CB3F77B16D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen@2x.png */,
+			);
+			path = Images;
+>>>>>>> 027cfad4a701da7fbe9a76bed55856d3ce9d6e33
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,6 +480,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4CB3F76016D3C90F0043EF79 /* PBXTargetDependency */,
 			);
 			name = NardinSoul;
 			productName = NardinSoul;
@@ -390,6 +526,12 @@
 			mainGroup = 4C916C8816AD62CA00CA1295;
 			productRefGroup = 4C916C9416AD62CA00CA1295 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4CB3F6EE16D3C8FE0043EF79 /* Products */;
+					ProjectRef = 4CB3F6ED16D3C8FE0043EF79 /* SSToolkit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				4C916C9216AD62CA00CA1295 /* NardinSoul */,
@@ -397,6 +539,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4CB3F75C16D3C8FF0043EF79 /* libSSToolkit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSSToolkit.a;
+			remoteRef = 4CB3F75B16D3C8FF0043EF79 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4CB3F75E16D3C8FF0043EF79 /* SSToolkitTests.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = SSToolkitTests.app;
+			remoteRef = 4CB3F75D16D3C8FF0043EF79 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4C916C9116AD62CA00CA1295 /* Resources */ = {
@@ -419,6 +578,16 @@
 				4C22130116C6514A00F63BF4 /* msggrey.png in Resources */,
 				4C22130216C6514A00F63BF4 /* msg.png in Resources */,
 				4C22130316C6514A00F63BF4 /* who.png in Resources */,
+				4CB3F77F16D3D0B90043EF79 /* SSMessagesViewControllerInputBackground.png in Resources */,
+				4CB3F78016D3D0B90043EF79 /* SSMessagesViewControllerInputBackground@2x.png in Resources */,
+				4CB3F78116D3D0B90043EF79 /* SSMessagesViewControllerSendButtonBackground.png in Resources */,
+				4CB3F78216D3D0B90043EF79 /* SSMessagesViewControllerSendButtonBackground@2x.png in Resources */,
+				4CB3F78316D3D0B90043EF79 /* SSMessagesViewControllerTextFieldBackground.png in Resources */,
+				4CB3F78416D3D0B90043EF79 /* SSMessagesViewControllerTextFieldBackground@2x.png in Resources */,
+				4CB3F78516D3D0B90043EF79 /* SSMessageTableViewCellBackgroundClear.png in Resources */,
+				4CB3F78616D3D0B90043EF79 /* SSMessageTableViewCellBackgroundClear@2x.png in Resources */,
+				4CB3F78716D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen.png in Resources */,
+				4CB3F78816D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,7 +637,14 @@
 				4C22130716C651C800F63BF4 /* CollectionIcon.m in Sources */,
 				4C22130A16C65CD900F63BF4 /* UserCollectionViewController.m in Sources */,
 				4C139FC916D0482600952EA1 /* SettingsViewController.m in Sources */,
+<<<<<<< HEAD
 				FF06E98916D3EAD70004B0F0 /* Model.xcdatamodeld in Sources */,
+=======
+				4CB3F77C16D3D0B90043EF79 /* SSMessagesViewController.m in Sources */,
+				4CB3F77D16D3D0B90043EF79 /* SSMessageTableViewCell.m in Sources */,
+				4CB3F77E16D3D0B90043EF79 /* SSMessageTableViewCellBubbleView.m in Sources */,
+				4C2C5D5E16D3DBFD0070A02A /* ConversationViewController.m in Sources */,
+>>>>>>> 027cfad4a701da7fbe9a76bed55856d3ce9d6e33
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +663,11 @@
 			isa = PBXTargetDependency;
 			target = 4C916C9216AD62CA00CA1295 /* NardinSoul */;
 			targetProxy = 4C916CBF16AD62CA00CA1295 /* PBXContainerItemProxy */;
+		};
+		4CB3F76016D3C90F0043EF79 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SSToolkit;
+			targetProxy = 4CB3F75F16D3C90F0043EF79 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -570,9 +751,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NardinSoul/NardinSoul-Prefix.pch";
+				HEADER_SEARCH_PATHS = SSToolkit;
 				INFOPLIST_FILE = "NardinSoul/NardinSoul-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -582,9 +769,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SSToolkit/Tests\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NardinSoul/NardinSoul-Prefix.pch";
+				HEADER_SEARCH_PATHS = SSToolkit;
 				INFOPLIST_FILE = "NardinSoul/NardinSoul-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

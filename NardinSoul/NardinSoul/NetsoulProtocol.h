@@ -89,6 +89,7 @@ enum NS_ACTION {
  
  */
 
+- (id) init;
 - (id)   initWithPort: (int) port andAddress: (NSString *) address;
 - (void) resetSocketWithPort:(int)port andAdress: (NSString *) address;
 - (void) connect;
