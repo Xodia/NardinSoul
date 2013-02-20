@@ -8,9 +8,9 @@
 
 #import "NetsoulProtocol.h"
 #import "NSString+MD5.h"
-
 #import "User.h"
 #import "NSPacket.h"
+#import "NardinPool.h"
 
 @implementation NetsoulProtocol
 
@@ -125,6 +125,10 @@ static NetsoulProtocol *sharePointer = nil;
     NSString *str = [cmdSelector objectForKey: [array objectAtIndex: 3]];
     if (str && [delegate respondsToSelector: NSSelectorFromString(str)])
     {
+        if ([packet.command isEqualToString: @"msg"])
+        {
+            [[NardinPool sharedObject] addPacket: packet];
+        }
         [delegate performSelector: NSSelectorFromString(str) withObject: packet];
     }
     else if ([delegate respondsToSelector: @selector(didReceivePaquetFromNS:)])

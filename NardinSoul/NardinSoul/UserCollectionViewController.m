@@ -15,13 +15,14 @@
 #import "MessageViewController.h"
 #import "User.h"
 #import "ConversationViewController.h"
+#import "NardinPool.h"
 
 @implementation UserCollectionViewController
 @synthesize msg;
 
 - (void) didReceivePaquetFromNS: (NSPacket *) packet
 {
-    if ([[packet command] isEqualToString: @"msg"])
+    /*if ([[packet command] isEqualToString: @"msg"])
     {
         if (!msg)
             msg = [[NSMutableArray alloc] init];
@@ -34,7 +35,37 @@
         [items addObject: collection];
         
         [[self collectionView] reloadData];
+    }*/
+}
+
+- (void) didReceiveMessage:(NSPacket *)pkg
+{
+    NSMutableDictionary *dic = [[NardinPool sharedObject] messageReceived];
+    
+    NSLog(@"Count: %d/%d", [dic count], [items count]);
+    
+    if ([dic count] == [items count])
+        return;
+    
+    NSMutableArray *a = [[NSMutableArray alloc] init];
+    
+    for (NSString *key in dic)
+    {
+        CollectionIcon *collection = [[CollectionIcon alloc] initWithPath: [NSString stringWithFormat:@"https://www.epitech.eu/intra/photos/%@.jpg", key] andKey: key];
+        
+        [a addObject: collection];
     }
+    
+    NSMutableArray *tmp = items;
+    items = a;
+    
+    for (CollectionIcon *collection in tmp)
+    {
+        [tmp removeObject: collection];
+        [collection release];
+    }
+    [tmp release];
+    [self.collectionView reloadData];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -60,14 +91,17 @@
     [n setDelegate: self];
     
     if (!items)
-    {
         items = [[NSMutableArray alloc] init];
-        for (NSPacket *pkt in msg)
-        {
-            CollectionIcon *collection = [[CollectionIcon alloc] initWithPath: [NSString stringWithFormat:@"https://www.epitech.eu/intra/photos/%@.jpg", [pkt.from login]] andKey: [pkt.from login]];
+    // release les ptrs
+    
+    [items removeAllObjects];
+    NSMutableDictionary *dic = [[NardinPool sharedObject] messageReceived];
+    
+    for (NSString *key in dic)
+    {
+        CollectionIcon *collection = [[CollectionIcon alloc] initWithPath: [NSString stringWithFormat:@"https://www.epitech.eu/intra/photos/%@.jpg", key] andKey: key];
             
-            [items addObject: collection];
-        }
+        [items addObject: collection];
     }
     
     [super viewWillAppear: animated];
@@ -119,35 +153,28 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSPacket *packet = [msg objectAtIndex: indexPath.row];
-    
-    // push view -> avec le packet
-   /*
-    MessageViewController *messageViewController = [[self storyboard] instantiateViewControllerWithIdentifier: @"MessageViewController"];
-    
-    [messageViewController setPacket: packet];
-    
-    [[self navigationController] pushViewController: messageViewController animated:YES];
-    
-    NSPacket *pkt = [msg objectAtIndex: (indexPath.section * 3) + indexPath.row];
-    CollectionIcon *icon = [items objectAtIndex: (indexPath.section * 3) + indexPath.row];
-    [msg removeObjectAtIndex: (indexPath.section * 3) + indexPath.row];
-    [items removeObjectAtIndex: (indexPath.section * 3) + indexPath.row];
-    [pkt release];
-    [icon release];
-    [[self collectionView] reloadData];
-    
-    */
+    //NSPacket *packet = [msg objectAtIndex: indexPath.row];
     
     ConversationViewController *ctrl = [[ConversationViewController alloc] initWithNibName: nil bundle:nil];
-    [[self navigationController] pushViewController: ctrl animated:YES];
-
-    NSPacket *pkt = [msg objectAtIndex: (indexPath.section * 3) + indexPath.row];
+    //[ctrl setPacket: packet];
+    
+    
+   // NSPacket *pkt = [msg objectAtIndex: (indexPath.section * 3) + indexPath.row];
     CollectionIcon *icon = [items objectAtIndex: (indexPath.section * 3) + indexPath.row];
-    [msg removeObjectAtIndex: (indexPath.section * 3) + indexPath.row];
+   // [msg removeObjectAtIndex: (indexPath.section * 3) + indexPath.row];
+
+    NSArray *array = [[[NardinPool sharedObject] messageReceived] objectForKey: icon.key];
+    [ctrl addMessage: array];
+    [ctrl setTitle: icon.key];
     [items removeObjectAtIndex: (indexPath.section * 3) + indexPath.row];
-    [pkt release];
+    //[pkt release];
+    [[NardinPool sharedObject] removeKey: icon.key];
+
     [icon release];
+    
+    [[self navigationController] pushViewController: ctrl animated:YES];
+    
+    
     [[self collectionView] reloadData];
     
 }

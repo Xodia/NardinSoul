@@ -8,12 +8,33 @@
 
 #import "ConversationViewController.h"
 #import "SSMessageTableViewCell.h"
+#import "NSPacket.h"
+#import "User.h"
+#import "NetsoulProtocol.h"
+#import "MessageToken.h"
+#import "NardinPool.h"
 
 @interface ConversationViewController ()
 
 @end
 
 @implementation ConversationViewController
+
+
+- (void) addMessage:(NSArray *)arrayMessages
+{
+    if (!arrayMsg)
+        arrayMsg = [[NSMutableArray alloc] init];
+    
+    for (NSPacket *packet in arrayMessages)
+    {
+        NSString *msg = [[packet parameters] objectAtIndex: 0];
+        msg = [msg stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+        
+        MessageToken *token = [[MessageToken alloc] initWithMessage:msg andFrom: YES];
+        [arrayMsg addObject: token];
+    }
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -24,15 +45,34 @@
     return self;
 }
 
+/*
+- (void) setPacket:(NSPacket *)__packet
+{
+    _packet = __packet;
+    
+    if (!arrayMsg)
+        arrayMsg = [[NSMutableArray alloc] init];
+    
+    NSString *msg = [[__packet parameters] objectAtIndex: 0];
+    msg = [msg stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+    
+    MessageToken *token = [[MessageToken alloc] initWithMessage:msg andFrom: YES];
+    [arrayMsg addObject: token];
+}
 
+*/
 - (void) sendPushed: (id) sender
 {
     NSLog(@"SEND PUSHED");
     UITextField *textfield = (UITextField *) _textField;
     
     if (![textfield.text isEqualToString: @""])
-    {
-        [arrayMsg addObject: textfield.text];
+    {                
+        MessageToken *token = [[MessageToken alloc] initWithMessage: textfield.text andFrom: NO];
+        [arrayMsg addObject: token];
+        
+        [[NetsoulProtocol sharePointer] sendMsg: textfield.text to: @[self.title]];
+        
         [textfield setText: @""];
         [self.tableView reloadData];
         NSIndexPath * someRowAtIndexPath = [NSIndexPath indexPathForRow:[arrayMsg count] - 1 inSection: 0];
@@ -44,11 +84,18 @@
 
 #pragma mark UIViewController
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear: animated];
+    [[NetsoulProtocol sharePointer] setDelegate: self];
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    arrayMsg = [[NSMutableArray alloc] init];
+    if (!arrayMsg)
+        arrayMsg = [[NSMutableArray alloc] init];
     [_sendButton addTarget:self action: @selector(sendPushed:) forControlEvents: UIControlEventTouchUpInside];
-	self.title = @"Messages";
+	//self.title = [[_packet from] login];
 }
 
 
@@ -62,16 +109,25 @@
 
 #pragma mark SSMessagesViewController
 
-- (SSMessageStyle)messageStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.row % 2) {
+- (SSMessageStyle)messageStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MessageToken *token = (MessageToken *) [arrayMsg objectAtIndex: indexPath.row];
+    
+    if (!token)
+        return SSMessageStyleLeft;
+    
+	if (!token.isExtern) {
 		return SSMessageStyleRight;
 	}
 	return SSMessageStyleLeft;
 }
 
 
-- (NSString *)textForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return ([arrayMsg objectAtIndex: indexPath.row]);
+- (NSString *)textForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MessageToken *token = (MessageToken *) [arrayMsg objectAtIndex: indexPath.row];
+	return (token.msg);
+    
 }
 
 
@@ -79,6 +135,36 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [arrayMsg count];
+}
+
+- (void) dealloc
+{
+    if (arrayMsg)
+        [arrayMsg release];
+
+    [super dealloc];
+}
+
+- (void) didReceivePaquetFromNS:(NSPacket *)packet
+{
+    
+}
+
+- (void) didReceiveMessage:(NSPacket *)pkg
+{
+    if ([[[pkg from] login] isEqualToString: self.title])
+    {
+        NSString *msg = [[pkg parameters] objectAtIndex: 0];
+        msg = [msg stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+    
+        MessageToken *token = [[MessageToken alloc] initWithMessage:msg andFrom: YES];
+        [arrayMsg addObject: token];
+    
+        [_tableView reloadData];
+        NSIndexPath * someRowAtIndexPath = [NSIndexPath indexPathForRow:[arrayMsg count] - 1 inSection: 0];
+        [_tableView scrollToRowAtIndexPath:someRowAtIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        [[NardinPool sharedObject] removePacket: pkg];
+    }
 }
 
 
