@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C09FB6D16E0FDB7007DE102 /* NetsoulCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C09FB6C16E0FDB7007DE102 /* NetsoulCore.m */; };
 		4C1155BE16B3377800AB563A /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1155BD16B3377800AB563A /* NSString+MD5.m */; };
 		4C139FC916D0482600952EA1 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C139FC816D0482600952EA1 /* SettingsViewController.m */; };
 		4C2212F416C650E600F63BF4 /* statut.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2212EE16C650E600F63BF4 /* statut.png */; };
@@ -25,7 +26,7 @@
 		4C22E47D16B592840099D524 /* NSPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C22E47C16B592840099D524 /* NSPacket.m */; };
 		4C22E48116B593410099D524 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C22E48016B593410099D524 /* User.m */; };
 		4C2C5D5E16D3DBFD0070A02A /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2C5D5D16D3DBFD0070A02A /* ConversationViewController.m */; };
-		4C61F02B16C136A8001964A9 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61F02A16C136A8001964A9 /* MessageViewController.m */; };
+		4C3FBB8F16DD529D007AE9EF /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FBB8E16DD529D007AE9EF /* ContactsViewController.m */; };
 		4C671C9E16C4716B0014CFC4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C671C9D16C4716B0014CFC4 /* LoginViewController.m */; };
 		4C8DAF5916B2F188003C7E19 /* NetsoulProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8DAF5816B2F188003C7E19 /* NetsoulProtocol.m */; };
 		4C916C9816AD62CA00CA1295 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916C9716AD62CA00CA1295 /* UIKit.framework */; };
@@ -38,7 +39,6 @@
 		4C916CAC16AD62CA00CA1295 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C916CAB16AD62CA00CA1295 /* Default@2x.png */; };
 		4C916CAE16AD62CA00CA1295 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C916CAD16AD62CA00CA1295 /* Default-568h@2x.png */; };
 		4C916CB116AD62CA00CA1295 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C916CAF16AD62CA00CA1295 /* MainStoryboard.storyboard */; };
-		4C916CB416AD62CA00CA1295 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C916CB316AD62CA00CA1295 /* RootViewController.m */; };
 		4C916CBC16AD62CA00CA1295 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916CBB16AD62CA00CA1295 /* SenTestingKit.framework */; };
 		4C916CBD16AD62CA00CA1295 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916C9716AD62CA00CA1295 /* UIKit.framework */; };
 		4C916CBE16AD62CA00CA1295 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916C9916AD62CA00CA1295 /* Foundation.framework */; };
@@ -46,6 +46,8 @@
 		4C916CC916AD62CA00CA1295 /* NardinSoulTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C916CC816AD62CA00CA1295 /* NardinSoulTests.m */; };
 		4C916CDE16AD942900CA1295 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C916CDD16AD942900CA1295 /* GCDAsyncSocket.m */; };
 		4C916CE116AD96D400CA1295 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916CE016AD96D400CA1295 /* CFNetwork.framework */; };
+		4CA5C69C16DE731D00B2ECFB /* UserPrezCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5C69B16DE731D00B2ECFB /* UserPrezCell.m */; };
+		4CA5C6A216DEBA0D00B2ECFB /* NSContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5C6A116DEBA0D00B2ECFB /* NSContact.m */; };
 		4CAC97FA16C53E7200BE141B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC97F916C53E7200BE141B /* MainViewController.m */; };
 		4CAC97FD16C544CA00BE141B /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC97FC16C544CA00BE141B /* CollectionViewCell.m */; };
 		4CB352E716D4DC7F00F666BD /* MessageToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB352E616D4DC7F00F666BD /* MessageToken.m */; };
@@ -99,6 +101,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C09FB6B16E0FDB6007DE102 /* NetsoulCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetsoulCore.h; sourceTree = "<group>"; };
+		4C09FB6C16E0FDB7007DE102 /* NetsoulCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetsoulCore.m; sourceTree = "<group>"; };
 		4C1155BC16B3377800AB563A /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		4C1155BD16B3377800AB563A /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		4C139FC716D0482600952EA1 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -125,8 +129,8 @@
 		4C22E48216B5E6FB0099D524 /* NetsoulViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetsoulViewProtocol.h; sourceTree = "<group>"; };
 		4C2C5D5C16D3DBFD0070A02A /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		4C2C5D5D16D3DBFD0070A02A /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
-		4C61F02916C136A8001964A9 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
-		4C61F02A16C136A8001964A9 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		4C3FBB8D16DD529D007AE9EF /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
+		4C3FBB8E16DD529D007AE9EF /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
 		4C671C9C16C4716B0014CFC4 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		4C671C9D16C4716B0014CFC4 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		4C8DAF5716B2F188003C7E19 /* NetsoulProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetsoulProtocol.h; sourceTree = "<group>"; };
@@ -145,8 +149,6 @@
 		4C916CAB16AD62CA00CA1295 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4C916CAD16AD62CA00CA1295 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4C916CB016AD62CA00CA1295 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		4C916CB216AD62CA00CA1295 /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		4C916CB316AD62CA00CA1295 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		4C916CBA16AD62CA00CA1295 /* NardinSoulTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NardinSoulTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C916CBB16AD62CA00CA1295 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		4C916CC316AD62CA00CA1295 /* NardinSoulTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NardinSoulTests-Info.plist"; sourceTree = "<group>"; };
@@ -156,6 +158,10 @@
 		4C916CDC16AD942900CA1295 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = NardinSoul/GCDAsyncSocket.h; sourceTree = "<group>"; };
 		4C916CDD16AD942900CA1295 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = NardinSoul/GCDAsyncSocket.m; sourceTree = "<group>"; };
 		4C916CE016AD96D400CA1295 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		4CA5C69A16DE731D00B2ECFB /* UserPrezCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPrezCell.h; sourceTree = "<group>"; };
+		4CA5C69B16DE731D00B2ECFB /* UserPrezCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPrezCell.m; sourceTree = "<group>"; };
+		4CA5C6A016DEBA0C00B2ECFB /* NSContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSContact.h; sourceTree = "<group>"; };
+		4CA5C6A116DEBA0D00B2ECFB /* NSContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSContact.m; sourceTree = "<group>"; };
 		4CAC97F816C53E7200BE141B /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		4CAC97F916C53E7200BE141B /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4CAC97FB16C544CA00BE141B /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
@@ -223,6 +229,78 @@
 			name = CollectionViewCell;
 			sourceTree = "<group>";
 		};
+		4C3FBB1A16DCD9AA007AE9EF /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				4C139FC716D0482600952EA1 /* SettingsViewController.h */,
+				4C139FC816D0482600952EA1 /* SettingsViewController.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		4C3FBB1C16DCDA0E007AE9EF /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				4C2C5D5C16D3DBFD0070A02A /* ConversationViewController.h */,
+				4C2C5D5D16D3DBFD0070A02A /* ConversationViewController.m */,
+			);
+			name = Conversation;
+			sourceTree = "<group>";
+		};
+		4C3FBB1D16DCDA21007AE9EF /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				4CAC97F816C53E7200BE141B /* MainViewController.h */,
+				4CAC97F916C53E7200BE141B /* MainViewController.m */,
+			);
+			name = MainView;
+			sourceTree = "<group>";
+		};
+		4C3FBB1E16DCDA2E007AE9EF /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				4C671C9C16C4716B0014CFC4 /* LoginViewController.h */,
+				4C671C9D16C4716B0014CFC4 /* LoginViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		4C3FBB1F16DCDA38007AE9EF /* ListMessageReceived */ = {
+			isa = PBXGroup;
+			children = (
+				4C22130816C65CD900F63BF4 /* UserCollectionViewController.h */,
+				4C22130916C65CD900F63BF4 /* UserCollectionViewController.m */,
+			);
+			name = ListMessageReceived;
+			sourceTree = "<group>";
+		};
+		4C3FBB2016DCDA5B007AE9EF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4C22130416C6517900F63BF4 /* CollectionViewCell */,
+				4CA5C69E16DE732500B2ECFB /* UserPresentationCell */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		4C3FBB2116DCDAB4007AE9EF /* Pool */ = {
+			isa = PBXGroup;
+			children = (
+				4CB352EA16D4F5D500F666BD /* NardinPool.h */,
+				4CB352EB16D4F5D500F666BD /* NardinPool.m */,
+			);
+			name = Pool;
+			sourceTree = "<group>";
+		};
+		4C3FBB8C16DD5259007AE9EF /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				4C3FBB8D16DD529D007AE9EF /* ContactsViewController.h */,
+				4C3FBB8E16DD529D007AE9EF /* ContactsViewController.m */,
+			);
+			name = Contacts;
+			sourceTree = "<group>";
+		};
 		4C916C8816AD62CA00CA1295 = {
 			isa = PBXGroup;
 			children = (
@@ -260,6 +338,7 @@
 		4C916C9D16AD62CA00CA1295 /* NardinSoul */ = {
 			isa = PBXGroup;
 			children = (
+				4C3FBB2016DCDA5B007AE9EF /* View */,
 				4CB352E916D4DD9100F666BD /* Model */,
 				4C916CA616AD62CA00CA1295 /* RootAppDelegate.h */,
 				4C916CA716AD62CA00CA1295 /* RootAppDelegate.m */,
@@ -364,30 +443,31 @@
 		4C9261B516BA8D330023EDB4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				4C139FC716D0482600952EA1 /* SettingsViewController.h */,
-				4C139FC816D0482600952EA1 /* SettingsViewController.m */,
-				4C22130816C65CD900F63BF4 /* UserCollectionViewController.h */,
-				4C22130916C65CD900F63BF4 /* UserCollectionViewController.m */,
-				4C671C9C16C4716B0014CFC4 /* LoginViewController.h */,
-				4C671C9D16C4716B0014CFC4 /* LoginViewController.m */,
-				4C61F02916C136A8001964A9 /* MessageViewController.h */,
-				4C61F02A16C136A8001964A9 /* MessageViewController.m */,
-				4C916CB216AD62CA00CA1295 /* RootViewController.h */,
-				4C916CB316AD62CA00CA1295 /* RootViewController.m */,
-				4CAC97F816C53E7200BE141B /* MainViewController.h */,
-				4CAC97F916C53E7200BE141B /* MainViewController.m */,
-				4C22130416C6517900F63BF4 /* CollectionViewCell */,
-				4C2C5D5C16D3DBFD0070A02A /* ConversationViewController.h */,
-				4C2C5D5D16D3DBFD0070A02A /* ConversationViewController.m */,
+				4C3FBB1A16DCD9AA007AE9EF /* Settings */,
+				4C3FBB1F16DCDA38007AE9EF /* ListMessageReceived */,
+				4C3FBB1E16DCDA2E007AE9EF /* Login */,
+				4C3FBB1D16DCDA21007AE9EF /* MainView */,
+				4C3FBB1C16DCDA0E007AE9EF /* Conversation */,
+				4C3FBB8C16DD5259007AE9EF /* Contacts */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		4CA5C69E16DE732500B2ECFB /* UserPresentationCell */ = {
+			isa = PBXGroup;
+			children = (
+				4CA5C69A16DE731D00B2ECFB /* UserPrezCell.h */,
+				4CA5C69B16DE731D00B2ECFB /* UserPrezCell.m */,
+			);
+			name = UserPresentationCell;
 			sourceTree = "<group>";
 		};
 		4CB352E916D4DD9100F666BD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4CB352EA16D4F5D500F666BD /* NardinPool.h */,
-				4CB352EB16D4F5D500F666BD /* NardinPool.m */,
+				4C09FB6B16E0FDB6007DE102 /* NetsoulCore.h */,
+				4C09FB6C16E0FDB7007DE102 /* NetsoulCore.m */,
+				4C3FBB2116DCDAB4007AE9EF /* Pool */,
 				4C916CDF16AD943200CA1295 /* Network */,
 				4C9261B416BA8D250023EDB4 /* Netsoul */,
 				4C9261B116BA8CFE0023EDB4 /* MD5 */,
@@ -395,6 +475,8 @@
 				4C9261B216BA8D0D0023EDB4 /* NSPacket */,
 				4CB352E516D4DC7F00F666BD /* MessageToken.h */,
 				4CB352E616D4DC7F00F666BD /* MessageToken.m */,
+				4CA5C6A016DEBA0C00B2ECFB /* NSContact.h */,
+				4CA5C6A116DEBA0D00B2ECFB /* NSContact.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -614,13 +696,11 @@
 			files = (
 				4C916CA416AD62CA00CA1295 /* main.m in Sources */,
 				4C916CA816AD62CA00CA1295 /* RootAppDelegate.m in Sources */,
-				4C916CB416AD62CA00CA1295 /* RootViewController.m in Sources */,
 				4C916CDE16AD942900CA1295 /* GCDAsyncSocket.m in Sources */,
 				4C8DAF5916B2F188003C7E19 /* NetsoulProtocol.m in Sources */,
 				4C1155BE16B3377800AB563A /* NSString+MD5.m in Sources */,
 				4C22E47D16B592840099D524 /* NSPacket.m in Sources */,
 				4C22E48116B593410099D524 /* User.m in Sources */,
-				4C61F02B16C136A8001964A9 /* MessageViewController.m in Sources */,
 				4C671C9E16C4716B0014CFC4 /* LoginViewController.m in Sources */,
 				4CAC97FA16C53E7200BE141B /* MainViewController.m in Sources */,
 				4CAC97FD16C544CA00BE141B /* CollectionViewCell.m in Sources */,
@@ -633,6 +713,10 @@
 				4C2C5D5E16D3DBFD0070A02A /* ConversationViewController.m in Sources */,
 				4CB352E716D4DC7F00F666BD /* MessageToken.m in Sources */,
 				4CB352EC16D4F5D500F666BD /* NardinPool.m in Sources */,
+				4C3FBB8F16DD529D007AE9EF /* ContactsViewController.m in Sources */,
+				4CA5C69C16DE731D00B2ECFB /* UserPrezCell.m in Sources */,
+				4CA5C6A216DEBA0D00B2ECFB /* NSContact.m in Sources */,
+				4C09FB6D16E0FDB7007DE102 /* NetsoulCore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

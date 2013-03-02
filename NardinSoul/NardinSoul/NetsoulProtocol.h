@@ -51,7 +51,7 @@ enum NS_ACTION {
     BOOL    isConnected;
 }
 
-@property(nonatomic, assign, readwrite ) id<NetsoulViewProtocol> delegate;
+@property(nonatomic, assign) id<NetsoulViewProtocol> delegate;
 
 
 /* 
@@ -72,15 +72,6 @@ enum NS_ACTION {
 
 + (NetsoulProtocol *)sharePointer;
 
-/*
- 
- Delegate conforms to the NetsoulViewProtocol
- 
- */
-
-- (void) setDelegate: (id) delegate;
-- (id)   delegate;
-
 
 /*
  
@@ -100,5 +91,5 @@ enum NS_ACTION {
 - (void) watchUsers: (NSArray *) users;
 - (void) listUsers: (NSArray *) users;
 - (void) setStatus: (NSString *) newStatus;
-
+- (BOOL) isConnected;
 @end

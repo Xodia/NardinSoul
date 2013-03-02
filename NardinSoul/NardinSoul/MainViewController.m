@@ -13,6 +13,9 @@
 #import "NetsoulProtocol.h"
 #import "CollectionIcon.h"
 #import "UserCollectionViewController.h"
+#import "NardinPool.h"
+#import "ContactsViewController.h"
+#import "User.h"
 
 @interface MainViewController ()
 
@@ -24,13 +27,9 @@
 {
     if ([[packet command] isEqualToString: @"msg"])
     {
-        if (!msgReceived)
-            msgReceived = [[NSMutableArray alloc]init];
-        [msgReceived addObject: packet];
-
        CollectionViewCell *cell = (CollectionViewCell *) [[self collectionView] cellForItemAtIndexPath: [NSIndexPath indexPathForItem: 0 inSection:0]];
-        [[cell label] setText: [NSString stringWithFormat: @"Messages(%d)", [msgReceived count]]];
         
+        [[cell label] setText: [NSString stringWithFormat: @"Messages(%d)", [[NardinPool sharedObject] numbersOfMessage]]];
     }
 }
 
@@ -46,6 +45,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NetsoulProtocol sharePointer] watchUsers: [[NardinPool sharedObject] contacts]];
+
 	// Do any additional setup after loading the view.
 }
 
@@ -56,7 +57,7 @@
     NetsoulProtocol *n = [NetsoulProtocol sharePointer];
     [n setDelegate: self];
     CollectionViewCell *cell = (CollectionViewCell *) [[self collectionView] cellForItemAtIndexPath: [NSIndexPath indexPathForItem: 0 inSection:0]];
-    [[cell label] setText: [NSString stringWithFormat: @"Messages(%d)", [msgReceived count]]];
+    [[cell label] setText: [NSString stringWithFormat: @"Messages(%d)", [[NardinPool sharedObject] numbersOfMessage]]];
 
     
     // reset le tableau des outlets
@@ -97,8 +98,6 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSLog(@"nbItemsInSection: %d", [items count] - (section * 3));
-
     if ([items count] < ((section + 1) * 3))
         return ([items count] % 3);
     else
@@ -107,13 +106,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    Bird *bird = [birds objectAtIndex:(indexPath.section*2 + indexPath.row)];
-    cell.label.text = bird.birdName;
-    cell.imageView.image = [UIImage imageNamed:bird.imageName];*/
-    
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier: @"Cell" forIndexPath: indexPath];
-    NSLog(@"Init: %d", (indexPath.section * 3) + indexPath.row);
     
     CollectionIcon *icon = [items objectAtIndex: (indexPath.section * 3) + indexPath.row];
     
@@ -127,16 +120,42 @@
 {        
     if (indexPath.row == 0 && indexPath.section == 0)
     {
-        UserCollectionViewController *rootView = [[self storyboard] instantiateViewControllerWithIdentifier:@"userCollectionViewController"];
-        [rootView setMsg: msgReceived];
-        
+        UserCollectionViewController *rootView = [[self storyboard] instantiateViewControllerWithIdentifier:@"userCollectionViewController"];        
         [[self navigationController] pushViewController: rootView animated: YES];
     }
     
+    if (indexPath.row == 0 && indexPath.section == 1)
+    {
+        ContactsViewController *rootView = [[self storyboard] instantiateViewControllerWithIdentifier:@"contactsViewController"];
+        [[self navigationController] pushViewController: rootView animated: YES];
+    }
+    
+    if (indexPath.section == 2 && indexPath.row == 0)
+    {
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Ajout contact" message:@"Login:" delegate:self cancelButtonTitle:@"Annuler" otherButtonTitles:@"OK", nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        UITextField * alertTextField = [alert textFieldAtIndex:0];
+        alertTextField.keyboardType = UIKeyboardTypeDefault;
+        alertTextField.placeholder = @"Enter your name";
+        [alert show];
+    }
     if (indexPath.section == 2 && indexPath.row == 1)
     {
         [[NetsoulProtocol sharePointer] disconnect];
         [self.navigationController popViewControllerAnimated: YES];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        NSLog(@"user pressed OK");
+        NSLog(@"Add contact: %@", [alertView textFieldAtIndex: 0].text);
+    }
+    else
+    {
+        NSLog(@"user pressed Cancel");
     }
 }
 

@@ -11,6 +11,7 @@
 #import "RootViewController.h"
 #import "MainViewController.h"
 #import "SettingsViewController.h"
+#import "NardinPool.h"
 
 @interface LoginViewController ()
 
@@ -101,6 +102,12 @@
         MainViewController *mainView = [[self storyboard] instantiateViewControllerWithIdentifier: @"mainViewController"];
         
         [[self navigationController] pushViewController: mainView animated: YES];
+        
+        // To thread !
+
+        
+     //   [[NetsoulProtocol sharePointer] watchUsers:[[NardinPool sharedObject] contacts]];
+       // [[NetsoulProtocol sharePointer] whoUsers: [[NardinPool sharedObject] contacts]];
     }
 }
 

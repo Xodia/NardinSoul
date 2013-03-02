@@ -24,7 +24,19 @@
     long lastStatusChangeTimestamp;
 }
 
-@property (nonatomic, assign) NSString *login;
+@property (nonatomic) NSString *login;
+@property (nonatomic) NSString *location;
+@property (nonatomic) NSString *group;
+@property (nonatomic) NSString *workstationType;
+@property (nonatomic) NSString *userHost;
+@property (nonatomic) NSString *status;
+@property (nonatomic) NSString *userData;
+@property (nonatomic) long loginTimestamp;
+@property (nonatomic) long lastStatusChangeTimestamp;
+@property (nonatomic) int  trustLevelHigh;
+@property (nonatomic) int     trustLevelLow;
+@property (nonatomic) int     socket;
+
 
 - (id) initWithUserInformations: (NSString *) infos;
 - (id) initWithListUserInformations: (NSString *) whoInfo;

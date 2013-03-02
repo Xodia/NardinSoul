@@ -28,8 +28,4 @@
 
 - (IBAction)launchSettingsView:(id)sender;
 - (IBAction)launchAuthentification:(id)sender;
-- (void) didReceivePaquetFromNS: (NSPacket *) packet;
-- (void) didAuthentificate: (bool) real;
-
-- (BOOL) textFieldShouldReturn:(UITextField *)textField;
 @end

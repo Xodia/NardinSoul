@@ -10,7 +10,7 @@
 #import "NSString+MD5.h"
 #import "User.h"
 #import "NSPacket.h"
-#import "NardinPool.h"
+#import "NetsoulCore.h"
 
 @implementation NetsoulProtocol
 
@@ -123,12 +123,12 @@ static NetsoulProtocol *sharePointer = nil;
     // call delegate's method.
     
     NSString *str = [cmdSelector objectForKey: [array objectAtIndex: 3]];
+
+    // Message && Who && State
+    [[NetsoulCore sharedObject] receptPacket: packet];
+    
     if (str && [delegate respondsToSelector: NSSelectorFromString(str)])
     {
-        if ([packet.command isEqualToString: @"msg"])
-        {
-            [[NardinPool sharedObject] addPacket: packet];
-        }
         [delegate performSelector: NSSelectorFromString(str) withObject: packet];
     }
     else if ([delegate respondsToSelector: @selector(didReceivePaquetFromNS:)])
@@ -137,6 +137,7 @@ static NetsoulProtocol *sharePointer = nil;
     }
     
     
+    // local notifications
     if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive && [[packet command] isEqualToString: @"msg"])
     {
         UILocalNotification *localNF = [[UILocalNotification alloc] init];
@@ -149,43 +150,33 @@ static NetsoulProtocol *sharePointer = nil;
         localNF.applicationIconBadgeNumber = localNF.applicationIconBadgeNumber + 1;
         [[UIApplication sharedApplication] scheduleLocalNotification:localNF];
     }
+    
+    NSLog(@"_____PACKET: %@", array);
 }
-
 
 - (void) sendPing: (NSArray *) array
 {
     [_socket writeData: [@"ping 600\n" dataUsingEncoding: NSUTF8StringEncoding] withTimeout: -1 tag: 42];
+    NSLog(@"SEND PING !");
     [_socket readDataWithTimeout: -1 tag: 42];
 }
 
 - (void) interpretCommand: (NSString *) command
 {
-    NSArray *array = [command componentsSeparatedByString: @" "];
-    
-    if ([array count] > 0)
+    NSArray *listPacket = [command componentsSeparatedByString: @"\n"];
+        
+    for (NSString *p in listPacket)
     {
-        if ([treatSelector objectForKey: [array objectAtIndex: 0]])
+        NSArray *array = [p componentsSeparatedByString: @" "];
+    
+        if ([array count] > 0)
         {
-            [self performSelector: NSSelectorFromString([treatSelector objectForKey: [array objectAtIndex: 0]]) withObject: array];
-        }
-        else
-        {
-            NSArray *sub = [command componentsSeparatedByString: @"\n"];
-            
-            for (NSString *s in sub)
+            if ([treatSelector objectForKey: [array objectAtIndex: 0]])
             {
-                if ([[[s componentsSeparatedByString: @" "] objectAtIndex: 0] isEqualToString: @"rep"])
-                {
-                    break;
-                }
-                //User *user = [[User alloc] initWith: s];
-                // send user to an delegate's method
-                
-               // [cmdSelector objectForKey: @"w"];
+                [self performSelector: NSSelectorFromString([treatSelector objectForKey: [array objectAtIndex: 0]]) withObject: array];
             }
         }
     }
-    NSLog(@"Command: %@", command);
 }
 
 /*
@@ -268,6 +259,7 @@ static NetsoulProtocol *sharePointer = nil;
     
     NSString *real = [NSString stringWithFormat: @"user_cmd msg_user %@ msg %@\n", varUser, escapedUrlString];
     [_socket writeData: [real dataUsingEncoding: NSUTF8StringEncoding] withTimeout:-1 tag: SEND_MSG];
+    [_socket readDataWithTimeout: -1 tag: 42];
 }
 
 /*
@@ -319,6 +311,7 @@ static NetsoulProtocol *sharePointer = nil;
     
     NSString *real = [NSString stringWithFormat: @"user_cmd watch_log_user %@\n", varUser];
     [_socket writeData: [real dataUsingEncoding: NSUTF8StringEncoding] withTimeout: -1 tag: WATCH_USERS];
+    [_socket readDataWithTimeout: -1 tag: 42];
 }
 
 - (void) whoUsers: (NSArray *) users
@@ -336,6 +329,7 @@ static NetsoulProtocol *sharePointer = nil;
     
     NSString *real = [NSString stringWithFormat: @"user_cmd who %@\n", varUser];
     [_socket writeData: [real dataUsingEncoding: NSUTF8StringEncoding] withTimeout: -1 tag: WHO_USERS];
+    [_socket readDataWithTimeout: -1 tag: 42];
 }
 
 
@@ -343,10 +337,20 @@ static NetsoulProtocol *sharePointer = nil;
     Delegate's methods (SOCKET)
  */
 
+- (BOOL) isConnected
+{
+    return isConnected;
+}
+
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err;
 {
-    NSLog(@"Error: Disconnected with error : %@", [err localizedDescription]);
+    NSLog(@"Nardin Error: Disconnected with error : %@", [err localizedDescription]);
+    isConnected = NO;
+    if ([delegate respondsToSelector: NSSelectorFromString(@"didDisconnect")])
+    {
+        [delegate performSelector: NSSelectorFromString(@"didDisconnect") withObject: nil];
+    }
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port;
@@ -391,12 +395,9 @@ static NetsoulProtocol *sharePointer = nil;
             
             NSString *hash = [NSString stringWithFormat: @"%@-%@/%@%@", hashMD5, hostClient, portClient, [prefs stringForKey: @"pass"]];
             NSString *hashr = [hash MD5String];
-            
-            NSLog(@"HASH: %@", hash);
             NSString *str = [NSString stringWithFormat: @"ext_user_log %@ %@ %@ %@\n", [prefs stringForKey:@"login"], [hashr lowercaseString], [[prefs stringForKey:@"location"] stringByAddingPercentEscapesUsingEncoding:
                                                                                                                         NSASCIIStringEncoding], [[prefs stringForKey:@"comments"] stringByAddingPercentEscapesUsingEncoding:
                                                                                                                                                  NSASCIIStringEncoding]];
-            NSLog(@"STRING : %@", str);
             [_socket writeData: [str dataUsingEncoding: NSUTF8StringEncoding]  withTimeout: 20 tag: CONNECT];
             [_socket readDataWithTimeout: 30 tag: CONNECT];
 
@@ -433,12 +434,14 @@ static NetsoulProtocol *sharePointer = nil;
         NSLog(@"AUTORISE_CO:[%@] with tag: %li", dataStr, tag);
     }
     else
-    {
-        NSLog(@"New read tag=%li", tag);
-        [_socket readDataWithTimeout: -1 tag: 42];
-        
+    {        
         // parsecmd
+        [_socket readDataWithTimeout: -1 tag: 42];
+
         [self interpretCommand: dataStr];
+        
+        [_socket readDataWithTimeout: -1 tag: 42];
+
     }
     
 #pragma TODO DO_PTR_TO_SELECTOR

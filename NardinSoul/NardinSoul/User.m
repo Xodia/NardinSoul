@@ -10,7 +10,7 @@
 
 @implementation User
 
-@synthesize  login;
+@synthesize  login, loginTimestamp, location, group, lastStatusChangeTimestamp, socket, status, trustLevelHigh, trustLevelLow, userData, userHost, workstationType;
 
 - (id) initWithUserInformations:(NSString *)infos
 {
@@ -116,22 +116,22 @@
 - (id) initWithWhoInformationsWithArray:(NSArray *) array
 {
     if (self = [super init])
-    {        
+    {
         if ([array count] == 12)
         {
-            socket = [[array objectAtIndex: 1] intValue];
-            login = [array objectAtIndex: 2];
-            userHost = [array objectAtIndex: 3];
+            socket = [[array objectAtIndex: 0] intValue];
+            login = [array objectAtIndex: 1];
+            userHost = [array objectAtIndex: 2];
             
-            loginTimestamp = [[array objectAtIndex: 4] longLongValue];
-            lastStatusChangeTimestamp = [[array objectAtIndex: 5] longLongValue];
-            trustLevelLow = [[array objectAtIndex: 6] intValue];
-            trustLevelHigh = [[array objectAtIndex: 7] intValue];
-            workstationType = [array objectAtIndex: 8];
-            location = [array objectAtIndex: 9];
-            group = [array objectAtIndex: 10];
-            status = [array objectAtIndex: 11];
-            userData = [array objectAtIndex: 12];
+            loginTimestamp = [[array objectAtIndex: 3] longLongValue];
+            lastStatusChangeTimestamp = [[array objectAtIndex: 4] longLongValue];
+            trustLevelLow = [[array objectAtIndex: 5] intValue];
+            trustLevelHigh = [[array objectAtIndex: 6] intValue];
+            workstationType = [array objectAtIndex: 7];
+            location = [[NSString alloc] initWithString: [[array objectAtIndex: 8]  stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
+            group = [[NSString alloc] initWithString: [[array objectAtIndex: 9]  stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
+            status = [[NSString alloc] initWithString: [[array objectAtIndex: 10]  stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
+            userData = [[NSString alloc] initWithString: [[array objectAtIndex: 11] stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
         }
         else
             NSLog(@"Error: Who Information error");

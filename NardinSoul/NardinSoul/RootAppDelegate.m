@@ -7,6 +7,7 @@
 //
 
 #import "RootAppDelegate.h"
+#import "NetsoulProtocol.h"
 
 @implementation RootAppDelegate
 
@@ -39,11 +40,13 @@
      */
     
     backgroundAccepted = YES;
-    while (backgroundAccepted == YES)
+    while (backgroundAccepted == YES && [[NetsoulProtocol sharePointer] isConnected])
     {
         UIApplicationState state = [[UIApplication sharedApplication] applicationState];
         if (state == UIApplicationStateActive)
             backgroundAccepted = NO;
+        
+        usleep(300);
     }
 }
 

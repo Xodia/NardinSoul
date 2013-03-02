@@ -9,6 +9,7 @@
 #import "NardinPool.h"
 #import "User.h"
 #import "NSPacket.h"
+#import "NSContact.h"
 
 @implementation NardinPool
 @synthesize messageReceived = _messageReceived;
@@ -20,7 +21,18 @@ static NardinPool *pool = nil;
    if (self = [super init])
    {
        _messageReceived = [[NSMutableDictionary alloc] init];
-   } 
+       contactData = [[NSMutableDictionary alloc] init];
+       NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey: @"contacts"];
+       
+       if (arr)
+       {
+           for (NSString *s in arr)
+           {
+               NSContact *c = [[NSContact alloc] initWithLogin: s];
+               [contactData setObject: c forKey: s];
+           }
+       }
+   }
     return self;
 }
 
@@ -33,7 +45,6 @@ static NardinPool *pool = nil;
 
 - (void) addPacket:(NSPacket *)packet
 {
-    NSLog(@"ADDPACKET");
     id obj = [_messageReceived objectForKey: [[packet from] login]];
     NSMutableArray *array;
     if ([obj isKindOfClass: [NSMutableArray class]])
@@ -46,7 +57,6 @@ static NardinPool *pool = nil;
     }
     [array addObject: packet];
     [_messageReceived setObject: array forKey: [[packet from] login]];
-    NSLog(@"MESSG: %@", _messageReceived);
 }
 
 - (void) removePacket: (NSPacket *) packet
@@ -66,6 +76,19 @@ static NardinPool *pool = nil;
     [_messageReceived removeObjectForKey: [[packet from] login]];
 }
 
+- (int) numbersOfMessage
+{    
+    int i = 0;
+    
+    for (NSString *x in _messageReceived)
+    {
+        NSMutableArray *arr = [_messageReceived objectForKey: x];
+        i += [arr count];
+    }
+    
+    return i;
+}
+
 - (void) removeKey: (NSString *) key
 {
     id obj = [_messageReceived objectForKey: key];
@@ -83,10 +106,112 @@ static NardinPool *pool = nil;
     [_messageReceived removeObjectForKey: key];
 }
 
+- (void)  addContactInfo: (User *) contact
+{
+    if (!contactData)
+        contactData = [[NSMutableDictionary alloc] init];
+    
+    NSContact  *c = [contactData objectForKey: contact.login];
+    if (c)
+    {
+        [c putConnection: contact];
+    }
+}
+
+- (void)  removeContactInfo: (User *) contact
+{
+    if (!contactData)
+        return;
+    NSContact  *c = [contactData objectForKey: contact.login];
+    if (c)
+    {
+        [c removeConnection: contact];
+    }
+}
+
+- (void) updateContactInfo: (User *) contact withNewStatus: (NSString *) status;
+{
+    if (!contactData)
+        contactData = [[NSMutableDictionary alloc] init];
+    
+    NSContact  *c = [contactData objectForKey: contact.login];
+    if (c)
+    {
+        [c updateConnection: contact withNewStatus: status];
+    }
+}
+
+- (void) removeContactInfoByName: (NSString *) name
+{    
+    if (!contactData)
+        return;
+    [contactData removeObjectForKey: name];
+}
+
+- (NSMutableDictionary *) contactsInfo
+{
+    if (!contactData)
+    {
+        contactData = [[NSMutableDictionary alloc] init];
+    }
+    return (contactData);
+}
+
+- (void)  addContact: (NSString *) contact
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey: @"contacts"]];
+        
+    for (NSString *u in arr)
+    {
+        if ([contact isEqualToString: u])
+            return;
+    }
+    
+    //[[[NSUserDefaults standardUserDefaults] objectForKey: @"contacts"] release];
+    
+    NSLog(@"CLASS: %@", [arr class]);
+    
+    [arr addObject: contact];
+    
+    NSLog(@"______");
+    NSContact *c = [[NSContact alloc] initWithLogin: contact];
+    [contactData setObject: c forKey: contact];
+
+    [[NSUserDefaults standardUserDefaults] setObject: arr forKey: @"contacts"];
+}
+
+- (void)  removeContact: (NSString *) contact
+{
+    NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey: @"contacts"];
+    
+    if (!arr)
+        return;
+    for (NSString *u in arr)
+    {
+        if ([u isEqualToString: contact])
+            [arr removeObject: u];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject: arr forKey: @"contacts"];
+}
+
+
+- (NSMutableArray *) contacts
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *array = (NSMutableArray *)[prefs objectForKey: @"contacts"];
+    if (!array)
+    {
+        array = [[NSMutableArray alloc] init];
+        [prefs setObject: array forKey: @"contacts"];
+    }
+    return (array);
+}
+
+
 - (void) dealloc
 {
     if (_messageReceived)
-        [_messageReceived release];
+        [_messageReceived release] ;
     
     [super dealloc];
 }

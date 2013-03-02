@@ -10,17 +10,10 @@
 #import "NetsoulViewProtocol.h"
 @class NSPacket;
 
-@interface MainViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate, NetsoulViewProtocol>
+@interface MainViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate, NetsoulViewProtocol, UIAlertViewDelegate>
 {
     NSArray  *items;
     NSMutableArray *msgReceived;
 }
 
-- (void) didReceivePaquetFromNS: (NSPacket *) packet;
-
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView;
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section;
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 @end
