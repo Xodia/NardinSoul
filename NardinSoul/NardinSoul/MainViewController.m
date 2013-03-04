@@ -31,6 +31,8 @@
         
         [[cell label] setText: [NSString stringWithFormat: @"Messages(%d)", [[NardinPool sharedObject] numbersOfMessage]]];
     }
+    else
+        NSLog(@"GOT PACKET!");
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -44,8 +46,12 @@
 
 - (void)viewDidLoad
 {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+                                             (unsigned long)NULL), ^(void) {
+        [[NetsoulProtocol sharePointer] watchUsers:[[NardinPool sharedObject] contacts]];
+        [[NetsoulProtocol sharePointer] whoUsers: [[NardinPool sharedObject] contacts]];
+    });
     [super viewDidLoad];
-    [[NetsoulProtocol sharePointer] watchUsers: [[NardinPool sharedObject] contacts]];
 
 	// Do any additional setup after loading the view.
 }

@@ -13,6 +13,7 @@
 #import "User.h"
 #import "CollectionViewCell.h"
 #import "NSContact.h"
+#import "UserDetailViewController.h"
 
 @interface ContactsViewController ()
 {
@@ -57,6 +58,8 @@
         NSLog(@"user pressed Cancel");
     }
 }
+
+
 
 
 - (void) viewWillAppear:(BOOL)animated
@@ -137,6 +140,12 @@
     CollectionViewCell *cell = (CollectionViewCell *)[self.collectionView cellForItemAtIndexPath: indexPath];
     NSString *login = [[cell label] text];
     NSLog(@"Selected: %@", login);
+    
+    
+    UserDetailViewController *rootView = [[self storyboard] instantiateViewControllerWithIdentifier:@"userDetailViewController"];
+    [rootView setUser: [[[NardinPool sharedObject] contactsInfo] objectForKey: login]];
+    [[self navigationController] pushViewController: rootView animated: YES];
+    
 }
 
 

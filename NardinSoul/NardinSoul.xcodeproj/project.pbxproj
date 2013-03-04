@@ -28,6 +28,7 @@
 		4C2C5D5E16D3DBFD0070A02A /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2C5D5D16D3DBFD0070A02A /* ConversationViewController.m */; };
 		4C3FBB8F16DD529D007AE9EF /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FBB8E16DD529D007AE9EF /* ContactsViewController.m */; };
 		4C671C9E16C4716B0014CFC4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C671C9D16C4716B0014CFC4 /* LoginViewController.m */; };
+		4C8170B916E4074400380F06 /* UserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8170B816E4074400380F06 /* UserDetailViewController.m */; };
 		4C8DAF5916B2F188003C7E19 /* NetsoulProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8DAF5816B2F188003C7E19 /* NetsoulProtocol.m */; };
 		4C916C9816AD62CA00CA1295 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916C9716AD62CA00CA1295 /* UIKit.framework */; };
 		4C916C9A16AD62CA00CA1295 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916C9916AD62CA00CA1295 /* Foundation.framework */; };
@@ -133,6 +134,8 @@
 		4C3FBB8E16DD529D007AE9EF /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
 		4C671C9C16C4716B0014CFC4 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		4C671C9D16C4716B0014CFC4 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		4C8170B716E4074400380F06 /* UserDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailViewController.h; sourceTree = "<group>"; };
+		4C8170B816E4074400380F06 /* UserDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailViewController.m; sourceTree = "<group>"; };
 		4C8DAF5716B2F188003C7E19 /* NetsoulProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetsoulProtocol.h; sourceTree = "<group>"; };
 		4C8DAF5816B2F188003C7E19 /* NetsoulProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetsoulProtocol.m; sourceTree = "<group>"; };
 		4C916C9316AD62CA00CA1295 /* NardinSoul.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NardinSoul.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -297,6 +300,8 @@
 			children = (
 				4C3FBB8D16DD529D007AE9EF /* ContactsViewController.h */,
 				4C3FBB8E16DD529D007AE9EF /* ContactsViewController.m */,
+				4C8170B716E4074400380F06 /* UserDetailViewController.h */,
+				4C8170B816E4074400380F06 /* UserDetailViewController.m */,
 			);
 			name = Contacts;
 			sourceTree = "<group>";
@@ -717,6 +722,7 @@
 				4CA5C69C16DE731D00B2ECFB /* UserPrezCell.m in Sources */,
 				4CA5C6A216DEBA0D00B2ECFB /* NSContact.m in Sources */,
 				4C09FB6D16E0FDB7007DE102 /* NetsoulCore.m in Sources */,
+				4C8170B916E4074400380F06 /* UserDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
