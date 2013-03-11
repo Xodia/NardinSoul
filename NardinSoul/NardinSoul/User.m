@@ -38,12 +38,12 @@
             trustLevelLow = [[subar objectAtIndex:0] intValue];
             trustLevelHigh = [[subar objectAtIndex:1] intValue];
             subar = [[array objectAtIndex: 3] componentsSeparatedByString: @"@"];
-            NSLog(@"LOGIN: %@", [subar objectAtIndex: 0]);
             login = [[NSString alloc] initWithString: [subar objectAtIndex: 0]];
-            userHost = [subar objectAtIndex: 1];
+            userHost = [[NSString alloc] initWithString:[subar objectAtIndex: 1]];
+
             workstationType = [array objectAtIndex: 4];
-            location = [array objectAtIndex: 5];
-            group = [array objectAtIndex: 6];
+            location = [[NSString alloc] initWithString:[array objectAtIndex: 5]];
+            group = [[NSString alloc] initWithString: [array objectAtIndex: 6]];
         }
         else
             NSLog(@"Error: User Information error");
@@ -61,54 +61,24 @@
     {
         NSArray *array = [whoInfo componentsSeparatedByString: @" "];
 
-        if ([array count] == 13)
+        if ([array count] > 11)
         {
             socket = [[array objectAtIndex: 0] intValue];
-            login = [array objectAtIndex: 1];
-            userHost = [array objectAtIndex: 2];
+            login = [[NSString alloc] initWithString: [array objectAtIndex: 1]];
+            userHost = [[NSString alloc] initWithString: [array objectAtIndex: 2]];
             
             loginTimestamp = [[array objectAtIndex: 3] longLongValue];
             lastStatusChangeTimestamp = [[array objectAtIndex: 4] longLongValue];
             trustLevelLow = [[array objectAtIndex: 5] intValue];
             trustLevelHigh = [[array objectAtIndex: 6] intValue];
             workstationType = [array objectAtIndex: 7];
-            location = [array objectAtIndex: 8];
-            group = [array objectAtIndex: 9];
-            status = [array objectAtIndex: 10];
-            userData = [array objectAtIndex: 11];
+            location = [[NSString alloc] initWithString: [array objectAtIndex: 8]];
+            group = [[NSString alloc] initWithString: [array objectAtIndex: 9]];
+            status = [[NSString alloc] initWithString: [array objectAtIndex: 10]];
+            userData = [[NSString alloc] initWithString: [array objectAtIndex: 11]];
         }
         else
             NSLog(@"Error: List user Information error");
-    }
-    return (self);
-}
-
-
-- (id) initWithWhoInformations:(NSString *)info
-{
-    // who <socket> <login> <user host> <login timestamp> <last change timestamp> <trust level low> <trust level high> <workstation type> <location> <group> <status> <user data>
-    if (self = [super init])
-    {
-        NSArray *array = [info componentsSeparatedByString: @" "];
-        
-        if ([array count] == 12)
-        {
-            socket = [[array objectAtIndex: 0] intValue];
-            login = [array objectAtIndex: 1];
-            userHost = [array objectAtIndex: 2];
-            
-            loginTimestamp = [[array objectAtIndex: 3] longLongValue];
-            lastStatusChangeTimestamp = [[array objectAtIndex: 4] longLongValue];
-            trustLevelLow = [[array objectAtIndex: 5] intValue];
-            trustLevelHigh = [[array objectAtIndex: 6] intValue];
-            workstationType = [array objectAtIndex: 7];
-            location = [array objectAtIndex: 8];
-            group = [array objectAtIndex: 9];
-            status = [array objectAtIndex: 10];
-            userData = [array objectAtIndex: 11];
-        }
-        else
-            NSLog(@"Error: Who Information error");
     }
     return (self);
 }
@@ -120,8 +90,8 @@
         if ([array count] == 12)
         {
             socket = [[array objectAtIndex: 0] intValue];
-            login = [array objectAtIndex: 1];
-            userHost = [array objectAtIndex: 2];
+            login = [[NSString alloc] initWithString: [array objectAtIndex: 1]];
+            userHost = [[NSString alloc] initWithString: [array objectAtIndex: 2]];
             
             loginTimestamp = [[array objectAtIndex: 3] longLongValue];
             lastStatusChangeTimestamp = [[array objectAtIndex: 4] longLongValue];
@@ -141,6 +111,12 @@
 
 - (void) dealloc
 {
+    if (location) [location release];
+    if (group) [group release];
+    if (status) [status release];
+    if (userData) [userData release];
+    if (userHost) [userHost release];
+    if (login) [login release];
     [super dealloc];
 }
 

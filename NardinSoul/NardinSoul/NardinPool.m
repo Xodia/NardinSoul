@@ -12,7 +12,7 @@
 #import "NSContact.h"
 
 @implementation NardinPool
-@synthesize messageReceived = _messageReceived;
+@synthesize messageReceived = _messageReceived, contactsInfo = _contactsInfo;
 
 static NardinPool *pool = nil;
 
@@ -21,7 +21,7 @@ static NardinPool *pool = nil;
    if (self = [super init])
    {
        _messageReceived = [[NSMutableDictionary alloc] init];
-       contactData = [[NSMutableDictionary alloc] init];
+       _contactsInfo = [[NSMutableDictionary alloc] init];
        NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey: @"contacts"];
        
        if (arr)
@@ -29,7 +29,7 @@ static NardinPool *pool = nil;
            for (NSString *s in arr)
            {
                NSContact *c = [[NSContact alloc] initWithLogin: s];
-               [contactData setObject: c forKey: s];
+               [_contactsInfo setObject: c forKey: s];
            }
        }
    }
@@ -42,6 +42,8 @@ static NardinPool *pool = nil;
         pool = [[NardinPool alloc] init];
     return  pool;
 }
+
+#pragma ADD_MSG_PACKET_TO_THE_POOL
 
 - (void) addPacket:(NSPacket *)packet
 {
@@ -86,6 +88,11 @@ static NardinPool *pool = nil;
         i += [arr count];
     }
     
+    // ajout BDD ?
+    // si l'app plante -> on a encore les messages non lus
+    // Message { _token, _hasBeenRead, _from, _to, _timestamp }
+    // Predicate => _hasBeenRead == FALSE => return [NSSet count];
+    
     return i;
 }
 
@@ -100,29 +107,44 @@ static NardinPool *pool = nil;
         {
             [object release];
         }
-        
         [array release];
     }
     [_messageReceived removeObjectForKey: key];
 }
 
+
+// Who & State
+#pragma METHOD_INFO_ON_CONTACT
+
 - (void)  addContactInfo: (User *) contact
 {
-    if (!contactData)
-        contactData = [[NSMutableDictionary alloc] init];
-    
-    NSContact  *c = [contactData objectForKey: contact.login];
+    if (!_contactsInfo)
+        _contactsInfo = [[NSMutableDictionary alloc] init];
+    NSContact  *c = [_contactsInfo objectForKey: contact.login];
+    NSLog(@"Contact : %@ %d", c, c.retainCount);
     if (c)
     {
         [c putConnection: contact];
     }
 }
 
+- (void) flushInfo
+{
+    if (_contactsInfo)
+    {
+        for (NSString *k in _contactsInfo)
+        {
+            NSContact *c = [_contactsInfo objectForKey: k];
+            [c flush];
+        }
+    }
+}
+
 - (void)  removeContactInfo: (User *) contact
 {
-    if (!contactData)
+    if (!_contactsInfo)
         return;
-    NSContact  *c = [contactData objectForKey: contact.login];
+    NSContact  *c = [_contactsInfo objectForKey: contact.login];
     if (c)
     {
         [c removeConnection: contact];
@@ -131,10 +153,9 @@ static NardinPool *pool = nil;
 
 - (void) updateContactInfo: (User *) contact withNewStatus: (NSString *) status;
 {
-    if (!contactData)
-        contactData = [[NSMutableDictionary alloc] init];
-    
-    NSContact  *c = [contactData objectForKey: contact.login];
+    if (!_contactsInfo)
+        _contactsInfo = [[NSMutableDictionary alloc] init];
+    NSContact  *c = [_contactsInfo objectForKey: contact.login];
     if (c)
     {
         [c updateConnection: contact withNewStatus: status];
@@ -142,20 +163,18 @@ static NardinPool *pool = nil;
 }
 
 - (void) removeContactInfoByName: (NSString *) name
-{    
-    if (!contactData)
-        return;
-    [contactData removeObjectForKey: name];
+{
+    @synchronized(_contactsInfo)
+    {
+        if (!_contactsInfo)
+            return;
+        [_contactsInfo removeObjectForKey: name];
+    }
 }
 
-- (NSMutableDictionary *) contactsInfo
-{
-    if (!contactData)
-    {
-        contactData = [[NSMutableDictionary alloc] init];
-    }
-    return (contactData);
-}
+#pragma METHOD_CONTACT
+
+#pragma TODO_CONTACT_ON_BDD
 
 - (void)  addContact: (NSString *) contact
 {
@@ -166,18 +185,13 @@ static NardinPool *pool = nil;
         if ([contact isEqualToString: u])
             return;
     }
-    
-    //[[[NSUserDefaults standardUserDefaults] objectForKey: @"contacts"] release];
-    
-    NSLog(@"CLASS: %@", [arr class]);
-    
+        
     [arr addObject: contact];
-    
-    NSLog(@"______");
     NSContact *c = [[NSContact alloc] initWithLogin: contact];
-    [contactData setObject: c forKey: contact];
+    [_contactsInfo setObject: c forKey: contact];
 
     [[NSUserDefaults standardUserDefaults] setObject: arr forKey: @"contacts"];
+    [arr release];
 }
 
 - (void)  removeContact: (NSString *) contact
@@ -203,6 +217,8 @@ static NardinPool *pool = nil;
     {
         array = [[NSMutableArray alloc] init];
         [prefs setObject: array forKey: @"contacts"];
+        [array release];
+        array = (NSMutableArray *)[prefs objectForKey: @"contacts"];
     }
     return (array);
 }
@@ -212,7 +228,8 @@ static NardinPool *pool = nil;
 {
     if (_messageReceived)
         [_messageReceived release] ;
-    
+    if (_contactsInfo)
+        [_contactsInfo release];
     [super dealloc];
 }
 

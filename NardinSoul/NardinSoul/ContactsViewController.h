@@ -8,7 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "NetsoulViewProtocol.h"
+#import "CollectionViewCell.h"
 
-@interface ContactsViewController : UICollectionViewController <NetsoulViewProtocol, UIAlertViewDelegate>
+@class MenuViewController;
+
+@interface ContactsViewController : UIViewController <NetsoulViewProtocol, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, MenuViewProtocol>
+{
+    BOOL                isMenuShowed;
+}
+
+- (IBAction)showMenu:(id)sender;
+
+@property(nonatomic, retain) IBOutlet UITableView *tableView;
+@property(nonatomic, retain) IBOutlet UICollectionView *collectionView;
 
 @end

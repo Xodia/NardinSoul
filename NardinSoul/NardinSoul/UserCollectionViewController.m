@@ -16,13 +16,14 @@
 #import "User.h"
 #import "ConversationViewController.h"
 #import "NardinPool.h"
+#import "NSContact.h"
 
 @implementation UserCollectionViewController
 @synthesize msg;
 
 - (void) didReceivePaquetFromNS: (NSPacket *) packet
 {
-    /*if ([[packet command] isEqualToString: @"msg"])
+    if ([[packet command] isEqualToString: @"msg"])
     {
         if (!msg)
             msg = [[NSMutableArray alloc] init];
@@ -35,15 +36,13 @@
         [items addObject: collection];
         
         [[self collectionView] reloadData];
-    }*/
+    }
 }
 
 - (void) didReceiveMessage:(NSPacket *)pkg
 {
     NSMutableDictionary *dic = [[NardinPool sharedObject] messageReceived];
-    
-    NSLog(@"Count: %d/%d", [dic count], [items count]);
-    
+        
     if ([dic count] == [items count])
         return;
     
@@ -114,6 +113,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) didDisconnect
+{
+    [[self navigationController] popToRootViewControllerAnimated: YES];
+}
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     int i = 0;
@@ -137,46 +141,44 @@
 {
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier: @"Cell" forIndexPath: indexPath];
     CollectionIcon *icon = [items objectAtIndex: (indexPath.section * 3) + indexPath.row];
-    
     cell.label.text = [icon key];
 
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-    dispatch_async(queue, ^{
+    NSContact *c = [[[NardinPool sharedObject] contactsInfo] objectForKey: [icon key]];
+
+    if (c)
+    {
+        [cell.image setImage: c.img];
+        if ([[c infos] count] > 0)
+            [cell.round setImage: [UIImage imageNamed: @"round_green.png"]];
+    }
+    else
+    {
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+            dispatch_async(queue, ^{
         
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [icon path]]]];
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [cell.image setImage: image];
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [icon path]]]];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [cell.image setImage: image];
+            });
         });
-    });
+    }
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    //NSPacket *packet = [msg objectAtIndex: indexPath.row];
-    
+{    
     ConversationViewController *ctrl = [[ConversationViewController alloc] initWithNibName: nil bundle:nil];
-    //[ctrl setPacket: packet];
     
-    
-   // NSPacket *pkt = [msg objectAtIndex: (indexPath.section * 3) + indexPath.row];
     CollectionIcon *icon = [items objectAtIndex: (indexPath.section * 3) + indexPath.row];
-   // [msg removeObjectAtIndex: (indexPath.section * 3) + indexPath.row];
-
     NSArray *array = [[[NardinPool sharedObject] messageReceived] objectForKey: icon.key];
     [ctrl addMessage: array];
     [ctrl setTitle: icon.key];
     [items removeObjectAtIndex: (indexPath.section * 3) + indexPath.row];
-    //[pkt release];
     [[NardinPool sharedObject] removeKey: icon.key];
 
     [icon release];
-    
-    [[self navigationController] pushViewController: ctrl animated:YES];
-    
-    
+    [[self navigationController] pushViewController: ctrl animated:YES];    
     [[self collectionView] reloadData];
-    
 }
 
 - (void) dealloc

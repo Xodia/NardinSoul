@@ -6,11 +6,10 @@
 	<true/>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>external-accessory</string>
 		<string>voip</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>fr_FR</string>
 	<key>CFBundleDisplayName</key>
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleExecutable</key>

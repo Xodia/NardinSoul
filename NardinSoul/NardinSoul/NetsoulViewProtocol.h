@@ -27,11 +27,7 @@
 - (void) didReceiveWhoInformations: (NSPacket*) info;
 - (void) didReceiveListUserInformations: (NSPacket *) info;
 - (void) didReceiveLogOfUser: (NSPacket*) info;
-
 - (void) didReceiveStatusResponse: (bool) response;
 - (bool) reconnectIfDisconnected;
 
-//- (bool) didReceiveMsgInBackground: (User*) from withMsg: (NSString *)msg;
-
-#pragma TODO  IMPLEMENT_METHOD_TO_NETSOUL_PROTOCOL
 @end

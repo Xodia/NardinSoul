@@ -14,7 +14,7 @@
 @interface NardinPool : NSObject
 {
     NSMutableDictionary *messageReceived;
-    NSMutableDictionary *contactData;
+    NSMutableDictionary *contactsInfo;
 }
 
 + (NardinPool *) sharedObject;
@@ -33,6 +33,8 @@
 - (NSMutableDictionary *) contactsInfo;
 
 - (int) numbersOfMessage;
+- (void) flushInfo;
 
 @property (nonatomic, assign) NSMutableDictionary *messageReceived;
+@property (nonatomic, assign) NSMutableDictionary *contactsInfo;
 @end

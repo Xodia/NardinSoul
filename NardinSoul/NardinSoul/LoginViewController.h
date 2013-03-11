@@ -18,12 +18,15 @@
     BOOL        isConnected;
     UIButton    *req;
     UIButton *settings;
+    BOOL        isChecked;
+    BOOL        isUp;
 }
 
 @property (nonatomic, retain) IBOutlet UITextField *login;
 @property (nonatomic, retain) IBOutlet UITextField *password;
 @property (nonatomic, retain) IBOutlet UIButton *req;
 @property (nonatomic, retain) IBOutlet UIButton *settings;
+@property (nonatomic, retain) IBOutlet UIButton *checkbox;
 
 
 - (IBAction)launchSettingsView:(id)sender;

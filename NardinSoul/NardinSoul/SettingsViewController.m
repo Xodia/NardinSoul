@@ -25,6 +25,13 @@
     return self;
 }
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    [[[self navigationController] navigationBar] setHidden: NO];
+
+    [super viewWillAppear: animated];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

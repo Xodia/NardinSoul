@@ -7,19 +7,77 @@
 //
 
 #import "RootAppDelegate.h"
+#import <CoreData/CoreData.h>
 #import "NetsoulProtocol.h"
 
 @implementation RootAppDelegate
 
+@synthesize  managedObjectContext, managedObjectModel, persistentStoreCoordinator;
+
 - (void)dealloc
 {
+    [managedObjectContext release];
+    [managedObjectModel release];
+    [persistentStoreCoordinator release];
+    
     [_window release];
     [super dealloc];
 }
 
+- (NSManagedObjectContext *) managedObjectContext {
+    if (managedObjectContext != nil) {
+        return managedObjectContext;
+    }
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (coordinator != nil) {
+        managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [managedObjectContext setPersistentStoreCoordinator: coordinator];
+    }
+    
+    return managedObjectContext;
+}
+
+- (NSManagedObjectModel *)managedObjectModel {
+    if (managedObjectModel != nil) {
+        return managedObjectModel;
+    }
+    managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
+    
+    return managedObjectModel;
+}
+
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+    if (persistentStoreCoordinator != nil) {
+        return persistentStoreCoordinator;
+    }
+    NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory]
+                                               stringByAppendingPathComponent: @"nardinsoul.sqlite"]];
+    NSError *error = nil;
+    persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
+                                  initWithManagedObjectModel:[self managedObjectModel]];
+    if(![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                 configuration:nil URL:storeUrl options:nil error:&error]) {
+        /*Error for store creation should be handled in here*/
+    }
+    
+    return persistentStoreCoordinator;
+}
+
+- (NSString *)applicationDocumentsDirectory {
+    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+}
+
+/* (...Existing Application Code...) */
+
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     // Override point for customization after application launch.
+    
+    [[NetsoulProtocol sharePointer] setManagedObjectContext: self.managedObjectContext];
+    
     return YES;
 }
 							
@@ -36,7 +94,7 @@
     /*
      
         Simulating infinite loop for keeping network working in background
-     
+        Pseudo hack to keep the socket alive.
      */
     
     backgroundAccepted = YES;
@@ -55,7 +113,7 @@
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
-    //backgroundAccepted = [[UIApplication sharedApplication] setKeepAliveTimeout:600 handler:^{ [self backgroundHandler]; }];
+
     [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler: ^{ [self backgroundHandler]; }];
 
 

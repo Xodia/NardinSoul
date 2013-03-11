@@ -49,10 +49,13 @@ enum NS_ACTION {
     NSMutableDictionary *treatSelector;
 
     BOOL    isConnected;
+    
+    NSString     *lastExpression;
 }
 
 @property(nonatomic, assign) id<NetsoulViewProtocol> delegate;
 
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 /* 
  socket methods from delegate

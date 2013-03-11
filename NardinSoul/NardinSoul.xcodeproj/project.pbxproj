@@ -25,9 +25,19 @@
 		4C22130A16C65CD900F63BF4 /* UserCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C22130916C65CD900F63BF4 /* UserCollectionViewController.m */; };
 		4C22E47D16B592840099D524 /* NSPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C22E47C16B592840099D524 /* NSPacket.m */; };
 		4C22E48116B593410099D524 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C22E48016B593410099D524 /* User.m */; };
+		4C2409BE16E956D9004AFA68 /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2409BD16E956D9004AFA68 /* CreditsViewController.m */; };
 		4C2C5D5E16D3DBFD0070A02A /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2C5D5D16D3DBFD0070A02A /* ConversationViewController.m */; };
+		4C2ECBDF16E4A9BB007B5EDC /* round_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2ECBDC16E4A9BB007B5EDC /* round_green.png */; };
+		4C2ECBE016E4A9BB007B5EDC /* round_orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2ECBDD16E4A9BB007B5EDC /* round_orange.png */; };
+		4C2ECBE116E4A9BB007B5EDC /* round_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2ECBDE16E4A9BB007B5EDC /* round_red.png */; };
+		4C35BBB816E779D800C8A061 /* loginview.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C35BBB716E779D800C8A061 /* loginview.png */; };
+		4C35BBBB16E77DD000C8A061 /* Lama.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C35BBBA16E77DD000C8A061 /* Lama.jpg */; };
+		4C35BBBE16E785FE00C8A061 /* checkbox_checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C35BBBC16E785FE00C8A061 /* checkbox_checked.png */; };
+		4C35BBBF16E785FE00C8A061 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C35BBBD16E785FE00C8A061 /* checkbox.png */; };
 		4C3FBB8F16DD529D007AE9EF /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3FBB8E16DD529D007AE9EF /* ContactsViewController.m */; };
 		4C671C9E16C4716B0014CFC4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C671C9D16C4716B0014CFC4 /* LoginViewController.m */; };
+		4C7C0E9B16E8DC4F004A57C1 /* no.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C7C0E9A16E8DC4F004A57C1 /* no.jpg */; };
+		4C7C0E9E16E8E606004A57C1 /* 19-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7C0E9D16E8E606004A57C1 /* 19-gear.png */; };
 		4C8170B916E4074400380F06 /* UserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8170B816E4074400380F06 /* UserDetailViewController.m */; };
 		4C8DAF5916B2F188003C7E19 /* NetsoulProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8DAF5816B2F188003C7E19 /* NetsoulProtocol.m */; };
 		4C916C9816AD62CA00CA1295 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916C9716AD62CA00CA1295 /* UIKit.framework */; };
@@ -49,7 +59,6 @@
 		4C916CE116AD96D400CA1295 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C916CE016AD96D400CA1295 /* CFNetwork.framework */; };
 		4CA5C69C16DE731D00B2ECFB /* UserPrezCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5C69B16DE731D00B2ECFB /* UserPrezCell.m */; };
 		4CA5C6A216DEBA0D00B2ECFB /* NSContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5C6A116DEBA0D00B2ECFB /* NSContact.m */; };
-		4CAC97FA16C53E7200BE141B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC97F916C53E7200BE141B /* MainViewController.m */; };
 		4CAC97FD16C544CA00BE141B /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC97FC16C544CA00BE141B /* CollectionViewCell.m */; };
 		4CB352E716D4DC7F00F666BD /* MessageToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB352E616D4DC7F00F666BD /* MessageToken.m */; };
 		4CB352EC16D4F5D500F666BD /* NardinPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB352EB16D4F5D500F666BD /* NardinPool.m */; };
@@ -68,6 +77,12 @@
 		4CB3F78616D3D0B90043EF79 /* SSMessageTableViewCellBackgroundClear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB3F77916D3D0B90043EF79 /* SSMessageTableViewCellBackgroundClear@2x.png */; };
 		4CB3F78716D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB3F77A16D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen.png */; };
 		4CB3F78816D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB3F77B16D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen@2x.png */; };
+		4CCAA2E016EBD435006E8BDD /* MessageModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4CCAA2DE16EBD435006E8BDD /* MessageModel.xcdatamodeld */; };
+		4CCAA2E416EBD727006E8BDD /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCAA2E316EBD727006E8BDD /* Message.m */; };
+		4CCAA2E616ECD86A006E8BDD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CCAA2E516ECD86A006E8BDD /* CoreData.framework */; };
+		4CCAA2ED16ED0251006E8BDD /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCAA2EC16ED0251006E8BDD /* Account.m */; };
+		4CCAA2F016ED0252006E8BDD /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCAA2EF16ED0252006E8BDD /* Contact.m */; };
+		4CEBB50C16E61C3D00D3D8E2 /* ConnectionDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBB50B16E61C3D00D3D8E2 /* ConnectionDetailCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,12 +143,23 @@
 		4C22E47F16B593410099D524 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		4C22E48016B593410099D524 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		4C22E48216B5E6FB0099D524 /* NetsoulViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetsoulViewProtocol.h; sourceTree = "<group>"; };
+		4C2409BC16E956D9004AFA68 /* CreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsViewController.h; sourceTree = "<group>"; };
+		4C2409BD16E956D9004AFA68 /* CreditsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsViewController.m; sourceTree = "<group>"; };
 		4C2C5D5C16D3DBFD0070A02A /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		4C2C5D5D16D3DBFD0070A02A /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
+		4C2ECBDC16E4A9BB007B5EDC /* round_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = round_green.png; sourceTree = "<group>"; };
+		4C2ECBDD16E4A9BB007B5EDC /* round_orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = round_orange.png; sourceTree = "<group>"; };
+		4C2ECBDE16E4A9BB007B5EDC /* round_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = round_red.png; sourceTree = "<group>"; };
+		4C35BBB716E779D800C8A061 /* loginview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginview.png; sourceTree = "<group>"; };
+		4C35BBBA16E77DD000C8A061 /* Lama.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lama.jpg; sourceTree = "<group>"; };
+		4C35BBBC16E785FE00C8A061 /* checkbox_checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_checked.png; sourceTree = "<group>"; };
+		4C35BBBD16E785FE00C8A061 /* checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox.png; sourceTree = "<group>"; };
 		4C3FBB8D16DD529D007AE9EF /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
 		4C3FBB8E16DD529D007AE9EF /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
 		4C671C9C16C4716B0014CFC4 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		4C671C9D16C4716B0014CFC4 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		4C7C0E9A16E8DC4F004A57C1 /* no.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = no.jpg; sourceTree = "<group>"; };
+		4C7C0E9D16E8E606004A57C1 /* 19-gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-gear.png"; sourceTree = "<group>"; };
 		4C8170B716E4074400380F06 /* UserDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailViewController.h; sourceTree = "<group>"; };
 		4C8170B816E4074400380F06 /* UserDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailViewController.m; sourceTree = "<group>"; };
 		4C8DAF5716B2F188003C7E19 /* NetsoulProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetsoulProtocol.h; sourceTree = "<group>"; };
@@ -165,8 +191,6 @@
 		4CA5C69B16DE731D00B2ECFB /* UserPrezCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPrezCell.m; sourceTree = "<group>"; };
 		4CA5C6A016DEBA0C00B2ECFB /* NSContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSContact.h; sourceTree = "<group>"; };
 		4CA5C6A116DEBA0D00B2ECFB /* NSContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSContact.m; sourceTree = "<group>"; };
-		4CAC97F816C53E7200BE141B /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		4CAC97F916C53E7200BE141B /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4CAC97FB16C544CA00BE141B /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
 		4CAC97FC16C544CA00BE141B /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
 		4CB352E516D4DC7F00F666BD /* MessageToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageToken.h; sourceTree = "<group>"; };
@@ -192,6 +216,16 @@
 		4CB3F77916D3D0B90043EF79 /* SSMessageTableViewCellBackgroundClear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SSMessageTableViewCellBackgroundClear@2x.png"; sourceTree = "<group>"; };
 		4CB3F77A16D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SSMessageTableViewCellBackgroundGreen.png; sourceTree = "<group>"; };
 		4CB3F77B16D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SSMessageTableViewCellBackgroundGreen@2x.png"; sourceTree = "<group>"; };
+		4CCAA2DF16EBD435006E8BDD /* MessageModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MessageModel.xcdatamodel; sourceTree = "<group>"; };
+		4CCAA2E216EBD727006E8BDD /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		4CCAA2E316EBD727006E8BDD /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		4CCAA2E516ECD86A006E8BDD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		4CCAA2EB16ED0251006E8BDD /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
+		4CCAA2EC16ED0251006E8BDD /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
+		4CCAA2EE16ED0252006E8BDD /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
+		4CCAA2EF16ED0252006E8BDD /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
+		4CEBB50A16E61C3D00D3D8E2 /* ConnectionDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionDetailCell.h; sourceTree = "<group>"; };
+		4CEBB50B16E61C3D00D3D8E2 /* ConnectionDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionDetailCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +233,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CCAA2E616ECD86A006E8BDD /* CoreData.framework in Frameworks */,
 				4CB3F76516D3C94A0043EF79 /* QuartzCore.framework in Frameworks */,
 				4CB3F76316D3C9340043EF79 /* libSSToolkit.a in Frameworks */,
 				4C916CE116AD96D400CA1295 /* CFNetwork.framework in Frameworks */,
@@ -232,6 +267,15 @@
 			name = CollectionViewCell;
 			sourceTree = "<group>";
 		};
+		4C2409BA16E956BB004AFA68 /* Information */ = {
+			isa = PBXGroup;
+			children = (
+				4C2409BC16E956D9004AFA68 /* CreditsViewController.h */,
+				4C2409BD16E956D9004AFA68 /* CreditsViewController.m */,
+			);
+			name = Information;
+			sourceTree = "<group>";
+		};
 		4C3FBB1A16DCD9AA007AE9EF /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,15 +292,6 @@
 				4C2C5D5D16D3DBFD0070A02A /* ConversationViewController.m */,
 			);
 			name = Conversation;
-			sourceTree = "<group>";
-		};
-		4C3FBB1D16DCDA21007AE9EF /* MainView */ = {
-			isa = PBXGroup;
-			children = (
-				4CAC97F816C53E7200BE141B /* MainViewController.h */,
-				4CAC97F916C53E7200BE141B /* MainViewController.m */,
-			);
-			name = MainView;
 			sourceTree = "<group>";
 		};
 		4C3FBB1E16DCDA2E007AE9EF /* Login */ = {
@@ -298,6 +333,8 @@
 		4C3FBB8C16DD5259007AE9EF /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
+				4CEBB50A16E61C3D00D3D8E2 /* ConnectionDetailCell.h */,
+				4CEBB50B16E61C3D00D3D8E2 /* ConnectionDetailCell.m */,
 				4C3FBB8D16DD529D007AE9EF /* ContactsViewController.h */,
 				4C3FBB8E16DD529D007AE9EF /* ContactsViewController.m */,
 				4C8170B716E4074400380F06 /* UserDetailViewController.h */,
@@ -306,9 +343,59 @@
 			name = Contacts;
 			sourceTree = "<group>";
 		};
+		4C66AFFF16EDE7A400BE766F /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				4CCAA2DE16EBD435006E8BDD /* MessageModel.xcdatamodeld */,
+				4C66B00116EDE7B200BE766F /* Model */,
+			);
+			name = Database;
+			sourceTree = "<group>";
+		};
+		4C66B00116EDE7B200BE766F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4CCAA2EE16ED0252006E8BDD /* Contact.h */,
+				4CCAA2EF16ED0252006E8BDD /* Contact.m */,
+				4CCAA2EB16ED0251006E8BDD /* Account.h */,
+				4CCAA2EC16ED0251006E8BDD /* Account.m */,
+				4CCAA2E216EBD727006E8BDD /* Message.h */,
+				4CCAA2E316EBD727006E8BDD /* Message.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		4C66B00216EDE7C700BE766F /* NSContact */ = {
+			isa = PBXGroup;
+			children = (
+				4CA5C6A016DEBA0C00B2ECFB /* NSContact.h */,
+				4CA5C6A116DEBA0D00B2ECFB /* NSContact.m */,
+			);
+			name = NSContact;
+			sourceTree = "<group>";
+		};
+		4C66B00316EDE8E300BE766F /* MSGToken */ = {
+			isa = PBXGroup;
+			children = (
+				4CB352E516D4DC7F00F666BD /* MessageToken.h */,
+				4CB352E616D4DC7F00F666BD /* MessageToken.m */,
+			);
+			name = MSGToken;
+			sourceTree = "<group>";
+		};
+		4C66B00416EDE91A00BE766F /* NetsoulCore */ = {
+			isa = PBXGroup;
+			children = (
+				4C09FB6B16E0FDB6007DE102 /* NetsoulCore.h */,
+				4C09FB6C16E0FDB7007DE102 /* NetsoulCore.m */,
+			);
+			name = NetsoulCore;
+			sourceTree = "<group>";
+		};
 		4C916C8816AD62CA00CA1295 = {
 			isa = PBXGroup;
 			children = (
+				4CCAA2E516ECD86A006E8BDD /* CoreData.framework */,
 				4CB3F76616D3C9B20043EF79 /* SSToolkit.bundle */,
 				4CB3F76416D3C94A0043EF79 /* QuartzCore.framework */,
 				4CB3F64D16D3C8FE0043EF79 /* SSToolkit */,
@@ -348,6 +435,7 @@
 				4C916CA616AD62CA00CA1295 /* RootAppDelegate.h */,
 				4C916CA716AD62CA00CA1295 /* RootAppDelegate.m */,
 				4C916CAF16AD62CA00CA1295 /* MainStoryboard.storyboard */,
+				4C66AFFF16EDE7A400BE766F /* Database */,
 				4C9261B516BA8D330023EDB4 /* Controller */,
 				4C916C9E16AD62CA00CA1295 /* Supporting Files */,
 			);
@@ -357,6 +445,15 @@
 		4C916C9E16AD62CA00CA1295 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4C7C0E9A16E8DC4F004A57C1 /* no.jpg */,
+				4C7C0E9D16E8E606004A57C1 /* 19-gear.png */,
+				4C35BBBA16E77DD000C8A061 /* Lama.jpg */,
+				4C35BBB716E779D800C8A061 /* loginview.png */,
+				4C35BBBC16E785FE00C8A061 /* checkbox_checked.png */,
+				4C35BBBD16E785FE00C8A061 /* checkbox.png */,
+				4C2ECBDC16E4A9BB007B5EDC /* round_green.png */,
+				4C2ECBDD16E4A9BB007B5EDC /* round_orange.png */,
+				4C2ECBDE16E4A9BB007B5EDC /* round_red.png */,
 				4C2212FE16C6514A00F63BF4 /* msggrey.png */,
 				4C2212FF16C6514A00F63BF4 /* msg.png */,
 				4C22130016C6514A00F63BF4 /* who.png */,
@@ -448,10 +545,10 @@
 		4C9261B516BA8D330023EDB4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				4C2409BA16E956BB004AFA68 /* Information */,
 				4C3FBB1A16DCD9AA007AE9EF /* Settings */,
 				4C3FBB1F16DCDA38007AE9EF /* ListMessageReceived */,
 				4C3FBB1E16DCDA2E007AE9EF /* Login */,
-				4C3FBB1D16DCDA21007AE9EF /* MainView */,
 				4C3FBB1C16DCDA0E007AE9EF /* Conversation */,
 				4C3FBB8C16DD5259007AE9EF /* Contacts */,
 			);
@@ -470,18 +567,15 @@
 		4CB352E916D4DD9100F666BD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4C09FB6B16E0FDB6007DE102 /* NetsoulCore.h */,
-				4C09FB6C16E0FDB7007DE102 /* NetsoulCore.m */,
+				4C66B00416EDE91A00BE766F /* NetsoulCore */,
 				4C3FBB2116DCDAB4007AE9EF /* Pool */,
 				4C916CDF16AD943200CA1295 /* Network */,
 				4C9261B416BA8D250023EDB4 /* Netsoul */,
 				4C9261B116BA8CFE0023EDB4 /* MD5 */,
 				4C9261B316BA8D180023EDB4 /* User */,
 				4C9261B216BA8D0D0023EDB4 /* NSPacket */,
-				4CB352E516D4DC7F00F666BD /* MessageToken.h */,
-				4CB352E616D4DC7F00F666BD /* MessageToken.m */,
-				4CA5C6A016DEBA0C00B2ECFB /* NSContact.h */,
-				4CA5C6A116DEBA0D00B2ECFB /* NSContact.m */,
+				4C66B00316EDE8E300BE766F /* MSGToken */,
+				4C66B00216EDE7C700BE766F /* NSContact */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -665,6 +759,15 @@
 				4CB3F78616D3D0B90043EF79 /* SSMessageTableViewCellBackgroundClear@2x.png in Resources */,
 				4CB3F78716D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen.png in Resources */,
 				4CB3F78816D3D0B90043EF79 /* SSMessageTableViewCellBackgroundGreen@2x.png in Resources */,
+				4C2ECBDF16E4A9BB007B5EDC /* round_green.png in Resources */,
+				4C2ECBE016E4A9BB007B5EDC /* round_orange.png in Resources */,
+				4C2ECBE116E4A9BB007B5EDC /* round_red.png in Resources */,
+				4C35BBB816E779D800C8A061 /* loginview.png in Resources */,
+				4C35BBBB16E77DD000C8A061 /* Lama.jpg in Resources */,
+				4C35BBBE16E785FE00C8A061 /* checkbox_checked.png in Resources */,
+				4C35BBBF16E785FE00C8A061 /* checkbox.png in Resources */,
+				4C7C0E9B16E8DC4F004A57C1 /* no.jpg in Resources */,
+				4C7C0E9E16E8E606004A57C1 /* 19-gear.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -707,7 +810,6 @@
 				4C22E47D16B592840099D524 /* NSPacket.m in Sources */,
 				4C22E48116B593410099D524 /* User.m in Sources */,
 				4C671C9E16C4716B0014CFC4 /* LoginViewController.m in Sources */,
-				4CAC97FA16C53E7200BE141B /* MainViewController.m in Sources */,
 				4CAC97FD16C544CA00BE141B /* CollectionViewCell.m in Sources */,
 				4C22130716C651C800F63BF4 /* CollectionIcon.m in Sources */,
 				4C22130A16C65CD900F63BF4 /* UserCollectionViewController.m in Sources */,
@@ -723,6 +825,12 @@
 				4CA5C6A216DEBA0D00B2ECFB /* NSContact.m in Sources */,
 				4C09FB6D16E0FDB7007DE102 /* NetsoulCore.m in Sources */,
 				4C8170B916E4074400380F06 /* UserDetailViewController.m in Sources */,
+				4CEBB50C16E61C3D00D3D8E2 /* ConnectionDetailCell.m in Sources */,
+				4C2409BE16E956D9004AFA68 /* CreditsViewController.m in Sources */,
+				4CCAA2E016EBD435006E8BDD /* MessageModel.xcdatamodeld in Sources */,
+				4CCAA2E416EBD727006E8BDD /* Message.m in Sources */,
+				4CCAA2ED16ED0251006E8BDD /* Account.m in Sources */,
+				4CCAA2F016ED0252006E8BDD /* Contact.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -929,6 +1037,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4CCAA2DE16EBD435006E8BDD /* MessageModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4CCAA2DF16EBD435006E8BDD /* MessageModel.xcdatamodel */,
+			);
+			currentVersion = 4CCAA2DF16EBD435006E8BDD /* MessageModel.xcdatamodel */;
+			path = MessageModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4C916C8A16AD62CA00CA1295 /* Project object */;
 }

@@ -10,15 +10,53 @@
 #import "NSContact.h"
 #import "User.h"
 #import "ConversationViewController.h"
+#import "NetsoulProtocol.h"
+#import "ConnectionDetailCell.h"
+#import "NSPacket.h"
+#import "NardinPool.h"
 
 @interface UserDetailViewController ()
+{
+    NSArray *items;
+}
 
 @end
 
 @implementation UserDetailViewController
 
-@synthesize user = _user, eraseContact = _eraseContact, login = _login, image = _image, toConversation = _toConversation;
+@synthesize user = _user, eraseContact = _eraseContact, login = _login, image = _image, toConversation = _toConversation, round = _round;
 
+- (void) didReceivePaquetFromNS:(NSPacket *)packet
+{
+    NSLog(@"Packetcmd: %@", packet.command);
+    if (([[packet command] isEqualToString: @"state"] || [[packet command] isEqualToString: @"logout"]) && [[[packet from] login] isEqualToString: _user.login])
+    {
+        NSContact *c = [[[NardinPool sharedObject] contactsInfo] objectForKey: [packet.from login]];
+        if (c)
+            [c flush];
+        [[NetsoulProtocol sharePointer] whoUsers: @[[[packet from] login]]];
+    }
+}
+
+- (void) didDisconnect
+{
+    [[self navigationController] popToRootViewControllerAnimated: YES];
+}
+
+- (void) didReceiveWhoInformations:(NSPacket *)info
+{
+    NSLog(@"Infos: %@",_user.infos);
+   if ([[info parameters] count] >= 2 && [[[info parameters] objectAtIndex: 1] isEqualToString: _user.login])
+    {
+        
+        if ([_user infos])
+        {
+             [items release];
+             items = [[NSArray alloc] initWithArray:[_user infos]];
+            [[self tableView] reloadData];
+        }
+    }
+}
 - (IBAction)pushToConversation:(id)sender
 {
     ConversationViewController *ctrl = [[ConversationViewController alloc] initWithNibName: nil bundle:nil];
@@ -35,20 +73,24 @@
     return self;
 }
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    [self.navigationController.navigationBar setHidden: NO];
+    [[NetsoulProtocol sharePointer] setDelegate: self];
+    [super viewWillAppear: animated];
+}
+
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    [_login setText: _user.login];
+    items = [[NSArray alloc] initWithArray:[_user infos]];
     
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-    dispatch_async(queue, ^{
-        
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [NSString stringWithFormat:@"https://www.epitech.eu/intra/photos/%@.jpg", _user.login]]]];
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [_image setImage: image];
-        });
-    });
-	// Do any additional setup after loading the view.
+    [super viewDidLoad];
+    NSLog(@"USER: [%@]", _user);
+    
+    [_login setText: _user.login];
+    [_image setImage: _user.img];
+
+  [[NetsoulProtocol sharePointer] whoUsers: @[_user.login]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,24 +108,19 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"%d", [[_user infos] count]);
-    return [[_user infos] count];
+    NSLog(@"%d", [items count]);
+    return [items count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
-    NSLog(@"%@", _user);
+    ConnectionDetailCell *cell = (ConnectionDetailCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    User *u = [items objectAtIndex: indexPath.row];    
 
-    NSLog(@"%d", [[_user infos] count]);
-
-    
-    User *u = [[_user infos] objectAtIndex: indexPath.row];
-    
-    [cell.textLabel setText: u.userHost];
+    [cell printUser: u];
     
     return cell;
 }
@@ -148,6 +185,7 @@
     [_eraseContact release];
     [_user release];
     [_image release];
+    [items release];
     [super dealloc];
 }
 

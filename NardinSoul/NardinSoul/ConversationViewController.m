@@ -150,6 +150,17 @@
     
 }
 
+- (void) didDisconnect
+{
+    [[self navigationController] popToRootViewControllerAnimated: YES];
+}
+
+- (void) animation
+{
+    NSIndexPath * someRowAtIndexPath = [NSIndexPath indexPathForRow:[arrayMsg count] - 1 inSection: 0];
+    [_tableView scrollToRowAtIndexPath:someRowAtIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
 - (void) didReceiveMessage:(NSPacket *)pkg
 {
     if ([[[pkg from] login] isEqualToString: self.title])
@@ -161,11 +172,11 @@
         [arrayMsg addObject: token];
     
         [_tableView reloadData];
-        NSIndexPath * someRowAtIndexPath = [NSIndexPath indexPathForRow:[arrayMsg count] - 1 inSection: 0];
-        [_tableView scrollToRowAtIndexPath:someRowAtIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         [[NardinPool sharedObject] removePacket: pkg];
+        [self performSelector:@selector(animation) withObject:nil afterDelay:0.3];
     }
 }
+
 
 
 @end

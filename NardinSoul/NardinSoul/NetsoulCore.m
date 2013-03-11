@@ -24,6 +24,7 @@ static NetsoulCore *shared = nil;
         [keySelector setObject: @"receptMessage:" forKey: @"msg"];
         [keySelector setObject: @"receptWho:" forKey: @"who"];
         [keySelector setObject: @"receptState:" forKey: @"state"];
+        [keySelector setObject: @"receptLogout:" forKey: @"logout"];
     }
     return  self;
 }
@@ -39,23 +40,42 @@ static NetsoulCore *shared = nil;
 
 - (void) receptMessage: (NSPacket *) packet
 {
-    NSLog(@"Receive message");
     [[NardinPool sharedObject] addPacket: packet];
 }
 
 - (void) receptWho: (NSPacket *) packet
 {
-    NSLog(@"Receive who");
     if ([packet.parameters count] == 12)
     {
         User *who = [[User alloc] initWithWhoInformationsWithArray: packet.parameters];
         [[NardinPool sharedObject] addContactInfo: who];
+        [who release];
     }
+}
+
+- (void) receptLogout: (NSPacket *) packet
+{
+    [[NardinPool sharedObject] removeContactInfo: packet.from];
 }
 
 - (void) receptState: (NSPacket *) packet
 {
-    NSLog(@"Receive State move");
+    if ([packet.parameters count] > 0)
+    {
+        NSString *para = [packet.parameters objectAtIndex: 0];
+        NSArray *arr = [para componentsSeparatedByString: @":"];
+        if ([arr count] > 0)
+        {
+            if ([[arr objectAtIndex: 0] isEqualToString: @"actif"])
+            {
+                // ajouter nouvelle connexion -> packet.from
+                [[NardinPool sharedObject] addContactInfo: packet.from];
+            }
+            else
+                [[NardinPool sharedObject] updateContactInfo: packet.from withNewStatus: [arr objectAtIndex: 0]];
+        }
+    }
+
 }
 
 - (void) receptPacket:(NSPacket *)packet

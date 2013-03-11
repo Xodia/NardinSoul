@@ -14,6 +14,8 @@
 {
     NSString *login;
     NSMutableArray *infos;
+    UIImage *img;
+    BOOL    imgLoaded;
 }
 
 - (id) initWithLogin: (NSString *) log andInfos: (NSMutableArray *) info;
@@ -22,8 +24,14 @@
 - (void) putConnection: (User *) connection;
 - (void) removeConnection: (User *) connection;
 - (void) updateConnection: (User *) connection withNewStatus: (NSString *) status;
+- (void) flush;
+
+- (BOOL) isImageLoaded;
+- (void) loadImage;
 
 @property (nonatomic, assign) NSMutableArray *infos;
 @property (nonatomic, assign) NSString *login;
+@property (nonatomic, assign) UIImage *img;
+
 
 @end

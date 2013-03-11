@@ -24,13 +24,13 @@
     long lastStatusChangeTimestamp;
 }
 
-@property (nonatomic) NSString *login;
-@property (nonatomic) NSString *location;
-@property (nonatomic) NSString *group;
-@property (nonatomic) NSString *workstationType;
-@property (nonatomic) NSString *userHost;
-@property (nonatomic) NSString *status;
-@property (nonatomic) NSString *userData;
+@property (nonatomic, assign) NSString *login;
+@property (nonatomic, assign) NSString *location;
+@property (nonatomic, assign) NSString *group;
+@property (nonatomic, assign) NSString *workstationType;
+@property (nonatomic, assign) NSString *userHost;
+@property (nonatomic, assign) NSString *status;
+@property (nonatomic, assign) NSString *userData;
 @property (nonatomic) long loginTimestamp;
 @property (nonatomic) long lastStatusChangeTimestamp;
 @property (nonatomic) int  trustLevelHigh;
@@ -40,11 +40,7 @@
 
 - (id) initWithUserInformations: (NSString *) infos;
 - (id) initWithListUserInformations: (NSString *) whoInfo;
-- (id) initWithWhoInformations: (NSString *) info;
 - (id) initWithWhoInformationsWithArray:(NSArray *) array;
-
-- (void) dealloc;
-#pragma TODO PROPERTY_4_OTHERS_VAR
 
 /*
  

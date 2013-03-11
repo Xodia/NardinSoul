@@ -1,0 +1,29 @@
+//
+//  Message.m
+//  NardinSoul
+//
+//  Created by Morgan Collino on 09/03/13.
+//  Copyright (c) 2013 Morgan Collino. All rights reserved.
+//
+
+#import "Message.h"
+
+
+@implementation Message
+
+@dynamic from;
+@dynamic msg;
+@dynamic to;
+@dynamic date;
+
+
+- (void) dealloc
+{
+    [self.from release];
+    [self.msg release];
+    [self.to release];
+    [self.date release];
+    [super dealloc];
+}
+
+@end

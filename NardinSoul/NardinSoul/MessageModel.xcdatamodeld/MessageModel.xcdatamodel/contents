@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Account" representedClassName="Account" syncable="YES">
+        <attribute name="contactList" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pwd" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="relationship" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Contact" syncable="YES"/>
+    </entity>
+    <entity name="Contact" representedClassName="Contact" syncable="YES">
+        <attribute name="contactName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Message" representedClassName="Message" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="from" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="msg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="to" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Message" positionX="-2196" positionY="-1323" width="128" height="103"/>
+        <element name="Contact" positionX="-2378" positionY="-1323" width="128" height="58"/>
+        <element name="Account" positionX="-2567" positionY="-1350" width="128" height="103"/>
+    </elements>
+</model>

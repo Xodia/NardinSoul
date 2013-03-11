@@ -7,13 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NetsoulViewProtocol.h"
 
 @class NSContact;
 
-@interface UserDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface UserDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, NetsoulViewProtocol>
 
 
 @property (nonatomic, retain) IBOutlet UIImageView *image;
+@property (nonatomic, retain) IBOutlet UIImageView *round;
+
 @property (nonatomic, retain) IBOutlet UILabel *login;
 @property (nonatomic, retain) IBOutlet UIButton *toConversation;
 @property (nonatomic, retain) IBOutlet UIButton *eraseContact;

@@ -10,7 +10,7 @@
 
 @implementation CollectionViewCell
 
-@synthesize label, image;
+@synthesize label, image, round, delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -19,6 +19,38 @@
         // Initialization code
     }
     return self;
+}
+
+
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touchSample = [[event allTouches] anyObject];
+    CGPoint touchLocation = [touchSample locationInView: self.window];
+    
+    if (CGRectContainsPoint(self.window.frame, touchLocation))
+    {
+        dragging = YES;
+        oldX = touchLocation.x;
+        oldY = touchLocation.y;
+    }
+    [super touchesBegan: touches withEvent: event];
+}
+
+- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint touchLocation = [touch locationInView: self.window];
+    
+    
+    if (CGRectContainsPoint(self.window.frame, touchLocation) && dragging)
+    {
+        float x = oldX - touchLocation.x;
+        if (x < 0 && !isMenuShowed && [delegate respondsToSelector: @selector(_showMenu)])
+            [delegate _showMenu];
+       
+        dragging = NO;
+    }
+    [super touchesMoved: touches withEvent: event];
 }
 
 /*
@@ -32,10 +64,14 @@
 
 - (void) dealloc
 {
+    if (delegate)
+        [delegate release];
     if (image)
         [image release];
     if (label)
         [label release];
+    if (round)
+        [round release];
     [super dealloc];
 }
 

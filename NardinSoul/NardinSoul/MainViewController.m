@@ -40,18 +40,31 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
 
 - (void)viewDidLoad
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
-                                             (unsigned long)NULL), ^(void) {
-        [[NetsoulProtocol sharePointer] watchUsers:[[NardinPool sharedObject] contacts]];
-        [[NetsoulProtocol sharePointer] whoUsers: [[NardinPool sharedObject] contacts]];
-    });
+    if (!items)
+    {
+        CollectionIcon *obj1 = [[CollectionIcon alloc] initWithPath: @"msg.png" andKey: @"Message"];
+        CollectionIcon *obj2 = [[CollectionIcon alloc] initWithPath: @"who.png" andKey: @"Who"];
+        CollectionIcon *obj3 = [[CollectionIcon alloc] initWithPath: @"statut.png" andKey: @"Statut"];
+        CollectionIcon *obj4 = [[CollectionIcon alloc] initWithPath: @"contacts.png" andKey: @"Contact"];
+        CollectionIcon *obj5 = [[CollectionIcon alloc] initWithPath: @"search.png" andKey: @"Recherhe"];
+        CollectionIcon *obj6 = [[CollectionIcon alloc] initWithPath: @"star.png" andKey: @"Groupe"];
+        CollectionIcon *obj7 = [[CollectionIcon alloc] initWithPath: @"plus.png" andKey: @"Ajouter un groupe"];
+        CollectionIcon *obj8 = [[CollectionIcon alloc] initWithPath: @"exit.png" andKey: @"Deconnection"];
+        
+        items = [[NSArray alloc] initWithArray: @[obj1, obj2, obj3, obj4, obj5, obj6, obj7, obj8]];
+        
+    }
+    
+    [[NetsoulProtocol sharePointer] watchUsers:[[NardinPool sharedObject] contacts]];
     [super viewDidLoad];
+    [[NetsoulProtocol sharePointer] whoUsers: [[NardinPool sharedObject] contacts]];
 
 	// Do any additional setup after loading the view.
 }
@@ -69,22 +82,12 @@
     // reset le tableau des outlets
     // Messages | Fonctionalite1 | Fonctionalite2 | Fonctionalite3 | GroupeX | + Ajout Groupe 
     
-    if (!items)
-    {
-        CollectionIcon *obj1 = [[CollectionIcon alloc] initWithPath: @"msg.png" andKey: @"Message"];
-        CollectionIcon *obj2 = [[CollectionIcon alloc] initWithPath: @"who.png" andKey: @"Who"];
-        CollectionIcon *obj3 = [[CollectionIcon alloc] initWithPath: @"statut.png" andKey: @"Statut"];
-        CollectionIcon *obj4 = [[CollectionIcon alloc] initWithPath: @"contacts.png" andKey: @"Contact"];
-        CollectionIcon *obj5 = [[CollectionIcon alloc] initWithPath: @"search.png" andKey: @"Recherhe"];
-        CollectionIcon *obj6 = [[CollectionIcon alloc] initWithPath: @"star.png" andKey: @"Groupe"];
-        CollectionIcon *obj7 = [[CollectionIcon alloc] initWithPath: @"plus.png" andKey: @"Ajouter un groupe"];
-        CollectionIcon *obj8 = [[CollectionIcon alloc] initWithPath: @"exit.png" andKey: @"Deconnection"];
-
-        items = [[NSArray alloc] initWithArray: @[obj1, obj2, obj3, obj4, obj5, obj6, obj7, obj8]];
-
-    }
-    
     [super viewWillAppear: animated];
+}
+
+- (void) didDisconnect
+{
+    [[self navigationController] popToRootViewControllerAnimated: YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -113,7 +116,6 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier: @"Cell" forIndexPath: indexPath];
-    
     CollectionIcon *icon = [items objectAtIndex: (indexPath.section * 3) + indexPath.row];
     
     cell.label.text = [icon key];
