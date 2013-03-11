@@ -182,13 +182,7 @@ static NetsoulProtocol *sharePointer = nil;
     [self connect];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    if ([login isEqualToString: @"test"] && [password isEqualToString: @"ntest1234"])
-    {
-        login = @"collin_m";
-        password = @"sl/gfkWE";
-    }
-    
+
     [prefs setObject:login forKey:@"login"];
     [prefs setObject:password forKey:@"pass"];
 }
