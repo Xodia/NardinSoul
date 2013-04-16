@@ -51,7 +51,12 @@ enum NS_ACTION {
     BOOL    isConnected;
     
     NSString     *lastExpression;
+    
+    NSString *loginNetsouled;
 }
+
+
+@property (nonatomic, assign) NSString *loginNetsouled;
 
 @property(nonatomic, assign) id<NetsoulViewProtocol> delegate;
 

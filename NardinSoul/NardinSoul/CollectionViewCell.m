@@ -7,6 +7,7 @@
 //
 
 #import "CollectionViewCell.h"
+#import "NSContact.h"
 
 @implementation CollectionViewCell
 
@@ -52,6 +53,43 @@
     }
     [super touchesMoved: touches withEvent: event];
 }
+
+- (void) setContact:(NSContact *)contact
+{    
+    if ([[contact infos] count] > 0)
+    {
+        [round setImage: [UIImage imageNamed: @"rect_green.png"]];
+    }
+    else
+    {
+        [round setImage: [UIImage imageNamed: @"rect_red.png"]];
+    }
+    label.text = contact.login;
+    
+    if (contact.isImageLoaded && contact.img)
+        [image setImage: contact.img];
+    else
+    {
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+        dispatch_async(queue, ^{
+            
+            UIImage *_image = [[UIImage alloc ] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [NSString stringWithFormat:@"http://cdn.local.epitech.net/userprofil/profilview/%@.jpg", contact.login]]]];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if (_image)
+                {
+                    [image setImage: _image];
+                    [contact setImg: _image];
+                    [contact setIsImageLoaded: YES];
+                }
+                else
+                    [image setImage: [UIImage imageNamed: @"no.jpg"]];
+            });
+        });
+        
+    }
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

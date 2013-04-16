@@ -7,9 +7,12 @@
 //
 
 #import "NardinPool.h"
+#import "NetsoulProtocol.h"
 #import "User.h"
 #import "NSPacket.h"
 #import "NSContact.h"
+#import "Account.h"
+#import "Contact.h"
 
 @implementation NardinPool
 @synthesize messageReceived = _messageReceived, contactsInfo = _contactsInfo;
@@ -22,17 +25,7 @@ static NardinPool *pool = nil;
    {
        _messageReceived = [[NSMutableDictionary alloc] init];
        _contactsInfo = [[NSMutableDictionary alloc] init];
-       NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey: @"contacts"];
-       
-       if (arr)
-       {
-           for (NSString *s in arr)
-           {
-               NSContact *c = [[NSContact alloc] initWithLogin: s];
-               [_contactsInfo setObject: c forKey: s];
-           }
-       }
-   }
+    }
     return self;
 }
 
@@ -121,7 +114,7 @@ static NardinPool *pool = nil;
     if (!_contactsInfo)
         _contactsInfo = [[NSMutableDictionary alloc] init];
     NSContact  *c = [_contactsInfo objectForKey: contact.login];
-    NSLog(@"Contact : %@ %d", c, c.retainCount);
+    //NSLog(@"Contact : %@ %d", c, c.retainCount);
     if (c)
     {
         [c putConnection: contact];
@@ -174,53 +167,160 @@ static NardinPool *pool = nil;
 
 #pragma METHOD_CONTACT
 
-#pragma TODO_CONTACT_ON_BDD
+
+- (void) createAccount: (NSString *) accountName
+{
+    NSManagedObjectContext *context = [[NetsoulProtocol sharePointer] managedObjectContext];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Account"
+                                              inManagedObjectContext: context];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setFetchLimit: 1];
+    
+    NSPredicate *predicate =[NSPredicate predicateWithFormat:@"name == %@", [[NetsoulProtocol sharePointer] loginNetsouled]];
+    [fetchRequest setPredicate: predicate];
+    
+    NSError *error = nil;
+    NSArray *fetchResults = [context
+                             executeFetchRequest:fetchRequest
+                             error:&error];
+    
+    if ([fetchResults count] == 0)
+    {
+        Account *account = [NSEntityDescription insertNewObjectForEntityForName: @"Account" inManagedObjectContext: context];
+        
+        account.name = accountName;
+        account.pwd = accountName;
+        NSError *error = nil;
+        if (![context save:&error]) {
+            NSLog(@"Failed to save - error: %@", [error localizedDescription]);
+        }
+    }
+    else
+    {
+       // NSLog(@"Account %@, already created ;)", accountName);
+    }
+    
+    
+    NSSet *arr = [self contacts];
+    
+    if (arr)
+    {
+        for (Contact *s in arr)
+        {
+            if (s.contactName)
+            {
+                NSContact *c = [[NSContact alloc] initWithLogin: s.contactName];
+                [_contactsInfo setObject: c forKey: s.contactName];
+            }
+        }
+    }
+
+}
+
+- (BOOL) isAContact:(NSString *)contact
+{
+    NSSet *set = [self contacts];
+
+    for (Contact *cont in set)
+    {
+        if ([cont.contactName isEqualToString: contact])
+            return YES;
+    }
+    
+    return (NO);
+}
+
 
 - (void)  addContact: (NSString *) contact
 {
-    NSMutableArray *arr = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey: @"contacts"]];
-        
-    for (NSString *u in arr)
+    Account *account = [self contact];
+    NSSet *contacts = [self contacts];
+    
+    for (Contact *c in contacts)
     {
-        if ([contact isEqualToString: u])
+        if ([c.contactName isEqualToString: contact])
+        {
             return;
+        }
     }
-        
-    [arr addObject: contact];
+    NSManagedObjectContext *context = [[NetsoulProtocol sharePointer] managedObjectContext];
+
+    Contact *_contact = [[NSEntityDescription insertNewObjectForEntityForName: @"Contact" inManagedObjectContext: context] retain];
+    
+    _contact.contactName = contact;
+    
+    [account addContactListObject: _contact];
+    NSError *error = nil;
+    if (![context save:&error]) {
+        NSLog(@"Failed to save - error: %@", [error localizedDescription]);
+    }
+    [_contact release];
     NSContact *c = [[NSContact alloc] initWithLogin: contact];
     [_contactsInfo setObject: c forKey: contact];
-
-    [[NSUserDefaults standardUserDefaults] setObject: arr forKey: @"contacts"];
-    [arr release];
 }
 
 - (void)  removeContact: (NSString *) contact
 {
-    NSMutableArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey: @"contacts"];
+    NSManagedObjectContext *context = [[NetsoulProtocol sharePointer] managedObjectContext];
     
-    if (!arr)
-        return;
-    for (NSString *u in arr)
+    NSSet *contacts = [self contacts];
+    for (Contact *c in contacts)
     {
-        if ([u isEqualToString: contact])
-            [arr removeObject: u];
+        if ([c.contactName isEqualToString: contact])
+        {
+            [[self contact] removeContactListObject: c];
+            [[NardinPool sharedObject] removeContactInfoByName: contact];
+            NSError *error = nil;
+            if (![context save:&error]) {
+                NSLog(@"Failed to save - error: %@", [error localizedDescription]);
+            }
+            return;
+        }
     }
-    [[NSUserDefaults standardUserDefaults] setObject: arr forKey: @"contacts"];
 }
 
 
-- (NSMutableArray *) contacts
+- (NSSet *) contacts
 {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *array = (NSMutableArray *)[prefs objectForKey: @"contacts"];
-    if (!array)
+    Account *account = [self contact];
+    if (account)
     {
-        array = [[NSMutableArray alloc] init];
-        [prefs setObject: array forKey: @"contacts"];
-        [array release];
-        array = (NSMutableArray *)[prefs objectForKey: @"contacts"];
+        //NSLog(@"Return: %@", account.contactList);
+       // for (Contact *c in account.contactList)
+        //{
+            //NSLog(@"\tLogin: %@", c.contactName);
+        //}
+
+        return account.contactList;
     }
-    return (array);
+    return  nil;
+}
+
+- (Account *) contact
+{
+    NSManagedObjectContext *context = [[NetsoulProtocol sharePointer] managedObjectContext];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Account"
+                                              inManagedObjectContext: context];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setFetchLimit: 1];
+    
+    NSPredicate *predicate =[NSPredicate predicateWithFormat:@"name == %@", [[NetsoulProtocol sharePointer] loginNetsouled]];
+    [fetchRequest setPredicate: predicate];
+    
+    NSError *error = nil;
+    NSArray *fetchResults = [context
+                             executeFetchRequest:fetchRequest
+                             error:&error];
+    
+    if ([fetchResults count] > 0)
+    {
+        return [fetchResults objectAtIndex: 0];
+    }
+    return nil;
 }
 
 

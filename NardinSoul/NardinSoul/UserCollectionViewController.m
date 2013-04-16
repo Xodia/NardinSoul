@@ -8,11 +8,9 @@
 
 #import "UserCollectionViewController.h"
 #import "CollectionViewCell.h"
-#import "RootViewController.h"
 #import "NSPacket.h"
 #import "NetsoulProtocol.h"
 #import "CollectionIcon.h"
-#import "MessageViewController.h"
 #import "User.h"
 #import "ConversationViewController.h"
 #import "NardinPool.h"
@@ -30,7 +28,7 @@
         if (!items)
             items = [[NSMutableArray alloc] init];
         [msg addObject: packet];
-        NSString *str = [NSString stringWithFormat: @"https://www.epitech.eu/intra/photos/%@.jpg", [[packet from] login]];
+        NSString *str = [NSString stringWithFormat: @"http://cdn.local.epitech.net/userprofil/profilview/%@.jpg", [[packet from] login]];
         CollectionIcon *collection = [[CollectionIcon alloc] initWithPath: str andKey: [packet.from login]];
         
         [items addObject: collection];
@@ -44,13 +42,13 @@
     NSMutableDictionary *dic = [[NardinPool sharedObject] messageReceived];
         
     if ([dic count] == [items count])
-        return;
+        return [self.collectionView reloadData];
     
     NSMutableArray *a = [[NSMutableArray alloc] init];
     
     for (NSString *key in dic)
     {
-        CollectionIcon *collection = [[CollectionIcon alloc] initWithPath: [NSString stringWithFormat:@"https://www.epitech.eu/intra/photos/%@.jpg", key] andKey: key];
+        CollectionIcon *collection = [[CollectionIcon alloc] initWithPath: [NSString stringWithFormat:@"http://cdn.local.epitech.net/userprofil/profilview/%@.jpg", key] andKey: key];
         
         [a addObject: collection];
     }
@@ -98,7 +96,7 @@
     
     for (NSString *key in dic)
     {
-        CollectionIcon *collection = [[CollectionIcon alloc] initWithPath: [NSString stringWithFormat:@"https://www.epitech.eu/intra/photos/%@.jpg", key] andKey: key];
+        CollectionIcon *collection = [[CollectionIcon alloc] initWithPath: [NSString stringWithFormat:@"http://cdn.local.epitech.net/userprofil/profilview/%@.jpg", key] andKey: key];
             
         [items addObject: collection];
     }
@@ -108,7 +106,7 @@
 
 - (void)didReceiveMemoryWarning
 {
-    NSLog(@"DidReceiveMemoryWarning");
+    //NSLog(@"DidReceiveMemoryWarning");
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -141,43 +139,32 @@
 {
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier: @"Cell" forIndexPath: indexPath];
     CollectionIcon *icon = [items objectAtIndex: (indexPath.section * 3) + indexPath.row];
-    cell.label.text = [icon key];
+    NSArray *array = [[[NardinPool sharedObject] messageReceived] objectForKey: icon.key];
+    
+    cell.label.text = [NSString stringWithFormat: @"%@(%d)", [icon key], [array count]];
 
     NSContact *c = [[[NardinPool sharedObject] contactsInfo] objectForKey: [icon key]];
 
     if (c)
-    {
         [cell.image setImage: c.img];
-        if ([[c infos] count] > 0)
-            [cell.round setImage: [UIImage imageNamed: @"round_green.png"]];
-    }
-    else
-    {
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-            dispatch_async(queue, ^{
-        
-            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [icon path]]]];
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [cell.image setImage: image];
-            });
-        });
-    }
+    else if (icon)
+        [cell.image setImage: icon.img.image];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {    
     ConversationViewController *ctrl = [[ConversationViewController alloc] initWithNibName: nil bundle:nil];
-    
     CollectionIcon *icon = [items objectAtIndex: (indexPath.section * 3) + indexPath.row];
+
     NSArray *array = [[[NardinPool sharedObject] messageReceived] objectForKey: icon.key];
     [ctrl addMessage: array];
     [ctrl setTitle: icon.key];
     [items removeObjectAtIndex: (indexPath.section * 3) + indexPath.row];
     [[NardinPool sharedObject] removeKey: icon.key];
-
     [icon release];
-    [[self navigationController] pushViewController: ctrl animated:YES];    
+
+    [[self navigationController] pushViewController: ctrl animated:YES];
     [[self collectionView] reloadData];
 }
 
@@ -185,8 +172,12 @@
 {
     if (msg)
         [msg release];
+    for (NSObject *i in items)
+    {
+        [i release];
+    }
     if (items)
-     [items release];
+        [items release];
     [super dealloc];
 }
 

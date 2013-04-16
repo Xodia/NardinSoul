@@ -15,6 +15,8 @@
 #import "NSPacket.h"
 #import "NardinPool.h"
 
+#define IS_IPHONE5 (([[UIScreen mainScreen] bounds].size.height-568)?NO:YES)
+
 @interface UserDetailViewController ()
 {
     NSArray *items;
@@ -24,11 +26,11 @@
 
 @implementation UserDetailViewController
 
-@synthesize user = _user, eraseContact = _eraseContact, login = _login, image = _image, toConversation = _toConversation, round = _round;
+@synthesize user = _user, eraseContact = _eraseContact, login = _login, image = _image, toConversation = _toConversation, round = _round, connected = _connected, tableView = _tableView, line = _line;
 
 - (void) didReceivePaquetFromNS:(NSPacket *)packet
 {
-    NSLog(@"Packetcmd: %@", packet.command);
+   // NSLog(@"Packetcmd: %@", packet.command);
     if (([[packet command] isEqualToString: @"state"] || [[packet command] isEqualToString: @"logout"]) && [[[packet from] login] isEqualToString: _user.login])
     {
         NSContact *c = [[[NardinPool sharedObject] contactsInfo] objectForKey: [packet.from login]];
@@ -45,24 +47,85 @@
 
 - (void) didReceiveWhoInformations:(NSPacket *)info
 {
-    NSLog(@"Infos: %@",_user.infos);
+    //NSLog(@"Infos: %@",_user.infos);
    if ([[info parameters] count] >= 2 && [[[info parameters] objectAtIndex: 1] isEqualToString: _user.login])
     {
-        
         if ([_user infos])
         {
              [items release];
              items = [[NSArray alloc] initWithArray:[_user infos]];
             [[self tableView] reloadData];
+            
+            if ([items count] > 0)
+            {
+                //NSLog(@"Count :%d", items.count);
+                if ([items count] < 3 && !IS_IPHONE5)
+                {
+                    [_tableView setScrollEnabled: NO];
+                    
+                    [_tableView setHidden: NO];
+                    int sz = [items count] * 102;
+                    int pos = 125;
+                    
+                    CGRect frame = [_tableView frame];
+                    frame.size.height = sz;
+                    frame.origin.y = pos;
+                    [_tableView setFrame: frame];
+                }
+                else if ([items count] < 4 && IS_IPHONE5)
+                {
+                    [_tableView setScrollEnabled: NO];
+                    
+                    [_tableView setHidden: NO];
+                    int sz = [items count] * 102;
+                    int pos = 136;
+                    CGRect frame = [_tableView frame];
+                    frame.size.height = sz;
+                    frame.origin.y = pos;
+                    [_tableView setFrame: frame];
+                }
+                else
+                {
+                    [_tableView setScrollEnabled: YES];
+
+                    [_tableView setHidden: NO];                        
+                    int sz = 291 + (IS_IPHONE5 ? 77 : 0);
+                    CGRect frame = [_tableView frame];
+                    
+                    if (IS_IPHONE5)
+                        frame.origin.y = 136;
+                    frame.size.height = sz;
+                    [_tableView setFrame: frame];
+                }
+                [_round setImage: [UIImage imageNamed: @"rect_green.png"]];
+                [_connected setText: @"connected"];
+            }
+            else
+            {
+                [_round setImage: [UIImage imageNamed: @"rect_red.png"]];
+                [_connected setText: @"disconnected"];
+            }
         }
     }
 }
+
 - (IBAction)pushToConversation:(id)sender
 {
-    ConversationViewController *ctrl = [[ConversationViewController alloc] initWithNibName: nil bundle:nil];
+    ConversationViewController *ctrl = [[ConversationViewController alloc] initWithNibName:nil bundle:nil];
     [ctrl setTitle: _login.text]; // login
     [[self navigationController] pushViewController: ctrl animated: YES];
+    [ctrl release];
 }
+
+- (IBAction)addRemoveContact:(id)sender
+{
+    if ([[NardinPool sharedObject] isAContact: self.title])
+        [[NardinPool sharedObject] removeContact: _login.text];
+    else
+        [[NardinPool sharedObject] addContact: _login.text];
+    [self putRightButton: [[NardinPool sharedObject] isAContact: self.title]];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -85,13 +148,43 @@
     items = [[NSArray alloc] initWithArray:[_user infos]];
     
     [super viewDidLoad];
-    NSLog(@"USER: [%@]", _user);
     
+    if (IS_IPHONE5)
+    {
+        [_tableView setFrame: CGRectMake(0, 136, 320, 368)];
+        [_connected setFrame: CGRectMake(20, 102, 86, 18)];
+        [_round setFrame: CGRectMake(20, 105, 86, 15)];
+        [_line setFrame: CGRectMake(0, 145, 320, 1)];
+    }
+    
+    [_tableView setHidden: YES];
+    self.title = _user.login;
     [_login setText: _user.login];
     [_image setImage: _user.img];
-
-  [[NetsoulProtocol sharePointer] whoUsers: @[_user.login]];
+    [[NetsoulProtocol sharePointer] whoUsers: @[_user.login]];
+    
+    [self putRightButton: [[NardinPool sharedObject] isAContact: self.title]];        
 }
+
+- (void) putRightButton: (BOOL) b
+{
+    NSString *s = @"";
+    
+    if (b)
+        s = @"icon-delete.png";
+    else
+        s = @"icon-add.png";
+
+
+    UIButton *bt=[UIButton buttonWithType:UIButtonTypeCustom];
+    [bt setFrame:CGRectMake(0, 0, 30, 30)];
+    [bt setImage:[UIImage imageNamed: s] forState:UIControlStateNormal];
+    [bt addTarget:self action:@selector(addRemoveContact:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithCustomView:bt];
+    [self.navigationItem setRightBarButtonItem: leftButton];
+    [leftButton release];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -108,7 +201,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"%d", [items count]);
     return [items count];
 }
 
@@ -186,6 +278,7 @@
     [_user release];
     [_image release];
     [items release];
+    [_line release];
     [super dealloc];
 }
 

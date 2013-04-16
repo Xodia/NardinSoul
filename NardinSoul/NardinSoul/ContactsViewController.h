@@ -15,11 +15,15 @@
 @interface ContactsViewController : UIViewController <NetsoulViewProtocol, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, MenuViewProtocol>
 {
     BOOL                isMenuShowed;
+    BOOL                shouldDisco;
+    BOOL                hasViewDidAppear;
+    NSArray *items;
 }
 
 - (IBAction)showMenu:(id)sender;
 
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
 @property(nonatomic, retain) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, assign) NSArray *item;
 
 @end

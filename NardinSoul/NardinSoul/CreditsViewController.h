@@ -9,5 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @interface CreditsViewController : UIViewController
+{
+    
+}
+
+@property (nonatomic, retain) IBOutlet UIButton *linkedin;
+@property (nonatomic, retain) IBOutlet UIButton *twitter;
+@property (nonatomic, retain) IBOutlet UIButton *epitech;
+
+
+- (IBAction)routeToMediaLink:(id)sender;
 
 @end

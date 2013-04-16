@@ -27,7 +27,10 @@
 @property (nonatomic, retain) IBOutlet UIButton *req;
 @property (nonatomic, retain) IBOutlet UIButton *settings;
 @property (nonatomic, retain) IBOutlet UIButton *checkbox;
-
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activity;
+@property (nonatomic, retain) IBOutlet UILabel *loginLabel;
+@property (nonatomic, retain) IBOutlet UILabel *passLabel;
+@property (nonatomic, retain) IBOutlet UILabel *checkboxLabel;
 
 - (IBAction)launchSettingsView:(id)sender;
 - (IBAction)launchAuthentification:(id)sender;

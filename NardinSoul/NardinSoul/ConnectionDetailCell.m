@@ -40,15 +40,24 @@
         long long timestamp = [str longLongValue];
     
         long long res = [[NSDate date] timeIntervalSince1970] - timestamp;
-    
-        NSLog(@"Timestamp: %lld - LoginTimeStamp: %ld", timestamp, connection.lastStatusChangeTimestamp);
-    
-        int _res =  (res / 60);
-    
-        NSLog(@"RES : %d", _res);
-    
-        NSString *stat = [NSString stringWithFormat: @"%@(%d)", [status objectAtIndex:0], _res];
+        
+        int _res =  (res / 60); // minutes
+        int _minutes = _res % 60;
+        int _hours = _res / 60; // hours
+        int _days = _hours / 24; // jours
+            
+        NSString *str = @"";
+        
+        if (_days > 0)
+            str = [NSString stringWithFormat: @"%dj/", _days];
+        if (_hours > 0)
+            str = [str stringByAppendingFormat: @"%dh/", _hours];
+        if (_res >= 0)
+            str = [str stringByAppendingFormat: @"%dm", _minutes];
+            
+        NSString *stat = [NSString stringWithFormat: @"%@", [status objectAtIndex:0]];
         [state setText: stat];
+        [loggedin setText: str];
     }
     else
         [state setText: connection.status];
@@ -56,7 +65,6 @@
     [location setText: connection.location];
     [ip setText: connection.userHost];
     [comment setText: connection.userData];
-    [loggedin setText: @"ToSet"];
    // [state setText: stat];
     [group setText: connection.group];
 }

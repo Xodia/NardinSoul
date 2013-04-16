@@ -16,13 +16,13 @@
 
 @implementation NetsoulProtocol
 
-@synthesize delegate, managedObjectContext;
+@synthesize delegate, managedObjectContext, loginNetsouled;
 
 static NetsoulProtocol *sharePointer = nil;
 
 - (id) init
 {
-    if (self)
+    if (self = [super init])
     {
         if (!cmdSelector)
         {
@@ -67,11 +67,11 @@ static NetsoulProtocol *sharePointer = nil;
         NSError *error;
         if (![_socket connectToHost: address onPort: port error: &error])
         {
-            NSLog(@"Error connecting: %@", error);
+            //NSLog(@"Error connecting: %@", error);
         }
         else
         {
-            NSLog(@"Connected !");
+           // NSLog(@"Connected !");
         }
         
     }
@@ -89,7 +89,7 @@ static NetsoulProtocol *sharePointer = nil;
     }
     else
     {
-        NSLog(@"Connected !");
+        //NSLog(@"Connected !");
     }
 }
 
@@ -117,8 +117,7 @@ static NetsoulProtocol *sharePointer = nil;
         it++;
     }
     
-    NSPacket *packet = [[NSPacket alloc] initPacketWithUser: user withCommand: [array objectAtIndex:3] andParameters: params];
-    
+    NSPacket *packet = [[NSPacket alloc] initPacketWithUser: [user retain] withCommand: [array objectAtIndex:3] andParameters: params];
     NSString *str = [cmdSelector objectForKey: [array objectAtIndex: 3]];    
     [[NetsoulCore sharedObject] receptPacket: packet];
     if (str && [delegate respondsToSelector: NSSelectorFromString(str)])
@@ -130,20 +129,8 @@ static NetsoulProtocol *sharePointer = nil;
         // Methode obligatoirement implementer
         [delegate didReceivePaquetFromNS: packet];
     }
-    
-    // local notifications - > erase en prod - choix user
-    if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive && [[packet command] isEqualToString: @"msg"])
-    {
-        UILocalNotification *localNF = [[UILocalNotification alloc] init];
-        localNF.fireDate = nil;
-        localNF.timeZone = [NSTimeZone defaultTimeZone];
-        
-		localNF.alertBody = [NSString stringWithFormat: @"%@: %@", [[packet from] login], [[packet parameters] objectAtIndex: 0]];
-        localNF.alertAction = nil;
-        localNF.soundName = UILocalNotificationDefaultSoundName;
-        localNF.applicationIconBadgeNumber = localNF.applicationIconBadgeNumber + 1;
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNF];
-    }
+    //[params release];
+    [packet release];
 }
 
 - (void) sendPing: (NSArray *) array
@@ -156,7 +143,6 @@ static NetsoulProtocol *sharePointer = nil;
 {
     NSArray *listPacket = [command componentsSeparatedByString: @"\n"];
     
-    NSLog(@"#### PACKET ##### %@", command);
     for (NSString *p in listPacket)
     {
         NSArray *array = [p componentsSeparatedByString: @" "];
@@ -182,12 +168,11 @@ static NetsoulProtocol *sharePointer = nil;
     [self connect];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-
     [prefs setObject:login forKey:@"login"];
     [prefs setObject:password forKey:@"pass"];
 }
 
-#pragma  TODO DO_CONNECT_METH 
+#pragma  TODO DO_CONNECT_METH
 - (void) connect
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -202,6 +187,10 @@ static NetsoulProtocol *sharePointer = nil;
 - (void) disconnect
 {
     [_socket disconnect];
+    loginNetsouled = @"";
+    
+    UIApplication  *app = [UIApplication sharedApplication];
+    [app cancelAllLocalNotifications];
 }
 
 /*
@@ -235,8 +224,13 @@ static NetsoulProtocol *sharePointer = nil;
 
 - (void) sendMsg:(NSString *)msg to:(NSArray *)users
 {
-    NSString *escapedUrlString =[msg stringByAddingPercentEscapesUsingEncoding:
-     NSASCIIStringEncoding];
+    NSString *escapedUrlString = [msg stringByAddingPercentEscapesUsingEncoding: NSISOLatin1StringEncoding];
+    
+    escapedUrlString = [escapedUrlString stringByReplacingOccurrencesOfString: @"'" withString: @"%27"];
+    escapedUrlString = [escapedUrlString stringByReplacingOccurrencesOfString: @"\"" withString: @"%22"];
+
+    if (!escapedUrlString)
+        escapedUrlString = msg;
     NSString *varUser = @"";
     
     if ([users count] > 0)
@@ -249,10 +243,9 @@ static NetsoulProtocol *sharePointer = nil;
         +user : "user_cmd msg_user {user, user2, user3} msg test\n"
      
      */
-    
+        
     NSString *real = [NSString stringWithFormat: @"user_cmd msg_user %@ msg %@\n", varUser, escapedUrlString];
-    
-    [_socket writeData: [real dataUsingEncoding: NSUTF8StringEncoding] withTimeout:-1 tag: SEND_MSG];
+    [_socket writeData: [real dataUsingEncoding: NSISOLatin1StringEncoding] withTimeout:-1 tag: SEND_MSG];
     [_socket readDataWithTimeout: -1 tag: 42];
 }
 
@@ -340,24 +333,24 @@ static NetsoulProtocol *sharePointer = nil;
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err;
 {
-    NSLog(@"Error: Disconnected with error : %@", [err localizedDescription]);
+    //NSLog(@"Error: Disconnected with error : %@", [err localizedDescription]);
     isConnected = NO;
     if ([delegate respondsToSelector: NSSelectorFromString(@"didDisconnect")])
     {
         [delegate performSelector: NSSelectorFromString(@"didDisconnect") withObject: nil];
     }
     
-    // a effacer en prod
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
     {
         UILocalNotification *localNF = [[UILocalNotification alloc] init];
         localNF.fireDate = nil;
         localNF.timeZone = [NSTimeZone defaultTimeZone];
         
-		localNF.alertBody = [NSString stringWithFormat: @"DISCONNECTED"];
+		localNF.alertBody = [NSString stringWithFormat: @"Vous avez été déconnecté de Netsoul"];
         localNF.alertAction = nil;
         localNF.soundName = UILocalNotificationDefaultSoundName;
-        localNF.applicationIconBadgeNumber = localNF.applicationIconBadgeNumber + 1;
+        localNF.applicationIconBadgeNumber = 0;
         [[UIApplication sharedApplication] scheduleLocalNotification:localNF];
         [localNF release];
     }
@@ -366,15 +359,15 @@ static NetsoulProtocol *sharePointer = nil;
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port;
 {
-    [sock readDataWithTimeout:20 tag: AUTH];
+    [sock readDataWithTimeout: 50 tag: AUTH];
     
 #if ENABLE_BACKGROUNDING && !TARGET_IPHONE_SIMULATOR
     {
         // Backgrounding doesn't seem to be supported on the simulator yet
         
         [_socket performBlock:^{
-            if ([sock enableBackgroundingOnSocket])
-                NSLog(@"Enabled backgrounding on socket");
+            //if ([sock enableBackgroundingOnSocket])
+              //  NSLog(@"Enabled backgrounding on socket");
         }];
     }
 #endif
@@ -386,8 +379,8 @@ static NetsoulProtocol *sharePointer = nil;
 - (void) receivedAuthToken: (NSString *) token
 {
     NSArray *array = [token componentsSeparatedByString: @" "];
-    NSLog(@"Array: %@", array);
-
+    //NSLog(@"receivedAuthToken: %@", array);
+    
     if ([array count] > 5)
     {
         socketNumber = [[NSString alloc] initWithString: [array objectAtIndex: 1]];
@@ -395,36 +388,43 @@ static NetsoulProtocol *sharePointer = nil;
         hostClient = [[NSString alloc] initWithString: [array objectAtIndex: 3]];
         portClient = [[NSString alloc] initWithString: [array objectAtIndex: 4]];
         timestamp = [[NSString alloc] initWithString: [array objectAtIndex: 5]];
-        
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSString *login = [prefs stringForKey:@"login"];
+        NSString *pass = [prefs stringForKey: @"pass"];
         
+        loginNetsouled = login;
         
-        NSString *hash = [NSString stringWithFormat: @"%@-%@/%@%@", hashMD5, hostClient, portClient, [prefs stringForKey: @"pass"]];
+        NSString *hash = [NSString stringWithFormat: @"%@-%@/%@%@", hashMD5, hostClient, portClient, pass];
         NSString *hashr = [hash MD5String];
-        NSString *str = [NSString stringWithFormat: @"ext_user_log %@ %@ %@ %@\n", [prefs stringForKey:@"login"], [hashr lowercaseString], [[prefs stringForKey:@"location"] stringByAddingPercentEscapesUsingEncoding:
+        NSString *str = [NSString stringWithFormat: @"ext_user_log %@ %@ %@ %@\n", login, [hashr lowercaseString], [[prefs stringForKey:@"location"] stringByAddingPercentEscapesUsingEncoding:
                                                                                                                                             NSASCIIStringEncoding], [[prefs stringForKey:@"comments"] stringByAddingPercentEscapesUsingEncoding:
                                                                                                                                                                      NSASCIIStringEncoding]];
-        [_socket writeData: [str dataUsingEncoding: NSUTF8StringEncoding]  withTimeout: 20 tag: CONNECT];
-        [_socket readDataWithTimeout: 30 tag: CONNECT];
-        
+        [_socket writeData: [str dataUsingEncoding: NSUTF8StringEncoding]  withTimeout: -1 tag: CONNECT];
+        if ([token rangeOfString:@"cmd end"].location == NSNotFound)
+            [_socket readDataWithTimeout: -1 tag: 42]; // rep 002 - cmd end -> AUTH
+        [_socket readDataWithTimeout: -1 tag: CONNECT];
     }
+    else
+    {
+        [_socket writeData: [@"auth_ag ext_user none none\n" dataUsingEncoding:NSUTF8StringEncoding] withTimeout: -1 tag: AUTORISE_CO];
+        [_socket readDataWithTimeout: -1 tag: AUTH];
+    }
+
 }
 
 - (void) receivedConnectToken: (NSString *) token
 {
     NSArray *array = [token componentsSeparatedByString: @" "];
     NSString *res = [array objectAtIndex: 1];
+    
     if ([res isEqualToString: @"002"])
     {
-        NSLog(@"User connected successfully !");
         isConnected = YES;
         [self setStatus: @"actif"];
     }
-    else
+    else if (!isConnected)
     {
-        isConnected = NO;
         [self disconnect];
-        NSLog(@"User failed to connect");
     }
     
     if ([delegate respondsToSelector: NSSelectorFromString([cmdSelector objectForKey: @"auth"])])
@@ -436,13 +436,12 @@ static NetsoulProtocol *sharePointer = nil;
 
 - (void) receivedToken: (NSString *) token
 {
-    [_socket readDataWithTimeout: -1 tag: 42];
-    
+    if (![token rangeOfString:@"salut"].location == NSNotFound)
+        [_socket readDataWithTimeout: -1 tag:42];
     if (!token)
     {
         if (lastExpression && ![lastExpression isEqualToString: @""])
         {
-            NSLog(@"Recovery: %@", lastExpression);
             [_socket writeData: [lastExpression dataUsingEncoding: NSUTF8StringEncoding] withTimeout: 10 tag: 42];
         }
     }
@@ -455,6 +454,7 @@ static NetsoulProtocol *sharePointer = nil;
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag;
 {
     NSString *dataStr = [NSString stringWithUTF8String: [data bytes]];
+    
     if (tag == AUTH)
         [self receivedAuthToken: dataStr];
     else if (tag == CONNECT)
@@ -465,6 +465,7 @@ static NetsoulProtocol *sharePointer = nil;
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag;
 {
+    
 }
 
 

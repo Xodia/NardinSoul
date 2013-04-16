@@ -16,6 +16,7 @@
 {
     if (self = [super init])
     {
+        _img = [UIImage imageNamed: @"no.jpg"];
         _login = [[NSString alloc] initWithString: log];
         _infos = [[NSMutableArray alloc] initWithArray: info copyItems: YES];
         [self loadImage];
@@ -54,6 +55,11 @@
     }
 }
 
+- (void) setIsImageLoaded: (BOOL) b
+{
+    imgLoaded = b;
+}
+
 - (void) removeConnection:(User *)connection
 {
     NSMutableArray *arr = [[NSMutableArray alloc] init];
@@ -66,9 +72,10 @@
         }
     }
         
-        
     for (User *u in arr)
         [_infos removeObject: u];
+    
+    [arr release];
 }
 
 - (void) flush
@@ -78,25 +85,24 @@
 
 - (void) loadImage
 {
-    _img = [UIImage imageNamed: @"no.jpg"];
-
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
     dispatch_async(queue, ^{
         
-        UIImage *image = [[UIImage alloc ] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [NSString stringWithFormat:@"https://www.epitech.eu/intra/photos/%@.jpg", _login]]]];
-
-        NSLog(@"Login: %@", _login);
+        UIImage *image = [[UIImage alloc ] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [NSString stringWithFormat:@"http://cdn.local.epitech.net/userprofil/profilview/%@.jpg", _login]]]];
         dispatch_sync(dispatch_get_main_queue(), ^{
             if (image)
             {
-                _img = [image retain];
-                [image release];
+                _img = image;
                 imgLoaded = YES;
             }
             else
             {
-                _img = [UIImage imageNamed: @"no.jpg"];
-                imgLoaded = YES;
+                NSString *imageFilePath = [[NSBundle mainBundle] pathForResource:@"no" ofType:@"jpg"];
+                if (imageFilePath)
+                {
+                    _img = [[UIImage alloc] initWithContentsOfFile: imageFilePath];
+                    imgLoaded = YES;
+                }   
             }
         });
     });
@@ -109,9 +115,9 @@
 
 - (void) dealloc
 {
-    NSLog(@"Dealloc NScontact :%@", _login);
     [_login release];
     [_infos release];
+    [_img release];
     [super dealloc];
 }
 @end

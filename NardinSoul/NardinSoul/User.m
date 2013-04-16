@@ -45,8 +45,8 @@
             location = [[NSString alloc] initWithString:[array objectAtIndex: 5]];
             group = [[NSString alloc] initWithString: [array objectAtIndex: 6]];
         }
-        else
-            NSLog(@"Error: User Information error");
+//        else
+          //  NSLog(@"Error: User Information error");
     }
     return (self);
 }
@@ -77,8 +77,8 @@
             status = [[NSString alloc] initWithString: [array objectAtIndex: 10]];
             userData = [[NSString alloc] initWithString: [array objectAtIndex: 11]];
         }
-        else
-            NSLog(@"Error: List user Information error");
+        //else
+          //  NSLog(@"Error: List user Information error");
     }
     return (self);
 }
@@ -101,10 +101,12 @@
             location = [[NSString alloc] initWithString: [[array objectAtIndex: 8]  stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
             group = [[NSString alloc] initWithString: [[array objectAtIndex: 9]  stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
             status = [[NSString alloc] initWithString: [[array objectAtIndex: 10]  stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
-            userData = [[NSString alloc] initWithString: [[array objectAtIndex: 11] stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
+            
+            if ([[array objectAtIndex: 11] stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding])
+                userData = [[NSString alloc] initWithString: [[array objectAtIndex: 11] stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
         }
-        else
-            NSLog(@"Error: Who Information error");
+       // else
+         //   NSLog(@"Error: Who Information error");
     }
     return (self);
 }

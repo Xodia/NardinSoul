@@ -11,6 +11,8 @@
 #import "SSMessageTableViewCellBubbleView.h"
 #import <SSToolkit/SSTextField.h>
 
+#define IS_IPHONE5 (([[UIScreen mainScreen] bounds].size.height-568)?NO:YES)
+
 CGFloat kInputHeight = 40.0f;
 
 @implementation SSMessagesViewController
@@ -144,7 +146,7 @@ CGFloat kInputHeight = 40.0f;
 	[UIView setAnimationDuration:0.3f];
 	_tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 216.0f, 0.0f);
 	_tableView.scrollIndicatorInsets = _tableView.contentInset;
-	_inputBackgroundView.frame = CGRectMake(0.0f, 160.0f, self.view.frame.size.width, kInputHeight);
+	_inputBackgroundView.frame = CGRectMake(0.0f, 160.0f + (IS_IPHONE5 ? 90.0f : 0.0f), self.view.frame.size.width, kInputHeight);
 	[_sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	[UIView commitAnimations];
 }

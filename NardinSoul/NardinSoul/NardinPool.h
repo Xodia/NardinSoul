@@ -24,7 +24,8 @@
 
 - (void)  addContact: (NSString *) contact;
 - (void)  removeContact: (NSString *) contact;
-- (NSMutableArray *) contacts;
+- (NSSet *) contacts;
+- (BOOL) isAContact: (NSString *) contact;
 
 - (void)  addContactInfo: (User *) contact;
 - (void)  removeContactInfo: (User *) contact;
@@ -34,6 +35,8 @@
 
 - (int) numbersOfMessage;
 - (void) flushInfo;
+
+- (void) createAccount: (NSString *) accountName;
 
 @property (nonatomic, assign) NSMutableDictionary *messageReceived;
 @property (nonatomic, assign) NSMutableDictionary *contactsInfo;

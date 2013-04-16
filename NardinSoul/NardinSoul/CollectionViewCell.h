@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class NSContact;
 @protocol MenuViewProtocol <NSObject>
 
 @optional
@@ -29,5 +30,7 @@
 @property (nonatomic, retain) IBOutlet UIImageView *round;
 
 @property (nonatomic, retain) id<MenuViewProtocol> delegate;
+
+- (void) setContact: (NSContact *) contact;
 
 @end

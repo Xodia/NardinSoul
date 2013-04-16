@@ -15,11 +15,11 @@
 #import "UserDetailViewController.h"
 #import "UserCollectionViewController.h"
 #import "CreditsViewController.h"
+#define IS_IPHONE5 (([[UIScreen mainScreen] bounds].size.height-568)?NO:YES)
+
 
 @interface ContactsViewController ()
-{
-    NSArray *items;
-    
+{    
     NSMutableArray *menuItems;
     NSArray *keySelector;
     
@@ -33,10 +33,11 @@
 
 @implementation ContactsViewController
 
-@synthesize tableView, collectionView;
+@synthesize tableView, collectionView, item;
 
 - (void) didReceivePaquetFromNS:(NSPacket *)packet
 {
+    //NSLog(@"Packet: %@ command: %@", packet, packet.command);
     if ([[packet command] isEqualToString: @"msg"])
     {
         NSString *msg = [NSString stringWithFormat: @"Messages(%d)", [[NardinPool sharedObject] numbersOfMessage]];
@@ -47,7 +48,7 @@
     
     if ([[packet command] isEqualToString: @"who"])
     {
-        NSLog(@"From : %@ - Params: %@", [packet from], [packet parameters]);
+        //NSLog(@"From : %@ - Params: %@", [packet from], [packet parameters]);
         if ([[packet parameters] indexOfObject: @"end"] != NSNotFound)
             [[self collectionView] reloadData];
     }
@@ -55,7 +56,18 @@
 
 - (void) didDisconnect
 {
-    [[self navigationController] popToRootViewControllerAnimated: YES];
+    shouldDisco = YES;
+    
+    if (hasViewDidAppear)
+        [[self navigationController] popToRootViewControllerAnimated: YES];
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear: animated];
+    hasViewDidAppear = YES;
+    if (shouldDisco)
+        [self didDisconnect];
 }
 
 - (void) addContact: (id) sender
@@ -80,10 +92,11 @@
         [[NetsoulProtocol sharePointer] watchUsers: @[[alertView textFieldAtIndex: 0].text]];
         [[NetsoulProtocol sharePointer] whoUsers: @[[alertView textFieldAtIndex: 0].text]];
         [self.collectionView reloadData];
+        [self _hideMenu];
     }
     else
     {
-        NSLog(@"user pressed Cancel");
+        //NSLog(@"user pressed Cancel");
     }
 }
 
@@ -92,11 +105,18 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
+   // NSLog(@"Contacts: %d - items: %d", [[[NardinPool sharedObject] contacts] count],  [items count]);
+    if ([[[NardinPool sharedObject] contacts] count] != [items count])
+    {
+        [items release];
+    
+        items = [[NSArray alloc] initWithArray: [[[[NardinPool sharedObject] contactsInfo] allKeys] sortedArrayUsingSelector: @selector(localizedCaseInsensitiveCompare:)]];
+    }
+    
     [self.collectionView reloadData];
     [self.navigationController.navigationBar setHidden: NO];
     [[NetsoulProtocol sharePointer] setDelegate: self];
     [super viewWillAppear: animated];
-    isMenuShowed = NO;
     
     NSString *msg = [NSString stringWithFormat: @"Messages(%d)", [[NardinPool sharedObject] numbersOfMessage]];
     
@@ -150,7 +170,6 @@
 
 - (IBAction)showMenu: (id) sender
 {
-    NSLog(@"Menu");
     if (!isMenuShowed)
         [self _showMenu];
     else
@@ -162,23 +181,28 @@
 - (void)viewDidLoad
 {    
     //items = [[[[[NardinPool sharedObject] contactsInfo] allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]  retain];
-    
-    self.title = @"NardinSoul";
-    
-    items = [[NSArray alloc] initWithArray: [[[[NardinPool sharedObject] contactsInfo] allKeys] sortedArrayUsingSelector: @selector(localizedCaseInsensitiveCompare:)]];
+    self.title = @"NSoul";
 
     [super viewDidLoad];
     
-    UIImage *image = [UIImage imageNamed:@"19-gear.png"];
-    UIBarButtonItem *menu = [[UIBarButtonItem alloc] initWithImage: image style: UIBarButtonItemStyleBordered target:self action:@selector(showMenu:)];
+    if (IS_IPHONE5)
+    {
+        [collectionView setFrame: CGRectMake(0, 7, 320, 504)];
+    }
     
+    
+    UIButton *bt=[UIButton buttonWithType:UIButtonTypeCustom];
+    [bt setFrame:CGRectMake(0, 0, 40, 30)];
+    [bt setImage:[UIImage imageNamed:@"icon-options.png"] forState:UIControlStateNormal];
+    [bt addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftButton=[[UIBarButtonItem alloc] initWithCustomView:bt];
+    self.navigationItem.leftBarButtonItem=leftButton;
 
+    [self.navigationItem setLeftBarButtonItem: leftButton];
+    [leftButton release];
     
-    [self.navigationItem setLeftBarButtonItem: menu];
-    
-    [menu release];
-    menuItems = [[NSMutableArray alloc] initWithArray: @[@"Messages", @"Ajouter un contact", @"Deconnexion", @"Informations"]];
-    keySelector = [[NSArray alloc] initWithArray:@[@"toMessageView", @"addContact:", @"disconnect", @"toInformationView"]];
+    menuItems = [[NSMutableArray alloc] initWithArray: @[@"Messages", @"Ajouter un contact", @"Informations",  @"Deconnexion"]];
+    keySelector = [[NSArray alloc] initWithArray:@[@"toMessageView", @"addContact:", @"toInformationView", @"disconnect"]];
 
 }
 
@@ -209,7 +233,6 @@
         else if (isMenuShowed)
             [self _hideMenu];
         dragging = NO;
-        NSLog(@"END");
     }
 }
 
@@ -255,19 +278,8 @@
     
     NSString *contact = [items objectAtIndex: (indexPath.section * 3) + indexPath.row];
     NSContact *c = [[[NardinPool sharedObject] contactsInfo] objectForKey: contact];
-    NSLog(@"Contact(c)=%@", c);
-
-    if ([[c infos] count] > 0)
-    {
-        [cell.round setImage: [UIImage imageNamed: @"round_green.png"]];
-    }
-    else
-    {
-        [cell.round setImage: [UIImage imageNamed: @"round_red.png"]];
-    }
-    cell.label.text = contact;
-    [cell.image setImage: c.img];
-    
+    //NSLog(@"Contact(c)=%@ on cell %d", c.login, (indexPath.section * 3) + indexPath.row);
+    [cell setContact: c];
     return cell;
 }
 
@@ -282,7 +294,6 @@
     UserDetailViewController *rootView = [[self storyboard] instantiateViewControllerWithIdentifier:@"userDetailViewController"];
     
     NSContact *u = [[[NardinPool sharedObject] contactsInfo] objectForKey: login];
-    NSLog(@"U: %@", u);
     [u flush];
     [[NetsoulProtocol sharePointer] whoUsers: @[login]];
     [rootView setUser: u];

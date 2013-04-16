@@ -17,13 +17,4 @@
 @dynamic date;
 
 
-- (void) dealloc
-{
-    [self.from release];
-    [self.msg release];
-    [self.to release];
-    [self.date release];
-    [super dealloc];
-}
-
 @end

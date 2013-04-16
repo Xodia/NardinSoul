@@ -6,11 +6,14 @@
 //  Copyright (c) 2013 Morgan Collino. All rights reserved.
 //
 
+#import <AudioToolbox/AudioServices.h>
 #import "NetsoulCore.h"
 #import "NSPacket.h"
 #import "NardinPool.h"
 #import "NetsoulProtocol.h"
 #import "User.h"
+#import "Message.h"
+#import "NSString+HTML.h"
 
 @implementation NetsoulCore
 
@@ -40,7 +43,50 @@ static NetsoulCore *shared = nil;
 
 - (void) receptMessage: (NSPacket *) packet
 {
-    [[NardinPool sharedObject] addPacket: packet];
+    // register message in BDD
+    
+    NSManagedObjectContext *context = [[NetsoulProtocol sharePointer] managedObjectContext];
+    
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    
+    Message *message = [[NSEntityDescription insertNewObjectForEntityForName: @"Message" inManagedObjectContext: context] retain];
+    message.from = [NSString stringWithString:[[packet from] login]];
+    message.to = [NSString stringWithString: [[NetsoulProtocol sharePointer] loginNetsouled]];
+    message.date = [NSDate date];
+    
+    
+    NSString *msg = [[packet parameters] objectAtIndex: 0];
+    msg = [msg stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+    msg = [msg stringByDecodingHTMLEntities];
+
+    if (msg)
+    {
+        message.msg = [NSString stringWithString: msg];
+        
+        // local notifications - > erase en prod - choix user
+        if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive && [[packet command] isEqualToString: @"msg"])
+        {
+            UILocalNotification *localNF = [[UILocalNotification alloc] init];
+            localNF.fireDate = nil;
+            localNF.timeZone = [NSTimeZone defaultTimeZone];
+            
+            localNF.alertBody = [NSString stringWithFormat: @"%@: %@", [[packet from] login], msg];
+            localNF.alertAction = nil;
+            localNF.soundName = UILocalNotificationDefaultSoundName;
+            localNF.applicationIconBadgeNumber = 0;
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNF];
+            [localNF release];
+        }
+    }
+    
+    
+    NSError *error = nil;
+    if (![context save:&error]) {
+        NSLog(@"Failed to save - error: %@", [error localizedDescription]);
+    }
+    [message release];
+    
+    [[NardinPool sharedObject] addPacket: [packet retain]];
 }
 
 - (void) receptWho: (NSPacket *) packet

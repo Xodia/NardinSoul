@@ -28,10 +28,11 @@
 
 - (BOOL) isImageLoaded;
 - (void) loadImage;
+- (void) setIsImageLoaded: (BOOL) b;
 
 @property (nonatomic, assign) NSMutableArray *infos;
 @property (nonatomic, assign) NSString *login;
-@property (nonatomic, assign) UIImage *img;
+@property (nonatomic, retain) UIImage *img;
 
 
 @end

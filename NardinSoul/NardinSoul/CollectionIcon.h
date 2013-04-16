@@ -12,10 +12,12 @@
 {
     NSString *path;
     NSString *key;
+    BOOL isLoad;
 }
 
 @property (nonatomic, assign) NSString *path;
 @property (nonatomic, assign) NSString *key;
+@property (nonatomic, assign) UIImageView *img;
 
 - (id) initWithPath: (NSString *) _path andKey: (NSString *) _key;
 - (void) dealloc;

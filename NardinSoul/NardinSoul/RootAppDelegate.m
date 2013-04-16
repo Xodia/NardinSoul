@@ -42,7 +42,7 @@
         return managedObjectModel;
     }
     managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
-    
+
     return managedObjectModel;
 }
 
@@ -51,13 +51,14 @@
         return persistentStoreCoordinator;
     }
     NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory]
-                                               stringByAppendingPathComponent: @"nardinsoul.sqlite"]];
+                                               stringByAppendingPathComponent: @"NardinSoul.sqlite"]];
     NSError *error = nil;
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
                                   initWithManagedObjectModel:[self managedObjectModel]];
     if(![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
                                                  configuration:nil URL:storeUrl options:nil error:&error]) {
-        /*Error for store creation should be handled in here*/
+        NSLog(@"Error in AppDeleate::persistentStoreCoordinator [%@] [%@]\n", error, [error userInfo]);
+		abort();
     }
     
     return persistentStoreCoordinator;
@@ -114,9 +115,36 @@
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
 
-    [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler: ^{ [self backgroundHandler]; }];
+    [application beginBackgroundTaskWithExpirationHandler:^{
+        
+        [self backgroundHandler];
+    }];
+    
+    UIApplication  *app = [UIApplication sharedApplication];
+    NSArray*    oldNotifications = [app scheduledLocalNotifications];
+    
+    // Clear out the old notification before scheduling a new one.
+    if ([oldNotifications count] > 0)
+        [app cancelAllLocalNotifications];
+    
+    // Create a new notification.
+    UILocalNotification* alarm = [[UILocalNotification alloc] init];
+    if (alarm && [[NetsoulProtocol sharePointer] isConnected])
+    {
+        NSTimeInterval ti = [[UIApplication sharedApplication]backgroundTimeRemaining];
+        ti -= 60;
+                
+        NSDate *date = [NSDate date];
+        date = [date dateByAddingTimeInterval: ti];
+        alarm.fireDate = date;        
+        alarm.timeZone = [NSTimeZone defaultTimeZone];
+        alarm.repeatInterval = 0;
+        alarm.alertBody = @"Tu vas etre deconnecter dans une minute si tu ne relances pas l'application ;)";
+        alarm.soundName = UILocalNotificationDefaultSoundName;
 
-
+        [app scheduleLocalNotification:alarm];
+    }
+    [alarm release];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
