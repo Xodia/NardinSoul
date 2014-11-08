@@ -49,7 +49,7 @@
     {
         if (u.socket == connection.socket && [u.login isEqualToString: connection.login])
         {
-            [[u status] release];
+			u.status = nil;
             [u setStatus: [[NSString alloc] initWithString: status]];
         }
     }
@@ -74,8 +74,8 @@
         
     for (User *u in arr)
         [_infos removeObject: u];
-    
-    [arr release];
+
+	arr = nil;
 }
 
 - (void) flush
@@ -113,11 +113,4 @@
     return imgLoaded;
 }
 
-- (void) dealloc
-{
-    [_login release];
-    [_infos release];
-    [_img release];
-    [super dealloc];
-}
 @end

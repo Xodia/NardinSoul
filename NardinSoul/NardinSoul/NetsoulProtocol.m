@@ -13,10 +13,11 @@
 #import "NetsoulCore.h"
 #import "NardinPool.h"
 #import "Message.h"
+#import "NSString+HTML.h"
 
 @implementation NetsoulProtocol
 
-@synthesize delegate, managedObjectContext, loginNetsouled;
+@synthesize delegate, managedObjectContext, loginNetsouled, socket = _socket;
 
 static NetsoulProtocol *sharePointer = nil;
 
@@ -83,13 +84,14 @@ static NetsoulProtocol *sharePointer = nil;
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     _socket =  [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue: mainQueue];
     NSError *error;
+	NSLog(@"HERE");
     if (![_socket connectToHost: address onPort: port error: &error])
     {
         NSLog(@"Error connecting: %@", error);
     }
     else
     {
-        //NSLog(@"Connected !");
+        NSLog(@"Connected !");
     }
 }
 
@@ -117,7 +119,7 @@ static NetsoulProtocol *sharePointer = nil;
         it++;
     }
     
-    NSPacket *packet = [[NSPacket alloc] initPacketWithUser: [user retain] withCommand: [array objectAtIndex:3] andParameters: params];
+    NSPacket *packet = [[NSPacket alloc] initPacketWithUser: user withCommand: [array objectAtIndex:3] andParameters: params];
     NSString *str = [cmdSelector objectForKey: [array objectAtIndex: 3]];    
     [[NetsoulCore sharedObject] receptPacket: packet];
     if (str && [delegate respondsToSelector: NSSelectorFromString(str)])
@@ -127,10 +129,29 @@ static NetsoulProtocol *sharePointer = nil;
     else if ([delegate respondsToSelector: @selector(didReceivePaquetFromNS:)])
     {
         // Methode obligatoirement implementer
+		NSLog(@"Packet fetch : %@", packet);
+		UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+		if ([[packet command] isEqual: @"msg"] && (state == UIApplicationStateBackground || state == UIApplicationStateInactive))
+		{
+			NSString *msg = [[packet parameters] objectAtIndex: 0];
+			msg = [msg stringByReplacingPercentEscapesUsingEncoding: NSISOLatin1StringEncoding];
+			msg = [msg stringByDecodingHTMLEntities];
+
+			UILocalNotification *notification = [[UILocalNotification alloc] init];
+			notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
+			if (msg)
+				notification.alertBody = [NSString stringWithFormat: @"%@: %@", packet.from.login, msg];
+			
+			notification.timeZone = [NSTimeZone defaultTimeZone];
+			notification.soundName = UILocalNotificationDefaultSoundName;
+			notification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+			
+			[[UIApplication sharedApplication] presentLocalNotificationNow: notification];
+		}
         [delegate didReceivePaquetFromNS: packet];
     }
     //[params release];
-    [packet release];
+    packet = nil;
 }
 
 - (void) sendPing: (NSArray *) array
@@ -352,8 +373,8 @@ static NetsoulProtocol *sharePointer = nil;
         localNF.soundName = UILocalNotificationDefaultSoundName;
         localNF.applicationIconBadgeNumber = 0;
         [[UIApplication sharedApplication] scheduleLocalNotification:localNF];
-        [localNF release];
-    }
+		localNF = nil;
+	}
     
 }
 
@@ -416,7 +437,8 @@ static NetsoulProtocol *sharePointer = nil;
 {
     NSArray *array = [token componentsSeparatedByString: @" "];
     NSString *res = [array objectAtIndex: 1];
-    
+	
+	NSLog(@"Token : %@", token);
     if ([res isEqualToString: @"002"])
     {
         isConnected = YES;
@@ -429,7 +451,7 @@ static NetsoulProtocol *sharePointer = nil;
     
     if ([delegate respondsToSelector: NSSelectorFromString([cmdSelector objectForKey: @"auth"])])
     {
-        [delegate performSelector: NSSelectorFromString([cmdSelector objectForKey: @"auth"]) withObject: isConnected];
+        [delegate performSelector: NSSelectorFromString([cmdSelector objectForKey: @"auth"]) withObject: @(isConnected)];
     }
 
 }
@@ -492,23 +514,5 @@ static NetsoulProtocol *sharePointer = nil;
  
  */
 
-- (void) dealloc
-{
-    if (sharePointer)
-        [sharePointer release];
-    if (cmdSelector)
-        [cmdSelector release];
-    if (treatSelector)
-        [treatSelector release];
-    
-    
-    [socketNumber release];
-    [hashMD5 release];
-    [hostClient release];
-    [portClient release];
-    [timestamp release];
-
-    [super dealloc];
-}
 
 @end

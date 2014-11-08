@@ -36,7 +36,7 @@ enum NS_ACTION {
 
 @interface NetsoulProtocol : NSObject <GCDAsyncSocketDelegate>
 {
-    GCDAsyncSocket *_socket;
+    GCDAsyncSocket *socket;
     
     NSString *socketNumber;
     NSString *hashMD5;
@@ -44,7 +44,6 @@ enum NS_ACTION {
     NSString *portClient;
     NSString *timestamp;
     
-    id <NetsoulViewProtocol> delegate;
     NSMutableDictionary *cmdSelector;
     NSMutableDictionary *treatSelector;
 
@@ -56,9 +55,10 @@ enum NS_ACTION {
 }
 
 
-@property (nonatomic, assign) NSString *loginNetsouled;
+@property (nonatomic, strong) GCDAsyncSocket *socket;
+@property (nonatomic, copy) NSString *loginNetsouled;
 
-@property(nonatomic, assign) id<NetsoulViewProtocol> delegate;
+@property(nonatomic, retain) id<NetsoulViewProtocol> delegate;
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 

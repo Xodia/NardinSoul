@@ -121,14 +121,5 @@
     return YES;
 }
 
-- (void) dealloc
-{
-    [_server release];
-    [_port release];
-    [_location release];
-    [_comments release];
-    [arrTextfield release];
-    [super dealloc];
-}
 
 @end

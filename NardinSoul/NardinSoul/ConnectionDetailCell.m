@@ -41,7 +41,7 @@
     
         long long res = [[NSDate date] timeIntervalSince1970] - timestamp;
         
-        int _res =  (res / 60); // minutes
+        int _res =  ((int)res / 60); // minutes
         int _minutes = _res % 60;
         int _hours = _res / 60; // hours
         int _days = _hours / 24; // jours
@@ -67,18 +67,6 @@
     [comment setText: connection.userData];
    // [state setText: stat];
     [group setText: connection.group];
-}
-
-
-- (void) dealloc
-{
-    [location release];
-    [ip release];
-    [comment release];
-    [loggedin release];
-    [state release];
-    [group release];
-    [super dealloc];
 }
 
 @end

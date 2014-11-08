@@ -15,9 +15,9 @@
     BOOL isLoad;
 }
 
-@property (nonatomic, assign) NSString *path;
-@property (nonatomic, assign) NSString *key;
-@property (nonatomic, assign) UIImageView *img;
+@property (nonatomic, copy) NSString *path;
+@property (nonatomic, copy) NSString *key;
+@property (nonatomic, retain) UIImageView *img;
 
 - (id) initWithPath: (NSString *) _path andKey: (NSString *) _key;
 - (void) dealloc;

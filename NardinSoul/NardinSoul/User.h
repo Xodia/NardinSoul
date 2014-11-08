@@ -24,13 +24,13 @@
     long lastStatusChangeTimestamp;
 }
 
-@property (nonatomic, assign) NSString *login;
-@property (nonatomic, assign) NSString *location;
-@property (nonatomic, assign) NSString *group;
-@property (nonatomic, assign) NSString *workstationType;
-@property (nonatomic, assign) NSString *userHost;
-@property (nonatomic, assign) NSString *status;
-@property (nonatomic, assign) NSString *userData;
+@property (nonatomic, copy) NSString *login;
+@property (nonatomic, copy) NSString *location;
+@property (nonatomic, copy) NSString *group;
+@property (nonatomic, copy) NSString *workstationType;
+@property (nonatomic, copy) NSString *userHost;
+@property (nonatomic, copy) NSString *status;
+@property (nonatomic, copy) NSString *userData;
 @property (nonatomic) long loginTimestamp;
 @property (nonatomic) long lastStatusChangeTimestamp;
 @property (nonatomic) int  trustLevelHigh;

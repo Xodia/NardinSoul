@@ -38,6 +38,8 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
+	self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+
     @synchronized([NardinPool sharedObject])
     {
         [[NardinPool sharedObject] flushInfo];
@@ -86,7 +88,7 @@
     if (![prefs objectForKey: @"port"])
         [prefs setObject: @"4242" forKey:@"port"];
     if (![prefs objectForKey: @"location"])
-        [prefs setObject: @"@NSoul.v1" forKey:@"location"];
+        [prefs setObject: @"@NSoul.v1.1" forKey:@"location"];
     if (![prefs objectForKey: @"comments"])
         [prefs setObject: @"Somewhere on earth !" forKey:@"comments"];
 
@@ -167,10 +169,10 @@
     }
 }
 
-- (void) didAuthentificate: (bool) real
+- (void) didAuthentificate: (NSNumber *) real
 {
+	NSLog(@"DidAuthenticate: %@", real);
     [activity stopAnimating];
-    //NSLog(@"Auth: %d", real ? 1 : 0);
     if (real)
     {
         if (!isChecked)
@@ -191,13 +193,14 @@
         NSMutableArray *array = [[NSMutableArray alloc] init];
         for (Contact *c in arr)
         {
-            [array addObject: [c contactName]];
+			if ([c contactName])
+				[array addObject: [c contactName]];
         }
         
         [[NetsoulProtocol sharePointer] watchUsers: array];
         [[NetsoulProtocol sharePointer] whoUsers: array];
-        [array release];
-        
+		array = nil;
+		
         [mainView setItem: [[NSArray alloc] initWithArray: [[[[NardinPool sharedObject] contactsInfo] allKeys] sortedArrayUsingSelector: @selector(localizedCaseInsensitiveCompare:)]]];
         [[self navigationController] pushViewController: mainView animated: YES];
     }
@@ -263,16 +266,15 @@
 
 - (void) dealloc
 {
-    [login release];
-    [password release];
-    [req release];
-    [settings release];
-    [checkbox release];
-    [loginLabel release];
-    [passLabel release];
-    [checkboxLabel release];
-    [arrTextfield release];
-    [super dealloc];
+    login = nil;
+    password = nil;
+    req = nil;
+    settings = nil;
+    checkbox = nil;
+    loginLabel = nil;
+    passLabel = nil;
+    checkboxLabel = nil;
+    arrTextfield = nil;
 }
 
 @end

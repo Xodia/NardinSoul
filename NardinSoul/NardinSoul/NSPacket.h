@@ -18,7 +18,7 @@
 }
 // if list_users -> command == @"list_users" -> parameters[] = list User -> from == 0
 
-@property (nonatomic, assign) NSString *command;
+@property (nonatomic, copy) NSString *command;
 @property (nonatomic, retain) NSArray  *parameters;
 @property (nonatomic, retain) User     *from;
 

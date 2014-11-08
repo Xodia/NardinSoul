@@ -38,6 +38,6 @@
 
 - (void) createAccount: (NSString *) accountName;
 
-@property (nonatomic, assign) NSMutableDictionary *messageReceived;
-@property (nonatomic, assign) NSMutableDictionary *contactsInfo;
+@property (nonatomic, strong) NSMutableDictionary *messageReceived;
+@property (nonatomic, strong) NSMutableDictionary *contactsInfo;
 @end

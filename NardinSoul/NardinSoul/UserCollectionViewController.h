@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "NetsoulViewProtocol.h"
 
 @interface UserCollectionViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate, NetsoulViewProtocol>

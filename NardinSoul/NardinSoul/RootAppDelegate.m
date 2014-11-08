@@ -16,12 +16,11 @@
 
 - (void)dealloc
 {
-    [managedObjectContext release];
-    [managedObjectModel release];
-    [persistentStoreCoordinator release];
+    managedObjectContext = nil;
+    managedObjectModel = nil;
+    persistentStoreCoordinator = nil;
     
-    [_window release];
-    [super dealloc];
+    _window = nil;
 }
 
 - (NSManagedObjectContext *) managedObjectContext {
@@ -41,7 +40,7 @@
     if (managedObjectModel != nil) {
         return managedObjectModel;
     }
-    managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
+    managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
 
     return managedObjectModel;
 }
@@ -57,7 +56,7 @@
                                   initWithManagedObjectModel:[self managedObjectModel]];
     if(![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
                                                  configuration:nil URL:storeUrl options:nil error:&error]) {
-        NSLog(@"Error in AppDeleate::persistentStoreCoordinator [%@] [%@]\n", error, [error userInfo]);
+        NSLog(@"Error in AppDelegate::persistentStoreCoordinator [%@] [%@]\n", error, [error userInfo]);
 		abort();
     }
     
@@ -74,11 +73,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
+	UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil];
+	
+	[[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+	
+	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+
     // Override point for customization after application launch.
-    
+	[application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+
     [[NetsoulProtocol sharePointer] setManagedObjectContext: self.managedObjectContext];
-    
+	
     return YES;
 }
 							
@@ -111,10 +116,19 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+	
+	NSLog(@"DidEnterBackground !");
+	socket = [NetsoulProtocol sharePointer].socket;
+	//socket.delegate = self;
+	
+	[socket performBlock:^{
+		[socket enableBackgroundingOnSocket];
+	}];
+	NSLog(@"Socket: %@, isConnected: %d", socket, socket.isConnected);
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
-
+/*
     [application beginBackgroundTaskWithExpirationHandler:^{
         
         [self backgroundHandler];
@@ -144,7 +158,8 @@
 
         [app scheduleLocalNotification:alarm];
     }
-    [alarm release];
+    alarm = nil;*/
+	
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -165,4 +180,26 @@
     backgroundAccepted = NO;
 }
 
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag;
+{
+	NSString *dataStr = [NSString stringWithUTF8String: [data bytes]];
+	
+	NSLog(@"String: %@", dataStr);
+}
+
+- (void) socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+	NSLog(@"Socket didWriteDataWithTag");
+}
+
+- (void) socket:(GCDAsyncSocket *)sock didReadPartialDataOfLength:(NSUInteger)partialLength tag:(long)tag
+{
+	NSLog(@"Socket didReadPartialDataOfLength");
+}
+
+- (void) socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
+{
+	NSLog(@"Socket socketDidDisconnect");
+
+}
 @end

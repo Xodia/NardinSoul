@@ -60,13 +60,8 @@ static NardinPool *pool = nil;
     if ([obj isKindOfClass: [NSMutableArray class]])
     {
         NSMutableArray *array = (NSMutableArray *) obj;
-        
-        for (id object in array)
-        {
-            [object release];
-        }
-        
-        [array release];
+		
+        array = nil;
     }
     [_messageReceived removeObjectForKey: [[packet from] login]];
 }
@@ -96,11 +91,7 @@ static NardinPool *pool = nil;
     {
         NSMutableArray *array = (NSMutableArray *) obj;
         
-        for (id object in array)
-        {
-            [object release];
-        }
-        [array release];
+		array = nil;
     }
     [_messageReceived removeObjectForKey: key];
 }
@@ -247,7 +238,7 @@ static NardinPool *pool = nil;
     }
     NSManagedObjectContext *context = [[NetsoulProtocol sharePointer] managedObjectContext];
 
-    Contact *_contact = [[NSEntityDescription insertNewObjectForEntityForName: @"Contact" inManagedObjectContext: context] retain];
+    Contact *_contact = [NSEntityDescription insertNewObjectForEntityForName: @"Contact" inManagedObjectContext: context];
     
     _contact.contactName = contact;
     
@@ -256,7 +247,7 @@ static NardinPool *pool = nil;
     if (![context save:&error]) {
         NSLog(@"Failed to save - error: %@", [error localizedDescription]);
     }
-    [_contact release];
+    _contact = nil;
     NSContact *c = [[NSContact alloc] initWithLogin: contact];
     [_contactsInfo setObject: c forKey: contact];
 }
@@ -268,9 +259,11 @@ static NardinPool *pool = nil;
     NSSet *contacts = [self contacts];
     for (Contact *c in contacts)
     {
+		NSLog(@"ContactName: %@ - Contact: %@", c.contactName, contact);
         if ([c.contactName isEqualToString: contact])
         {
-            [[self contact] removeContactListObject: c];
+            //[[self contact] removeContactListObject: c];
+			[context deleteObject: c];
             [[NardinPool sharedObject] removeContactInfoByName: contact];
             NSError *error = nil;
             if (![context save:&error]) {
@@ -321,16 +314,6 @@ static NardinPool *pool = nil;
         return [fetchResults objectAtIndex: 0];
     }
     return nil;
-}
-
-
-- (void) dealloc
-{
-    if (_messageReceived)
-        [_messageReceived release] ;
-    if (_contactsInfo)
-        [_contactsInfo release];
-    [super dealloc];
 }
 
 @end

@@ -52,8 +52,8 @@
     {
         if ([_user infos])
         {
-             [items release];
-             items = [[NSArray alloc] initWithArray:[_user infos]];
+			items = nil;
+			items = [[NSArray alloc] initWithArray:[_user infos]];
             [[self tableView] reloadData];
             
             if ([items count] > 0)
@@ -64,7 +64,7 @@
                     [_tableView setScrollEnabled: NO];
                     
                     [_tableView setHidden: NO];
-                    int sz = [items count] * 102;
+                    int sz = ((int)[items count]) * 102;
                     int pos = 125;
                     
                     CGRect frame = [_tableView frame];
@@ -77,7 +77,7 @@
                     [_tableView setScrollEnabled: NO];
                     
                     [_tableView setHidden: NO];
-                    int sz = [items count] * 102;
+					int sz = ((int)[items count]) * 102;
                     int pos = 136;
                     CGRect frame = [_tableView frame];
                     frame.size.height = sz;
@@ -112,17 +112,21 @@
 - (IBAction)pushToConversation:(id)sender
 {
     ConversationViewController *ctrl = [[ConversationViewController alloc] initWithNibName:nil bundle:nil];
-    [ctrl setTitle: _login.text]; // login
+	NSLog(@"Login : %@", self.title);
+	[ctrl setTitle: self.title]; // login
     [[self navigationController] pushViewController: ctrl animated: YES];
-    [ctrl release];
+    ctrl = nil;
 }
 
 - (IBAction)addRemoveContact:(id)sender
 {
     if ([[NardinPool sharedObject] isAContact: self.title])
-        [[NardinPool sharedObject] removeContact: _login.text];
+	{
+        [[NardinPool sharedObject] removeContact: self.title];
+		[self.navigationController popViewControllerAnimated: YES];
+	}
     else
-        [[NardinPool sharedObject] addContact: _login.text];
+        [[NardinPool sharedObject] addContact: self.title];
     [self putRightButton: [[NardinPool sharedObject] isAContact: self.title]];
 }
 
@@ -182,7 +186,7 @@
     [bt addTarget:self action:@selector(addRemoveContact:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithCustomView:bt];
     [self.navigationItem setRightBarButtonItem: leftButton];
-    [leftButton release];
+	leftButton = nil;
 }
 
 
@@ -268,18 +272,6 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      [detailViewController release];
      */
-}
-
-- (void) dealloc
-{
-    [_login release];
-    [_toConversation release];
-    [_eraseContact release];
-    [_user release];
-    [_image release];
-    [items release];
-    [_line release];
-    [super dealloc];
 }
 
 @end

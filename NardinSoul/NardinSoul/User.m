@@ -111,15 +111,4 @@
     return (self);
 }
 
-- (void) dealloc
-{
-    if (location) [location release];
-    if (group) [group release];
-    if (status) [status release];
-    if (userData) [userData release];
-    if (userHost) [userHost release];
-    if (login) [login release];
-    [super dealloc];
-}
-
 @end

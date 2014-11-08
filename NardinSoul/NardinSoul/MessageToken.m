@@ -17,16 +17,10 @@
 {
     if (self = [super init])
     {
-        _msg = [[NSString alloc] initWithString: __msg];
+        _msg = __msg;
         _isExtern = outcome;
     }
     return self;
-}
-
-- (void) dealloc
-{
-    [_msg release];
-    [super dealloc];
 }
 
 @end

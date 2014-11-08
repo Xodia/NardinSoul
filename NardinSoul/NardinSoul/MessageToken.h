@@ -14,7 +14,7 @@
     BOOL        isExtern;
 }
 
-@property (nonatomic, assign) NSString *msg;
+@property (nonatomic, copy) NSString *msg;
 @property (nonatomic) BOOL isExtern;
 
 - (id) initWithMessage: (NSString *) __msg andFrom: (BOOL) outcome;

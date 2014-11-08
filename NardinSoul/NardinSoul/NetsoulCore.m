@@ -49,7 +49,7 @@ static NetsoulCore *shared = nil;
     
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     
-    Message *message = [[NSEntityDescription insertNewObjectForEntityForName: @"Message" inManagedObjectContext: context] retain];
+    Message *message = [NSEntityDescription insertNewObjectForEntityForName: @"Message" inManagedObjectContext: context];
     message.from = [NSString stringWithString:[[packet from] login]];
     message.to = [NSString stringWithString: [[NetsoulProtocol sharePointer] loginNetsouled]];
     message.date = [NSDate date];
@@ -64,6 +64,7 @@ static NetsoulCore *shared = nil;
         message.msg = [NSString stringWithString: msg];
         
         // local notifications - > erase en prod - choix user
+		/*
         if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive && [[packet command] isEqualToString: @"msg"])
         {
             UILocalNotification *localNF = [[UILocalNotification alloc] init];
@@ -75,8 +76,9 @@ static NetsoulCore *shared = nil;
             localNF.soundName = UILocalNotificationDefaultSoundName;
             localNF.applicationIconBadgeNumber = 0;
             [[UIApplication sharedApplication] scheduleLocalNotification:localNF];
-            [localNF release];
+            localNF = nil;
         }
+		 */
     }
     
     
@@ -84,9 +86,9 @@ static NetsoulCore *shared = nil;
     if (![context save:&error]) {
         NSLog(@"Failed to save - error: %@", [error localizedDescription]);
     }
-    [message release];
-    
-    [[NardinPool sharedObject] addPacket: [packet retain]];
+
+	message = nil;
+    [[NardinPool sharedObject] addPacket: packet];
 }
 
 - (void) receptWho: (NSPacket *) packet
@@ -95,7 +97,7 @@ static NetsoulCore *shared = nil;
     {
         User *who = [[User alloc] initWithWhoInformationsWithArray: packet.parameters];
         [[NardinPool sharedObject] addContactInfo: who];
-        [who release];
+        who = nil;
     }
 }
 
@@ -132,12 +134,6 @@ static NetsoulCore *shared = nil;
         if (key)
             [self performSelector: NSSelectorFromString(key) withObject: packet];
     }
-}
-
-- (void) dealloc
-{
-    [keySelector release];
-    [super dealloc];
 }
 
 @end

@@ -12,9 +12,9 @@
 
 @interface Message : NSManagedObject
 
-@property (nonatomic, retain) NSString * from;
-@property (nonatomic, retain) NSString * msg;
-@property (nonatomic, retain) NSString * to;
+@property (nonatomic, copy) NSString * from;
+@property (nonatomic, copy) NSString * msg;
+@property (nonatomic, copy) NSString * to;
 @property (nonatomic, retain) NSDate * date;
 
 @end

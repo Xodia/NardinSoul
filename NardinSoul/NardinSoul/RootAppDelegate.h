@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GCDAsyncSocket.h"
 
-@interface RootAppDelegate : UIResponder <UIApplicationDelegate>
+@interface RootAppDelegate : UIResponder <UIApplicationDelegate, GCDAsyncSocketDelegate>
 {
     BOOL backgroundAccepted;
     NSManagedObjectModel *managedObjectModel;
     NSManagedObjectContext *managedObjectContext;
     NSPersistentStoreCoordinator *persistentStoreCoordinator;
+	GCDAsyncSocket *socket;
 }
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;

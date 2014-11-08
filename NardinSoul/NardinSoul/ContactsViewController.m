@@ -26,6 +26,7 @@
     CGFloat oldX;
     CGFloat oldY;
     BOOL dragging;
+	UIAlertView *alert;
 }
 
 
@@ -70,13 +71,10 @@
         [self didDisconnect];
 }
 
-- (void) addContact: (id) sender
+- (void) addContact
 {
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Ajout contact" message:@"Login:" delegate:self cancelButtonTitle:@"Annuler" otherButtonTitles:@"OK", nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    UITextField * alertTextField = [alert textFieldAtIndex:0];
-    alertTextField.keyboardType = UIKeyboardTypeDefault;
-    alertTextField.placeholder = @"Enter your name";
+	UITextField * alertTextField = [alert textFieldAtIndex:0];
+	alertTextField.text = @"";
     [alert show];
 }
 
@@ -85,8 +83,7 @@
     if (buttonIndex == 1)
     {
         [[NardinPool sharedObject] addContact: [alertView textFieldAtIndex:0].text];
-        [items release];
-
+		items = nil;
         items = [[NSArray alloc] initWithArray: [[[[NardinPool sharedObject] contactsInfo] allKeys] sortedArrayUsingSelector: @selector(localizedCaseInsensitiveCompare:)]];
         
         [[NetsoulProtocol sharePointer] watchUsers: @[[alertView textFieldAtIndex: 0].text]];
@@ -105,14 +102,9 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
-   // NSLog(@"Contacts: %d - items: %d", [[[NardinPool sharedObject] contacts] count],  [items count]);
-    if ([[[NardinPool sharedObject] contacts] count] != [items count])
-    {
-        [items release];
-    
-        items = [[NSArray alloc] initWithArray: [[[[NardinPool sharedObject] contactsInfo] allKeys] sortedArrayUsingSelector: @selector(localizedCaseInsensitiveCompare:)]];
-    }
-    
+	items = [[[[NardinPool sharedObject] contactsInfo] allKeys] sortedArrayUsingSelector: @selector(localizedCaseInsensitiveCompare:)];
+	isMenuShowed = NO;
+	
     [self.collectionView reloadData];
     [self.navigationController.navigationBar setHidden: NO];
     [[NetsoulProtocol sharePointer] setDelegate: self];
@@ -183,26 +175,28 @@
     //items = [[[[[NardinPool sharedObject] contactsInfo] allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]  retain];
     self.title = @"NSoul";
 
+	alert = [[UIAlertView alloc] initWithTitle:@"Ajout contact" message:@"Login:" delegate:self cancelButtonTitle:@"Annuler" otherButtonTitles:@"OK", nil];
+	alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+	UITextField * alertTextField = [alert textFieldAtIndex:0];
+	//alertTextField.keyboardType = UIKeyboardTypeDefault;
+	alertTextField.placeholder = @"Enter a login";
+	alertTextField.text = @"";
     [super viewDidLoad];
-    
-    if (IS_IPHONE5)
-    {
-        [collectionView setFrame: CGRectMake(0, 7, 320, 504)];
-    }
+
     
     
     UIButton *bt=[UIButton buttonWithType:UIButtonTypeCustom];
-    [bt setFrame:CGRectMake(0, 0, 40, 30)];
+    [bt setFrame:CGRectMake(0, 0, 32, 25)];
     [bt setImage:[UIImage imageNamed:@"icon-options.png"] forState:UIControlStateNormal];
     [bt addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftButton=[[UIBarButtonItem alloc] initWithCustomView:bt];
     self.navigationItem.leftBarButtonItem=leftButton;
 
     [self.navigationItem setLeftBarButtonItem: leftButton];
-    [leftButton release];
-    
-    menuItems = [[NSMutableArray alloc] initWithArray: @[@"Messages", @"Ajouter un contact", @"Informations",  @"Deconnexion"]];
-    keySelector = [[NSArray alloc] initWithArray:@[@"toMessageView", @"addContact:", @"toInformationView", @"disconnect"]];
+
+	leftButton = nil;
+    menuItems = [[NSMutableArray alloc] initWithArray: @[@"Messages", @"Ajouter un contact",  @"Deconnexion"]];
+    keySelector = @[@"toMessageView", @"addContact", @"disconnect"];
 
 }
 
@@ -349,17 +343,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self performSelector: NSSelectorFromString([keySelector objectAtIndex: indexPath.row])];
-}
-
-
-
-
-- (void) dealloc
-{
-    [menuItems release];
-    [keySelector release];
-    [items release];
-    [super dealloc];
 }
 
 @end

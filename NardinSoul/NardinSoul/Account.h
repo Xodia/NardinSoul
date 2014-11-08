@@ -13,8 +13,8 @@
 
 @interface Account : NSManagedObject
 
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * pwd;
+@property (nonatomic, copy) NSString * name;
+@property (nonatomic, copy) NSString * pwd;
 @property (nonatomic, retain) NSSet *contactList;
 @end
 

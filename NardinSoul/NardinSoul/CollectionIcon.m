@@ -34,13 +34,5 @@
     return (self);
 }
 
-- (void) dealloc
-{
-    [path release];
-    [key release];
-    if (isLoad)
-        [img release];
-    [super dealloc];
-}
 
 @end

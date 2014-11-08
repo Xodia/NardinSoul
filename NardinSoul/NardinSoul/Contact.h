@@ -12,6 +12,6 @@
 
 @interface Contact : NSManagedObject
 
-@property (nonatomic, retain) NSString * contactName;
+@property (nonatomic, copy) NSString * contactName;
 
 @end

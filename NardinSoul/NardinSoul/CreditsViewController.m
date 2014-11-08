@@ -45,17 +45,6 @@
 {
     self.title = @"Informations";
     [super viewDidLoad];
-    
-    //fr.linkedin.com/pub/morgan-collino/30/672/256/
-    /*
-     NSString *myProfile = @"twitter://user?screen_name=theSeanCook";
-     NSURL *url = [NSURL URLWithString:myProfile];
-     BOOL result = [[UIApplication sharedApplication] openURL:url];
-     */
-    
-    
-    
-	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,7 +53,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)    dealloc
+- (void) dealloc
 {
     [twitter release];
     [linkedin release];

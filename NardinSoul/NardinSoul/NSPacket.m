@@ -26,11 +26,8 @@
 
 - (void) dealloc
 {
-    if (command)
-        [command release];
-    if (from)
-        [from release];
-    [super dealloc];
+	command = nil;
+	from = nil;
 }
 
 @end

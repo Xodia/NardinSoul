@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Morgan Collino. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface NardinSoulTests : SenTestCase
+@interface NardinSoulTests : XCTestCase
 
 @end

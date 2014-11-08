@@ -73,17 +73,17 @@
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
         dispatch_async(queue, ^{
             
-            UIImage *_image = [[UIImage alloc ] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [NSString stringWithFormat:@"http://cdn.local.epitech.net/userprofil/profilview/%@.jpg", contact.login]]]];
+            UIImage *___image = [[UIImage alloc ] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [NSString stringWithFormat:@"http://cdn.local.epitech.net/userprofil/profilview/%@.jpg", contact.login]]]];
             
             dispatch_sync(dispatch_get_main_queue(), ^{
-                if (_image)
+                if (___image)
                 {
-                    [image setImage: _image];
-                    [contact setImg: _image];
+                    [self.image setImage: ___image];
+                    [contact setImg: ___image];
                     [contact setIsImageLoaded: YES];
                 }
                 else
-                    [image setImage: [UIImage imageNamed: @"no.jpg"]];
+                    [self.image setImage: [UIImage imageNamed: @"no.jpg"]];
             });
         });
         
@@ -100,17 +100,5 @@
 }
 */
 
-- (void) dealloc
-{
-    if (delegate)
-        [delegate release];
-    if (image)
-        [image release];
-    if (label)
-        [label release];
-    if (round)
-        [round release];
-    [super dealloc];
-}
 
 @end

@@ -19,7 +19,7 @@
 
 @optional
 
-- (void) didAuthentificate: (bool) real;
+- (void) didAuthentificate: (NSNumber*) real;
 - (void) didDisconnect;
 - (void) didReceiveMessage: (NSPacket *) pkg;
 - (void) didReceiveTypingFrom: (NSPacket *) from;

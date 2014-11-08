@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SSMessagesViewController.h"
 #import "NetsoulViewProtocol.h"
+#import <JSQMessagesViewController/JSQMessages.h>
 
 @class  NSPacket;
 
-@interface ConversationViewController : SSMessagesViewController <NetsoulViewProtocol>
+@interface ConversationViewController : JSQMessagesViewController <NetsoulViewProtocol>
 {
     NSMutableArray *arrayMsg;
 }

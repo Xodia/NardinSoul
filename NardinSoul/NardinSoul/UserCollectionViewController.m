@@ -54,14 +54,13 @@
     }
     
     NSMutableArray *tmp = items;
-    items = a;
-    
+
+	items = a;
     for (CollectionIcon *collection in tmp)
     {
         [tmp removeObject: collection];
-        [collection release];
     }
-    [tmp release];
+    tmp = nil;
     [self.collectionView reloadData];
 }
 
@@ -77,6 +76,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	self.title = @"Messagerie";
 	// Do any additional setup after loading the view.
 }
 
@@ -141,7 +141,7 @@
     CollectionIcon *icon = [items objectAtIndex: (indexPath.section * 3) + indexPath.row];
     NSArray *array = [[[NardinPool sharedObject] messageReceived] objectForKey: icon.key];
     
-    cell.label.text = [NSString stringWithFormat: @"%@(%d)", [icon key], [array count]];
+    cell.label.text = [NSString stringWithFormat: @"%@(%ld)", [icon key], (long)[array count]];
 
     NSContact *c = [[[NardinPool sharedObject] contactsInfo] objectForKey: [icon key]];
 
@@ -162,7 +162,7 @@
     [ctrl setTitle: icon.key];
     [items removeObjectAtIndex: (indexPath.section * 3) + indexPath.row];
     [[NardinPool sharedObject] removeKey: icon.key];
-    [icon release];
+    icon = nil;
 
     [[self navigationController] pushViewController: ctrl animated:YES];
     [[self collectionView] reloadData];
@@ -171,14 +171,10 @@
 - (void) dealloc
 {
     if (msg)
-        [msg release];
-    for (NSObject *i in items)
-    {
-        [i release];
-    }
+        msg = nil;;
     if (items)
-        [items release];
-    [super dealloc];
+        items = nil;;
+    //[super dealloc];
 }
 
 @end
