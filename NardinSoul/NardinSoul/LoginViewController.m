@@ -82,7 +82,7 @@
    [[self navigationController] navigationBar].tintColor = [UIColor colorWithRed: 0 green: 99.0/255.0 blue: 205.0/255.0 alpha: 1];
     isChecked = false;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
+
     if (![prefs objectForKey: @"server"])
         [prefs setObject: @"ns-server.epita.fr" forKey:@"server"];
     if (![prefs objectForKey: @"port"])
@@ -98,7 +98,7 @@
     [netsoul setDelegate: self];
     [super viewDidLoad];
     arrTextfield = [[NSArray alloc] initWithObjects: login, password, nil];
-    
+	
     NSString *log = [prefs stringForKey:@"login"];
     NSString *pass = [prefs stringForKey:@"pass"];
     
@@ -113,7 +113,13 @@
         if (pass)
             [password setText: pass];
     }
-    
+	
+	if (log && pass)
+	{
+		// try autologin
+		// I know, not the sexiest way to do it :P
+		[self launchAuthentification: nil];
+	}
     
 	// Do any additional setup after loading the view.
 }
@@ -172,8 +178,9 @@
 - (void) didAuthentificate: (NSNumber *) real
 {
 	NSLog(@"DidAuthenticate: %@", real);
+	
     [activity stopAnimating];
-    if (real)
+    if (real.integerValue)
     {
         if (!isChecked)
         {

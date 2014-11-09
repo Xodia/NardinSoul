@@ -47,7 +47,7 @@ static NetsoulCore *shared = nil;
     
     NSManagedObjectContext *context = [[NetsoulProtocol sharePointer] managedObjectContext];
     
-    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    //AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     
     Message *message = [NSEntityDescription insertNewObjectForEntityForName: @"Message" inManagedObjectContext: context];
     message.from = [NSString stringWithString:[[packet from] login]];

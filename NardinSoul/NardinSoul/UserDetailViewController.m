@@ -153,14 +153,15 @@
     
     [super viewDidLoad];
     
-    if (IS_IPHONE5)
+    /*if (IS_IPHONE5)
     {
         [_tableView setFrame: CGRectMake(0, 136, 320, 368)];
         [_connected setFrame: CGRectMake(20, 102, 86, 18)];
         [_round setFrame: CGRectMake(20, 105, 86, 15)];
         [_line setFrame: CGRectMake(0, 145, 320, 1)];
     }
-    
+    */
+	
     [_tableView setHidden: YES];
     self.title = _user.login;
     [_login setText: _user.login];
