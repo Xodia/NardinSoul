@@ -17,8 +17,6 @@
 		4C087D7E171C95D6001FC323 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C087D7D171C95D6001FC323 /* Default-568h@2x.png */; };
 		4C087D80171C9606001FC323 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C087D7F171C9605001FC323 /* Default.png */; };
 		4C09FB6D16E0FDB7007DE102 /* NetsoulCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C09FB6C16E0FDB7007DE102 /* NetsoulCore.m */; };
-		4C0D91BE1714795600D1797D /* logo-57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0D91B71714795600D1797D /* logo-57x57.png */; };
-		4C0D91BF1714795600D1797D /* logo-114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0D91B81714795600D1797D /* logo-114x114.png */; };
 		4C0D91C01714795600D1797D /* logo-1024x1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0D91B91714795600D1797D /* logo-1024x1024.png */; };
 		4C0D91C11714795600D1797D /* splash-320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0D91BA1714795600D1797D /* splash-320x480.png */; };
 		4C0D91C31714795600D1797D /* splash-640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0D91BC1714795600D1797D /* splash-640x1136.png */; };
@@ -46,6 +44,9 @@
 		4C8365461A0D80D50015FD68 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8365451A0D80D50015FD68 /* GCDAsyncSocket.m */; };
 		4C8365481A0D82470015FD68 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8365471A0D82470015FD68 /* Security.framework */; };
 		4C83654E1A0D94E30015FD68 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C83654D1A0D94E30015FD68 /* libPods.a */; };
+		4C8365531A0EF9C20015FD68 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C8365521A0EF9C20015FD68 /* Images.xcassets */; };
+		4C8365641A0EFD8F0015FD68 /* LaunchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C8365621A0EFD8F0015FD68 /* LaunchView.xib */; };
+		4C8365671A0EFE680015FD68 /* LaunchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8365661A0EFE680015FD68 /* LaunchView.m */; };
 		4C8A305516F7392100FD3D54 /* epitech.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8A305316F7392100FD3D54 /* epitech.png */; };
 		4C8A305616F7392100FD3D54 /* nardin.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8A305416F7392100FD3D54 /* nardin.png */; };
 		4C8DAF5916B2F188003C7E19 /* NetsoulProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8DAF5816B2F188003C7E19 /* NetsoulProtocol.m */; };
@@ -100,8 +101,6 @@
 		4C087D7F171C9605001FC323 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4C09FB6B16E0FDB6007DE102 /* NetsoulCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetsoulCore.h; sourceTree = "<group>"; };
 		4C09FB6C16E0FDB7007DE102 /* NetsoulCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetsoulCore.m; sourceTree = "<group>"; };
-		4C0D91B71714795600D1797D /* logo-57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-57x57.png"; sourceTree = "<group>"; };
-		4C0D91B81714795600D1797D /* logo-114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-114x114.png"; sourceTree = "<group>"; };
 		4C0D91B91714795600D1797D /* logo-1024x1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-1024x1024.png"; sourceTree = "<group>"; };
 		4C0D91BA1714795600D1797D /* splash-320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-320x480.png"; sourceTree = "<group>"; };
 		4C0D91BC1714795600D1797D /* splash-640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-640x1136.png"; sourceTree = "<group>"; };
@@ -145,6 +144,10 @@
 		4C8365451A0D80D50015FD68 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = NardinSoul/GCDAsyncSocket.m; sourceTree = "<group>"; };
 		4C8365471A0D82470015FD68 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4C83654D1A0D94E30015FD68 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Release-iphoneos/libPods.a"; sourceTree = "<group>"; };
+		4C8365521A0EF9C20015FD68 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4C8365621A0EFD8F0015FD68 /* LaunchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchView.xib; sourceTree = "<group>"; };
+		4C8365651A0EFE680015FD68 /* LaunchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchView.h; sourceTree = "<group>"; };
+		4C8365661A0EFE680015FD68 /* LaunchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchView.m; sourceTree = "<group>"; };
 		4C8A305316F7392100FD3D54 /* epitech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = epitech.png; sourceTree = "<group>"; };
 		4C8A305416F7392100FD3D54 /* nardin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nardin.png; sourceTree = "<group>"; };
 		4C8DAF5716B2F188003C7E19 /* NetsoulProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetsoulProtocol.h; sourceTree = "<group>"; };
@@ -359,6 +362,9 @@
 		4C916C8816AD62CA00CA1295 = {
 			isa = PBXGroup;
 			children = (
+				4C8365651A0EFE680015FD68 /* LaunchView.h */,
+				4C8365661A0EFE680015FD68 /* LaunchView.m */,
+				4C8365621A0EFD8F0015FD68 /* LaunchView.xib */,
 				4C087D7F171C9605001FC323 /* Default.png */,
 				4C087D7D171C95D6001FC323 /* Default-568h@2x.png */,
 				4C6D21171705F8E1009AB396 /* AudioToolbox.framework */,
@@ -405,6 +411,7 @@
 				4C916CAF16AD62CA00CA1295 /* MainStoryboard.storyboard */,
 				4C66AFFF16EDE7A400BE766F /* Database */,
 				4C9261B516BA8D330023EDB4 /* Controller */,
+				4C8365521A0EF9C20015FD68 /* Images.xcassets */,
 				4C916C9E16AD62CA00CA1295 /* Supporting Files */,
 			);
 			path = NardinSoul;
@@ -417,8 +424,6 @@
 				4C0D91CE17147CB100D1797D /* icon-checked.png */,
 				4C0D91D017147CB100D1797D /* icon-options.png */,
 				4C0D91D117147CB100D1797D /* icon-unchecked.png */,
-				4C0D91B71714795600D1797D /* logo-57x57.png */,
-				4C0D91B81714795600D1797D /* logo-114x114.png */,
 				4C0D91B91714795600D1797D /* logo-1024x1024.png */,
 				4C0D91BA1714795600D1797D /* splash-320x480.png */,
 				4C0D91BC1714795600D1797D /* splash-640x1136.png */,
@@ -641,6 +646,7 @@
 				4C916CAC16AD62CA00CA1295 /* Default@2x.png in Resources */,
 				4C916CB116AD62CA00CA1295 /* MainStoryboard.storyboard in Resources */,
 				4C35BBBB16E77DD000C8A061 /* Lama.jpg in Resources */,
+				4C8365641A0EFD8F0015FD68 /* LaunchView.xib in Resources */,
 				4C7C0E9B16E8DC4F004A57C1 /* no.jpg in Resources */,
 				4C2D913716F36AAD00A45D62 /* Localizable.strings in Resources */,
 				4C8A305516F7392100FD3D54 /* epitech.png in Resources */,
@@ -648,8 +654,6 @@
 				4C8DB6381708C67600A3C752 /* rect_orange.png in Resources */,
 				4C8DB6391708C67600A3C752 /* rect_red.png in Resources */,
 				4C8DB63A1708C67600A3C752 /* rect_green.png in Resources */,
-				4C0D91BE1714795600D1797D /* logo-57x57.png in Resources */,
-				4C0D91BF1714795600D1797D /* logo-114x114.png in Resources */,
 				4C0D91C01714795600D1797D /* logo-1024x1024.png in Resources */,
 				4C0D91C11714795600D1797D /* splash-320x480.png in Resources */,
 				4C0D91C31714795600D1797D /* splash-640x1136.png in Resources */,
@@ -658,6 +662,7 @@
 				4C0D91D517147CB100D1797D /* icon-unchecked.png in Resources */,
 				4CD65A581716D2F000EA238D /* button-login.png in Resources */,
 				4C087D76171C9312001FC323 /* blue_form.png in Resources */,
+				4C8365531A0EF9C20015FD68 /* Images.xcassets in Resources */,
 				4C087D77171C9312001FC323 /* button-connecter.png in Resources */,
 				4C087D78171C9312001FC323 /* epitech2.png in Resources */,
 				4C087D79171C9312001FC323 /* linkedin.png in Resources */,
@@ -731,6 +736,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C916CA416AD62CA00CA1295 /* main.m in Sources */,
+				4C8365671A0EFE680015FD68 /* LaunchView.m in Sources */,
 				4C916CA816AD62CA00CA1295 /* RootAppDelegate.m in Sources */,
 				4C8DAF5916B2F188003C7E19 /* NetsoulProtocol.m in Sources */,
 				4C1155BE16B3377800AB563A /* NSString+MD5.m in Sources */,
@@ -873,6 +879,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0D35B845577942DDB659A744 /* Pods.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Morgan Collino (3J672E59ZX)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -882,6 +891,7 @@
 				HEADER_SEARCH_PATHS = SSToolkit;
 				INFOPLIST_FILE = "NardinSoul/NardinSoul-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Release-iphoneos",
@@ -894,6 +904,7 @@
 				PRODUCT_NAME = NSoul;
 				PROVISIONING_PROFILE = "1cd405ff-a73f-4929-aefd-4f99f3088990";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1cd405ff-a73f-4929-aefd-4f99f3088990";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -903,6 +914,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0D35B845577942DDB659A744 /* Pods.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Morgan Collino (3J672E59ZX)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -915,6 +929,7 @@
 				HEADER_SEARCH_PATHS = SSToolkit;
 				INFOPLIST_FILE = "NardinSoul/NardinSoul-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Release-iphoneos",
