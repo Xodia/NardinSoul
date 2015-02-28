@@ -19,6 +19,5 @@
 @property (nonatomic, copy) NSString *key;
 @property (nonatomic, retain) UIImageView *img;
 
-- (id) initWithPath: (NSString *) _path andKey: (NSString *) _key;
-- (void) dealloc;
+- (id)initWithPath: (NSString *) _path andKey: (NSString *) _key;
 @end

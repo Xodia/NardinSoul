@@ -14,6 +14,8 @@
 #import "ConnectionDetailCell.h"
 #import "NSPacket.h"
 #import "NardinPool.h"
+#import "UIImageView_XDShape.h"
+#import "UIButton_XDShape.h"
 
 #define IS_IPHONE5 (([[UIScreen mainScreen] bounds].size.height-568)?NO:YES)
 
@@ -104,9 +106,12 @@
             {
                 [_round setImage: [UIImage imageNamed: @"rect_red.png"]];
                 [_connected setText: @"disconnected"];
+				
             }
+			[_round toRoundImageView];
         }
-    }
+		[_round toRoundImageView];
+	}
 }
 
 - (IBAction)pushToConversation:(id)sender
@@ -152,38 +157,27 @@
     items = [[NSArray alloc] initWithArray:[_user infos]];
     
     [super viewDidLoad];
-    
-    /*if (IS_IPHONE5)
-    {
-        [_tableView setFrame: CGRectMake(0, 136, 320, 368)];
-        [_connected setFrame: CGRectMake(20, 102, 86, 18)];
-        [_round setFrame: CGRectMake(20, 105, 86, 15)];
-        [_line setFrame: CGRectMake(0, 145, 320, 1)];
-    }
-    */
+
 	
     [_tableView setHidden: YES];
     self.title = _user.login;
     [_login setText: _user.login];
     [_image setImage: _user.img];
+	[_toConversation toRoundImageView];
+	[_eraseContact toRoundImageView];
+	[_image toRoundImageView];
+
     [[NetsoulProtocol sharePointer] whoUsers: @[_user.login]];
     
-    [self putRightButton: [[NardinPool sharedObject] isAContact: self.title]];        
+    [self putRightButton:[[NardinPool sharedObject] isAContact: self.title]];
 }
 
-- (void) putRightButton: (BOOL) b
-{
-    NSString *s = @"";
-    
-    if (b)
-        s = @"icon-delete.png";
-    else
-        s = @"icon-add.png";
+- (void)putRightButton:(BOOL)b {
 
-
+	NSString *s = b ? @"cross.png" : @"icon-add.png";
     UIButton *bt=[UIButton buttonWithType:UIButtonTypeCustom];
     [bt setFrame:CGRectMake(0, 0, 30, 30)];
-    [bt setImage:[UIImage imageNamed: s] forState:UIControlStateNormal];
+    [bt setImage:[UIImage imageNamed:s] forState:UIControlStateNormal];
     [bt addTarget:self action:@selector(addRemoveContact:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithCustomView:bt];
     [self.navigationItem setRightBarButtonItem: leftButton];

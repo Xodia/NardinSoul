@@ -11,12 +11,6 @@
 @class User;
 
 @interface NSContact : NSObject
-{
-    NSString *login;
-    NSMutableArray *infos;
-    UIImage *img;
-    BOOL    imgLoaded;
-}
 
 - (id) initWithLogin: (NSString *) log andInfos: (NSMutableArray *) info;
 - (id) initWithLogin: (NSString *) log;
@@ -32,7 +26,9 @@
 
 @property (nonatomic, retain) NSMutableArray *infos;
 @property (nonatomic, copy) NSString *login;
-@property (nonatomic, retain) UIImage *img;
+@property (nonatomic, copy) UIImage *img;
+@property (nonatomic) BOOL    imgLoaded;
+
 
 
 @end

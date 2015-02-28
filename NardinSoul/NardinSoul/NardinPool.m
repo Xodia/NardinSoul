@@ -19,59 +19,53 @@
 
 static NardinPool *pool = nil;
 
-- (id) init
-{
-   if (self = [super init])
-   {
+- (id) init {
+   if (self = [super init]) {
        _messageReceived = [[NSMutableDictionary alloc] init];
        _contactsInfo = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
-+ (NardinPool *) sharedObject
-{
-    if (!pool)
-        pool = [[NardinPool alloc] init];
++ (NardinPool *) sharedObject {
+	
+	static dispatch_once_t once = 0;
+	dispatch_once(&once, ^{
+		pool = [[NardinPool alloc] init];
+	});
+	
     return  pool;
 }
 
 #pragma ADD_MSG_PACKET_TO_THE_POOL
 
-- (void) addPacket:(NSPacket *)packet
-{
-    id obj = [_messageReceived objectForKey: [[packet from] login]];
+- (void) addPacket:(NSPacket *)packet {
+    id obj = [_messageReceived objectForKey:[[packet from] login]];
     NSMutableArray *array;
-    if ([obj isKindOfClass: [NSMutableArray class]])
-    {
+    if ([obj isKindOfClass: [NSMutableArray class]]) {
         array = (NSMutableArray *) obj;
     }
-    else
-    {
+    else {
         array = [[NSMutableArray alloc] init];
     }
     [array addObject: packet];
-    [_messageReceived setObject: array forKey: [[packet from] login]];
+    [_messageReceived setObject: array forKey:[[packet from] login]];
 }
 
-- (void) removePacket: (NSPacket *) packet
-{
+- (void)removePacket: (NSPacket *) packet {
     id obj = [_messageReceived objectForKey: [[packet from] login]];
-    if ([obj isKindOfClass: [NSMutableArray class]])
-    {
+    if ([obj isKindOfClass: [NSMutableArray class]]) {
         NSMutableArray *array = (NSMutableArray *) obj;
 		
         array = nil;
     }
-    [_messageReceived removeObjectForKey: [[packet from] login]];
+    [_messageReceived removeObjectForKey:[[packet from] login]];
 }
 
-- (int) numbersOfMessage
-{    
+- (int)numbersOfMessage {
     int i = 0;
     
-    for (NSString *x in _messageReceived)
-    {
+    for (NSString *x in _messageReceived) {
         NSMutableArray *arr = [_messageReceived objectForKey: x];
         i += [arr count];
     }
@@ -84,11 +78,10 @@ static NardinPool *pool = nil;
     return i;
 }
 
-- (void) removeKey: (NSString *) key
+- (void)removeKey:(NSString *)key
 {
     id obj = [_messageReceived objectForKey: key];
-    if ([obj isKindOfClass: [NSMutableArray class]])
-    {
+    if ([obj isKindOfClass: [NSMutableArray class]]) {
         NSMutableArray *array = (NSMutableArray *) obj;
         
 		array = nil;
@@ -100,49 +93,40 @@ static NardinPool *pool = nil;
 // Who & State
 #pragma METHOD_INFO_ON_CONTACT
 
-- (void)  addContactInfo: (User *) contact
-{
+- (void)addContactInfo:(User *)contact {
     if (!_contactsInfo)
         _contactsInfo = [[NSMutableDictionary alloc] init];
-    NSContact  *c = [_contactsInfo objectForKey: contact.login];
-    //NSLog(@"Contact : %@ %d", c, c.retainCount);
-    if (c)
-    {
+    NSContact  *c = [_contactsInfo objectForKey:contact.login];
+    if (c) {
         [c putConnection: contact];
     }
 }
 
-- (void) flushInfo
-{
-    if (_contactsInfo)
-    {
-        for (NSString *k in _contactsInfo)
-        {
+- (void) flushInfo {
+    if (_contactsInfo) {
+        for (NSString *k in _contactsInfo) {
             NSContact *c = [_contactsInfo objectForKey: k];
             [c flush];
         }
     }
 }
 
-- (void)  removeContactInfo: (User *) contact
-{
+- (void)removeContactInfo:(User *)contact {
     if (!_contactsInfo)
         return;
-    NSContact  *c = [_contactsInfo objectForKey: contact.login];
-    if (c)
-    {
+    NSContact  *c = [_contactsInfo objectForKey:contact.login];
+    if (c) {
         [c removeConnection: contact];
     }
 }
 
-- (void) updateContactInfo: (User *) contact withNewStatus: (NSString *) status;
+- (void)updateContactInfo:(User *)contact withNewStatus:(NSString *)status;
 {
     if (!_contactsInfo)
         _contactsInfo = [[NSMutableDictionary alloc] init];
     NSContact  *c = [_contactsInfo objectForKey: contact.login];
-    if (c)
-    {
-        [c updateConnection: contact withNewStatus: status];
+    if (c) {
+        [c updateConnection:contact withNewStatus:status];
     }
 }
 

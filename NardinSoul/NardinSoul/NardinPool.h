@@ -12,10 +12,6 @@
 @class NSPacket;
 
 @interface NardinPool : NSObject
-{
-    NSMutableDictionary *messageReceived;
-    NSMutableDictionary *contactsInfo;
-}
 
 + (NardinPool *) sharedObject;
 - (void) addPacket:(NSPacket *)packet;

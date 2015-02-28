@@ -31,6 +31,6 @@
 
 @property (nonatomic, retain) id<MenuViewProtocol> delegate;
 
-- (void) setContact: (NSContact *) contact;
+- (void)setContact:(NSContact *)contact;
 
 @end

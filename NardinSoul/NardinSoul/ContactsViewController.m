@@ -15,6 +15,7 @@
 #import "UserDetailViewController.h"
 #import "UserCollectionViewController.h"
 #import "CreditsViewController.h"
+#import "UIImageView_XDShape.h"
 #define IS_IPHONE5 (([[UIScreen mainScreen] bounds].size.height-568)?NO:YES)
 
 
@@ -43,7 +44,7 @@
     {
         NSString *msg = [NSString stringWithFormat: @"Messages(%d)", [[NardinPool sharedObject] numbersOfMessage]];
             
-            [menuItems setObject: msg atIndexedSubscript:0];
+            [menuItems setObject:msg atIndexedSubscript:0];
             [tableView reloadData];
     }
     
@@ -58,7 +59,6 @@
 - (void) didDisconnect
 {
     shouldDisco = YES;
-    
     if (hasViewDidAppear)
         [[self navigationController] popToRootViewControllerAnimated: YES];
 }
@@ -71,8 +71,7 @@
         [self didDisconnect];
 }
 
-- (void) addContact
-{
+- (void) addContact {
 	UITextField * alertTextField = [alert textFieldAtIndex:0];
 	alertTextField.text = @"";
     [alert show];
@@ -84,7 +83,7 @@
     {
         [[NardinPool sharedObject] addContact: [alertView textFieldAtIndex:0].text];
 		items = nil;
-        items = [[NSArray alloc] initWithArray: [[[[NardinPool sharedObject] contactsInfo] allKeys] sortedArrayUsingSelector: @selector(localizedCaseInsensitiveCompare:)]];
+        items = [[NSArray alloc] initWithArray: [[[NardinPool sharedObject] contactsInfo] allKeys]];
         
         [[NetsoulProtocol sharePointer] watchUsers: @[[alertView textFieldAtIndex: 0].text]];
         [[NetsoulProtocol sharePointer] whoUsers: @[[alertView textFieldAtIndex: 0].text]];
@@ -98,21 +97,18 @@
 }
 
 
-
-
-- (void) viewWillAppear:(BOOL)animated
-{
-	items = [[[[NardinPool sharedObject] contactsInfo] allKeys] sortedArrayUsingSelector: @selector(localizedCaseInsensitiveCompare:)];
+- (void)viewWillAppear:(BOOL)animated {
+	
 	isMenuShowed = NO;
 	
-    [self.collectionView reloadData];
+    //[self.collectionView reloadData];
     [self.navigationController.navigationBar setHidden: NO];
     [[NetsoulProtocol sharePointer] setDelegate: self];
     [super viewWillAppear: animated];
     
     NSString *msg = [NSString stringWithFormat: @"Messages(%d)", [[NardinPool sharedObject] numbersOfMessage]];
     
-    [menuItems setObject: msg atIndexedSubscript:0];
+    [menuItems setObject:msg atIndexedSubscript:0];
     [tableView reloadData];
 }
 
@@ -183,8 +179,9 @@
 	alertTextField.text = @"";
     [super viewDidLoad];
 
-    
-    
+	items = [[[[NardinPool sharedObject] contactsInfo] allKeys] sortedArrayUsingSelector: @selector(localizedCaseInsensitiveCompare:)];
+
+	
     UIButton *bt=[UIButton buttonWithType:UIButtonTypeCustom];
     [bt setFrame:CGRectMake(0, 0, 32, 25)];
     [bt setImage:[UIImage imageNamed:@"icon-options.png"] forState:UIControlStateNormal];
@@ -273,8 +270,8 @@
     NSString *contact = [items objectAtIndex: (indexPath.section * 3) + indexPath.row];
     NSContact *c = [[[NardinPool sharedObject] contactsInfo] objectForKey: contact];
     //NSLog(@"Contact(c)=%@ on cell %d", c.login, (indexPath.section * 3) + indexPath.row);
-    [cell setContact: c];
-    return cell;
+    [cell setContact:c];
+ 	return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -340,9 +337,12 @@
 
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self performSelector: NSSelectorFromString([keySelector objectAtIndex: indexPath.row])];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	SEL selector = NSSelectorFromString([keySelector objectAtIndex:indexPath.row]);
+	IMP imp = [self methodForSelector:selector];
+	void (*func)(id, SEL) = (void *)imp;
+	func(self, selector);
 }
 
 @end

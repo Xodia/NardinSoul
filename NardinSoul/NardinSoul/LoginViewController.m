@@ -178,7 +178,6 @@
 - (void) didAuthentificate: (NSNumber *) real
 {
 	NSLog(@"DidAuthenticate: %@", real);
-	
     [activity stopAnimating];
     if (real.integerValue)
     {
@@ -202,6 +201,7 @@
         {
 			if ([c contactName])
 				[array addObject: [c contactName]];
+
         }
         
         [[NetsoulProtocol sharePointer] watchUsers: array];

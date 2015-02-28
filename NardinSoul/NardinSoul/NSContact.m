@@ -8,6 +8,7 @@
 
 #import "NSContact.h"
 #import "User.h"
+#import "UIImage+XDShape.h"
 
 @implementation NSContact
 @synthesize login = _login, infos = _infos, img = _img;
@@ -30,7 +31,7 @@
     {
         _login = [[NSString alloc] initWithString: log];
         _infos = [[NSMutableArray alloc] init];
-        [self loadImage];
+        //[self loadImage];
     }
     return self;
 }
@@ -57,7 +58,7 @@
 
 - (void) setIsImageLoaded: (BOOL) b
 {
-    imgLoaded = b;
+    self.imgLoaded = b;
 }
 
 - (void) removeConnection:(User *)connection
@@ -85,32 +86,29 @@
 
 - (void) loadImage
 {
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
-    dispatch_async(queue, ^{
-        
-        UIImage *image = [[UIImage alloc ] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [NSString stringWithFormat:@"http://cdn.local.epitech.net/userprofil/profilview/%@.jpg", _login]]]];
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            if (image)
-            {
-                _img = image;
-                imgLoaded = YES;
-            }
-            else
-            {
-                NSString *imageFilePath = [[NSBundle mainBundle] pathForResource:@"no" ofType:@"jpg"];
-                if (imageFilePath)
-                {
-                    _img = [[UIImage alloc] initWithContentsOfFile: imageFilePath];
-                    imgLoaded = YES;
-                }   
-            }
-        });
-    });
+	NSURL *url = [NSURL URLWithString: [NSString stringWithFormat:@"http://cdn.local.epitech.net/userprofil/profilview/%@.jpg", _login]];
+	__weak typeof(self)weakSelf = self;
+	[UIImage loadFromURL:url callback:^(UIImage *image) {
+		if (image)
+		{
+			weakSelf.img = image;
+			weakSelf.imgLoaded = YES;
+		}
+		else
+		{
+			NSString *imageFilePath = [[NSBundle mainBundle] pathForResource:@"no" ofType:@"jpg"];
+			if (imageFilePath)
+			{
+				weakSelf.img = [[UIImage alloc] initWithContentsOfFile: imageFilePath];
+				weakSelf.imgLoaded = YES;
+			}
+		}
+	}];
 }
 
 - (BOOL) isImageLoaded
 {
-    return imgLoaded;
+    return self.imgLoaded;
 }
 
 @end

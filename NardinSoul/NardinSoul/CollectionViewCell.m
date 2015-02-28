@@ -8,6 +8,8 @@
 
 #import "CollectionViewCell.h"
 #import "NSContact.h"
+#import "UIImageView_XDShape.h"
+#import "UIImage+XDShape.h"
 
 @implementation CollectionViewCell
 
@@ -54,38 +56,36 @@
     [super touchesMoved: touches withEvent: event];
 }
 
-- (void) setContact:(NSContact *)contact
+- (void)setContact:(NSContact *)contact
 {    
-    if ([[contact infos] count] > 0)
-    {
+    if ([[contact infos] count] > 0) {
         [round setImage: [UIImage imageNamed: @"rect_green.png"]];
     }
-    else
-    {
+    else {
         [round setImage: [UIImage imageNamed: @"rect_red.png"]];
     }
+	[round toRoundImageView];
     label.text = contact.login;
     
-    if (contact.isImageLoaded && contact.img)
+	if (contact.isImageLoaded && contact.img) {
         [image setImage: contact.img];
-    else
-    {
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
-        dispatch_async(queue, ^{
-            
-            UIImage *___image = [[UIImage alloc ] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [NSString stringWithFormat:@"http://cdn.local.epitech.net/userprofil/profilview/%@.jpg", contact.login]]]];
-            
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                if (___image)
-                {
-                    [self.image setImage: ___image];
-                    [contact setImg: ___image];
-                    [contact setIsImageLoaded: YES];
-                }
-                else
-                    [self.image setImage: [UIImage imageNamed: @"no.jpg"]];
-            });
-        });
+		[image toRoundImageView];
+	}
+    else {
+		__weak typeof(self)weakSelf = self;
+		__weak typeof(contact)weakContact = contact;
+		[UIImage loadFromURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.local.epitech.net/userprofil/profilview/%@.jpg", contact.login]] callback:^(UIImage *iimage) {
+			if (iimage) {
+				[weakSelf.image setImage:iimage];
+				weakContact.img = iimage;
+				weakContact.isImageLoaded = YES;
+			} else {
+				[weakSelf.image setImage: [UIImage imageNamed: @"no.jpg"]];
+				weakContact.isImageLoaded = YES;
+			}
+			[weakSelf.image toRoundImageView];
+		}];
+		
         
     }
 }

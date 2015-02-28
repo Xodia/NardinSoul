@@ -172,7 +172,9 @@ static NetsoulProtocol *sharePointer = nil;
         {
             if ([treatSelector objectForKey: [array objectAtIndex: 0]])
             {
-                [self performSelector: NSSelectorFromString([treatSelector objectForKey: [array objectAtIndex: 0]]) withObject: array];
+				NSString *key = [array objectAtIndex:0];
+				[self performSelector:NSSelectorFromString([treatSelector objectForKey:key])
+						   withObject: array];
             }
         }
     }
@@ -221,22 +223,15 @@ static NetsoulProtocol *sharePointer = nil;
  */
 
 
-- (NSString *) stringForGroupOfUsers: (NSArray *) users
-{
+- (NSString *) stringForGroupOfUsers: (NSArray *) users {
     NSString *varUser = @"";
-    if ([users count] == 1)
-    {
+    if ([users count] == 1) {
         varUser = [users objectAtIndex: 0];
     }
-    else if ([users count] > 1)
-    {
+    else if ([users count] > 1) {
         varUser = @"{";
-        for (NSString *s in users)
-        {
-            if ([varUser isEqualToString: @"{"])
-                varUser = [varUser stringByAppendingFormat: @"%@", s];
-            else
-                varUser = [varUser stringByAppendingFormat: @",%@", s];
+        for (NSString *s in users) {
+			varUser = [varUser isEqualToString: @"{"] ? [varUser stringByAppendingFormat: @"%@", s] : [varUser stringByAppendingFormat: @",%@", s];
         }
         varUser = [varUser stringByAppendingFormat: @"}"];
     }
@@ -354,28 +349,12 @@ static NetsoulProtocol *sharePointer = nil;
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err;
 {
-    //NSLog(@"Error: Disconnected with error : %@", [err localizedDescription]);
     isConnected = NO;
-    if ([delegate respondsToSelector: NSSelectorFromString(@"didDisconnect")])
-    {
-        [delegate performSelector: NSSelectorFromString(@"didDisconnect") withObject: nil];
+    if ([delegate respondsToSelector: NSSelectorFromString(@"didDisconnect")]) {
+		[delegate didDisconnect];
     }
     
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
-    if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
-    {
-        UILocalNotification *localNF = [[UILocalNotification alloc] init];
-        localNF.fireDate = nil;
-        localNF.timeZone = [NSTimeZone defaultTimeZone];
-        
-		localNF.alertBody = [NSString stringWithFormat: @"Vous avez été déconnecté de Netsoul"];
-        localNF.alertAction = nil;
-        localNF.soundName = UILocalNotificationDefaultSoundName;
-        localNF.applicationIconBadgeNumber = 0;
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNF];
-		localNF = nil;
-	}
-    
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port;
