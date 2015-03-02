@@ -68,20 +68,23 @@
     label.text = contact.login;
     
 	if (contact.isImageLoaded && contact.img) {
-        [image setImage: contact.img];
+        [image setImage:contact.img];
 		[image toRoundImageView];
 	}
     else {
 		__weak typeof(self)weakSelf = self;
 		__weak typeof(contact)weakContact = contact;
-		[UIImage loadFromURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.local.epitech.net/userprofil/profilview/%@.jpg", contact.login]] callback:^(UIImage *iimage) {
+		[UIImage loadFromURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.local.epitech.net/userprofil/profilview/%@.jpg", weakContact.login]] callback:^(UIImage *iimage) {
 			if (iimage) {
-				[weakSelf.image setImage:iimage];
-				weakContact.img = iimage;
+				NSLog(@"Image: %@", iimage);
+				NSLog(@"weakContact: %@", weakContact);
+				NSLog(@"weakContact.login: %@", weakContact.login);
+				[weakSelf.image setImage:[iimage copy]];
+				weakContact.img = [iimage copy];
 				weakContact.isImageLoaded = YES;
 			} else {
 				[weakSelf.image setImage: [UIImage imageNamed: @"no.jpg"]];
-				weakContact.isImageLoaded = YES;
+				weakContact.isImageLoaded = NO;
 			}
 			[weakSelf.image toRoundImageView];
 		}];

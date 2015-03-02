@@ -16,25 +16,22 @@
 #import "NardinPool.h"
 #import "UIImageView_XDShape.h"
 #import "UIButton_XDShape.h"
+#import "UIImage+XDShape.h"
 
 #define IS_IPHONE5 (([[UIScreen mainScreen] bounds].size.height-568)?NO:YES)
 
 @interface UserDetailViewController ()
-{
-    NSArray *items;
-}
+
+@property (nonatomic, strong) NSArray *items;
 
 @end
 
 @implementation UserDetailViewController
 
-@synthesize user = _user, eraseContact = _eraseContact, login = _login, image = _image, toConversation = _toConversation, round = _round, connected = _connected, tableView = _tableView, line = _line;
-
 - (void) didReceivePaquetFromNS:(NSPacket *)packet
 {
-   // NSLog(@"Packetcmd: %@", packet.command);
-    if (([[packet command] isEqualToString: @"state"] || [[packet command] isEqualToString: @"logout"]) && [[[packet from] login] isEqualToString: _user.login])
-    {
+	NSLog(@"Al");
+    if (([[packet command] isEqualToString: @"state"] || [[packet command] isEqualToString: @"logout"]) && [[[packet from] login] isEqualToString: _user.login]) {
         NSContact *c = [[[NardinPool sharedObject] contactsInfo] objectForKey: [packet.from login]];
         if (c)
             [c flush];
@@ -47,26 +44,25 @@
     [[self navigationController] popToRootViewControllerAnimated: YES];
 }
 
-- (void) didReceiveWhoInformations:(NSPacket *)info
-{
-    //NSLog(@"Infos: %@",_user.infos);
-   if ([[info parameters] count] >= 2 && [[[info parameters] objectAtIndex: 1] isEqualToString: _user.login])
+- (void)didReceiveWhoInformations:(NSPacket *)info {
+	
+	if ([[info parameters] count] >= 2 && [[[info parameters] objectAtIndex: 1] isEqualToString: _user.login])
     {
         if ([_user infos])
         {
-			items = nil;
-			items = [[NSArray alloc] initWithArray:[_user infos]];
+			self.items = nil;
+			self.items = [[NSArray alloc] initWithArray:[_user infos]];
             [[self tableView] reloadData];
             
-            if ([items count] > 0)
+            if ([self.items count] > 0)
             {
                 //NSLog(@"Count :%d", items.count);
-                if ([items count] < 3 && !IS_IPHONE5)
+                if ([self.items count] < 3 && !IS_IPHONE5)
                 {
                     [_tableView setScrollEnabled: NO];
                     
                     [_tableView setHidden: NO];
-                    int sz = ((int)[items count]) * 102;
+                    int sz = ((int)[self.items count]) * 102;
                     int pos = 125;
                     
                     CGRect frame = [_tableView frame];
@@ -74,12 +70,12 @@
                     frame.origin.y = pos;
                     [_tableView setFrame: frame];
                 }
-                else if ([items count] < 4 && IS_IPHONE5)
+                else if ([self.items count] < 4 && IS_IPHONE5)
                 {
                     [_tableView setScrollEnabled: NO];
                     
                     [_tableView setHidden: NO];
-					int sz = ((int)[items count]) * 102;
+					int sz = ((int)[self.items count]) * 102;
                     int pos = 136;
                     CGRect frame = [_tableView frame];
                     frame.size.height = sz;
@@ -99,25 +95,23 @@
                     frame.size.height = sz;
                     [_tableView setFrame: frame];
                 }
-                [_round setImage: [UIImage imageNamed: @"rect_green.png"]];
+                [_round setImage:[UIImage imageNamed:@"rect_green.png"]];
                 [_connected setText: @"connected"];
             }
             else
             {
-                [_round setImage: [UIImage imageNamed: @"rect_red.png"]];
+                [_round setImage:[UIImage imageNamed:@"rect_red.png"]];
                 [_connected setText: @"disconnected"];
 				
             }
 			[_round toRoundImageView];
         }
-		[_round toRoundImageView];
 	}
 }
 
 - (IBAction)pushToConversation:(id)sender
 {
     ConversationViewController *ctrl = [[ConversationViewController alloc] initWithNibName:nil bundle:nil];
-	NSLog(@"Login : %@", self.title);
 	[ctrl setTitle: self.title]; // login
     [[self navigationController] pushViewController: ctrl animated: YES];
     ctrl = nil;
@@ -152,24 +146,28 @@
     [super viewWillAppear: animated];
 }
 
-- (void)viewDidLoad
-{
-    items = [[NSArray alloc] initWithArray:[_user infos]];
+- (void)viewDidLoad {
+	
+	self.items = [[NSArray alloc] initWithArray:[_user infos]];
     
     [super viewDidLoad];
 
-	
-    [_tableView setHidden: YES];
+	if (self.items.count == 0) {
+		[_tableView setHidden:YES];
+	} else {
+		[_round setImage:[UIImage imageNamed:@"rect_green.png"]];
+		[_round toRoundImageView];
+		[_connected setText: @"connected"];
+	}
     self.title = _user.login;
-    [_login setText: _user.login];
-    [_image setImage: _user.img];
+	[_image setImage:_user.img];
 	[_toConversation toRoundImageView];
-	[_eraseContact toRoundImageView];
 	[_image toRoundImageView];
 
     [[NetsoulProtocol sharePointer] whoUsers: @[_user.login]];
     
     [self putRightButton:[[NardinPool sharedObject] isAContact: self.title]];
+	[_round toRoundImageView];
 }
 
 - (void)putRightButton:(BOOL)b {
@@ -200,7 +198,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [items count];
+    return [self.items count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -209,9 +207,9 @@
     
     ConnectionDetailCell *cell = (ConnectionDetailCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    User *u = [items objectAtIndex: indexPath.row];    
+    User *u = [self.items objectAtIndex: indexPath.row];
 
-    [cell printUser: u];
+    [cell printUser:u];
     
     return cell;
 }

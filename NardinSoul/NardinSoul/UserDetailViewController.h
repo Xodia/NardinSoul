@@ -18,14 +18,11 @@
 @property (nonatomic, retain) IBOutlet UIImageView *round;
 @property (nonatomic, retain) IBOutlet UIImageView *line;
 
-@property (nonatomic, retain) IBOutlet UILabel *login;
 @property (nonatomic, retain) IBOutlet UILabel *connected;
 @property (nonatomic, retain) IBOutlet UIButton *toConversation;
-@property (nonatomic, retain) IBOutlet UIButton *eraseContact;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) NSContact *user;
 
 - (IBAction)pushToConversation:(id)sender;
-- (IBAction)addRemoveContact:(id)sender;
 
 @end

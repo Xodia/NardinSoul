@@ -7,12 +7,14 @@
 //
 
 #import "CollectionIcon.h"
+#import "UIImage+XDShape.h"
+#import "UIImageView_XDShape.h"
 
 @implementation CollectionIcon
 
 @synthesize key, path, img;
 
-- (id) initWithPath:(NSString *)_path andKey:(NSString *)_key
+- (id)initWithPath:(NSString *)_path andKey:(NSString *)_key
 {
     if (self = [super init])
     {
@@ -20,15 +22,19 @@
         path =[[NSString alloc] initWithString: _path];
         
         img = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"no.jpg"]];
-        
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-        dispatch_async(queue, ^{
-            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:  path]]];
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [img setImage: image];
-                isLoad = YES;
-            });
-        });
+		
+		__weak typeof(self)weakSelf = self;
+		[UIImage loadFromURL:[NSURL URLWithString:path] callback:^(UIImage *iimage) {
+			if (iimage) {
+				[weakSelf.img setImage:iimage];
+			} else {
+				[weakSelf.img setImage: [UIImage imageNamed: @"no.jpg"]];
+			}
+			[weakSelf.img toRoundImageView];
+			weakSelf.isLoad = YES;
+		}];
+
+		
 
     }
     return (self);

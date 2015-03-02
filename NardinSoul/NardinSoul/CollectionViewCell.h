@@ -21,14 +21,13 @@
 {
     UILabel *label;
     UIImageView *image;
-    BOOL        isMenuShowed, dragging;
-    float       oldX, oldY;
+    BOOL isMenuShowed, dragging;
+    float oldX, oldY;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel *label;
 @property (nonatomic, retain) IBOutlet UIImageView *image;
 @property (nonatomic, retain) IBOutlet UIImageView *round;
-
 @property (nonatomic, retain) id<MenuViewProtocol> delegate;
 
 - (void)setContact:(NSContact *)contact;

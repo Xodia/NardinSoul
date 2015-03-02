@@ -65,7 +65,6 @@
     [location setText: connection.location];
     [ip setText: connection.userHost];
     [comment setText: connection.userData];
-   // [state setText: stat];
     [group setText: connection.group];
 }
 

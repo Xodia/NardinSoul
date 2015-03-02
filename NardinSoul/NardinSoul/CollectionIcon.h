@@ -9,15 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface CollectionIcon : NSObject
-{
-    NSString *path;
-    NSString *key;
-    BOOL isLoad;
-}
 
 @property (nonatomic, copy) NSString *path;
 @property (nonatomic, copy) NSString *key;
 @property (nonatomic, retain) UIImageView *img;
+@property (nonatomic) BOOL isLoad;
 
 - (id)initWithPath: (NSString *) _path andKey: (NSString *) _key;
 @end

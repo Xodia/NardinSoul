@@ -37,15 +37,14 @@
 
 @synthesize tableView, collectionView, item;
 
-- (void) didReceivePaquetFromNS:(NSPacket *)packet
-{
-    //NSLog(@"Packet: %@ command: %@", packet, packet.command);
-    if ([[packet command] isEqualToString: @"msg"])
+- (void) didReceivePaquetFromNS:(NSPacket *)packet {
+
+	if ([[packet command] isEqualToString: @"msg"])
     {
         NSString *msg = [NSString stringWithFormat: @"Messages(%d)", [[NardinPool sharedObject] numbersOfMessage]];
             
-            [menuItems setObject:msg atIndexedSubscript:0];
-            [tableView reloadData];
+		[menuItems setObject:msg atIndexedSubscript:0];
+		[tableView reloadData];
     }
     
     if ([[packet command] isEqualToString: @"who"])
@@ -56,14 +55,13 @@
     }
 }
 
-- (void) didDisconnect
-{
+- (void)didDisconnect {
     shouldDisco = YES;
     if (hasViewDidAppear)
         [[self navigationController] popToRootViewControllerAnimated: YES];
 }
 
-- (void) viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear: animated];
     hasViewDidAppear = YES;
@@ -79,8 +77,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1)
-    {
+    if (buttonIndex == 1) {
         [[NardinPool sharedObject] addContact: [alertView textFieldAtIndex:0].text];
 		items = nil;
         items = [[NSArray alloc] initWithArray: [[[NardinPool sharedObject] contactsInfo] allKeys]];
@@ -90,8 +87,7 @@
         [self.collectionView reloadData];
         [self _hideMenu];
     }
-    else
-    {
+    else {
         //NSLog(@"user pressed Cancel");
     }
 }
@@ -101,7 +97,7 @@
 	
 	isMenuShowed = NO;
 	
-    //[self.collectionView reloadData];
+    [self.collectionView reloadData];
     [self.navigationController.navigationBar setHidden: NO];
     [[NetsoulProtocol sharePointer] setDelegate: self];
     [super viewWillAppear: animated];
@@ -112,62 +108,8 @@
     [tableView reloadData];
 }
 
-- (void) _showMenu
-{
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.2];
-    [UIView setAnimationDelay:0.3];
-    [UIView setAnimationCurve: UIViewAnimationCurveLinear];
-    [tableView setHidden: NO];
-    
-    CGRect bounds = [[self tableView] frame];
-    bounds.origin.x += 216;
-    [[self tableView] setFrame: bounds];
-    
-    bounds = [[self collectionView] frame];
-    bounds.origin.x += 216;
-    [[self collectionView] setFrame: bounds];
-    
-    [UIView commitAnimations];
-    isMenuShowed = YES;
-}
 
-- (void) _hideMenu
-{
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.2];
-    [UIView setAnimationDelay:0.3];
-    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    [tableView setHidden: NO];
-    
-    
-    CGRect bounds = [[self tableView] frame];
-    bounds.origin.x -= 216;
-    [[self tableView] setFrame: bounds];
-    
-    bounds = [[self collectionView] frame];
-    bounds.origin.x -= 216;
-    [[self collectionView] setFrame: bounds];
-    
-    
-    
-    [UIView commitAnimations];
-    isMenuShowed = NO;
-}
-
-
-- (IBAction)showMenu: (id) sender
-{
-    if (!isMenuShowed)
-        [self _showMenu];
-    else
-        [self _hideMenu];
-    
-}
-
-
-- (void)viewDidLoad
-{    
+- (void)viewDidLoad {
     //items = [[[[[NardinPool sharedObject] contactsInfo] allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]  retain];
     self.title = @"NSoul";
 
@@ -194,7 +136,6 @@
 	leftButton = nil;
     menuItems = [[NSMutableArray alloc] initWithArray: @[@"Messages", @"Ajouter un contact",  @"Deconnexion"]];
     keySelector = @[@"toMessageView", @"addContact", @"disconnect"];
-
 }
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -244,6 +185,8 @@
 }
 
 
+#pragma mark UICOllectionView Delegate
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     int i = 0;
@@ -274,8 +217,7 @@
  	return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (isMenuShowed)
         return [self _hideMenu];
     
@@ -285,9 +227,13 @@
     UserDetailViewController *rootView = [[self storyboard] instantiateViewControllerWithIdentifier:@"userDetailViewController"];
     
     NSContact *u = [[[NardinPool sharedObject] contactsInfo] objectForKey: login];
-    [u flush];
+    //[u flush];
+	u.img = cell.image.image;
+	u.isImageLoaded = YES;
+	
     [[NetsoulProtocol sharePointer] whoUsers: @[login]];
-    [rootView setUser: u];
+    [rootView setUser:u];
+	NSLog(@"User(%@): %@", u.login, u);
     [[self navigationController] pushViewController: rootView animated: YES];
     
 }
@@ -305,7 +251,7 @@
     [self.navigationController popViewControllerAnimated: YES];
 }
 
-- (void) toInformationView
+- (void)toInformationView
 {
     CreditsViewController  *rootView = [[self storyboard] instantiateViewControllerWithIdentifier:@"creditsViewController"];
     [[self navigationController] pushViewController: rootView animated: YES];
@@ -336,7 +282,6 @@
 }
 
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	SEL selector = NSSelectorFromString([keySelector objectAtIndex:indexPath.row]);
@@ -344,5 +289,62 @@
 	void (*func)(id, SEL) = (void *)imp;
 	func(self, selector);
 }
+
+#pragma mark - Menu methods
+
+- (void) _showMenu
+{
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:0.2];
+	[UIView setAnimationDelay:0.3];
+	[UIView setAnimationCurve: UIViewAnimationCurveLinear];
+	[tableView setHidden: NO];
+	
+	CGRect bounds = [[self tableView] frame];
+	bounds.origin.x += 216;
+	[[self tableView] setFrame: bounds];
+	
+	bounds = [[self collectionView] frame];
+	bounds.origin.x += 216;
+	[[self collectionView] setFrame: bounds];
+	
+	[UIView commitAnimations];
+	isMenuShowed = YES;
+}
+
+- (void) _hideMenu
+{
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:0.2];
+	[UIView setAnimationDelay:0.3];
+	[UIView setAnimationCurve:UIViewAnimationCurveLinear];
+	[tableView setHidden: NO];
+	
+	
+	CGRect bounds = [[self tableView] frame];
+	bounds.origin.x -= 216;
+	[[self tableView] setFrame: bounds];
+	
+	bounds = [[self collectionView] frame];
+	bounds.origin.x -= 216;
+	[[self collectionView] setFrame: bounds];
+	
+	
+	
+	[UIView commitAnimations];
+	isMenuShowed = NO;
+}
+
+
+- (IBAction)showMenu: (id) sender
+{
+	if (!isMenuShowed)
+		[self _showMenu];
+	else
+		[self _hideMenu];
+	
+}
+
+
 
 @end

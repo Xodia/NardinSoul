@@ -11,27 +11,25 @@
 #import "UIImage+XDShape.h"
 
 @implementation NSContact
-@synthesize login = _login, infos = _infos, img = _img;
 
-- (id) initWithLogin: (NSString *) log andInfos: (NSMutableArray *) info
+- (id) initWithLogin:(NSString *)log andInfos:(NSMutableArray *)info
 {
-    if (self = [super init])
-    {
-        _img = [UIImage imageNamed: @"no.jpg"];
+    if (self = [super init]) {
+		_img = [UIImage imageNamed: @"no.jpg"];
         _login = [[NSString alloc] initWithString: log];
-        _infos = [[NSMutableArray alloc] initWithArray: info copyItems: YES];
+        _infos = [[NSMutableArray alloc] initWithArray:info copyItems: YES];
         [self loadImage];
     }
     return self;
 }
 
-- (id) initWithLogin: (NSString *) log
+- (id) initWithLogin:(NSString *) log
 {
-    if (self = [super init])
-    {
+    if (self = [super init]) {
+		_img = [UIImage imageNamed: @"no.jpg"];
         _login = [[NSString alloc] initWithString: log];
         _infos = [[NSMutableArray alloc] init];
-        //[self loadImage];
+        [self loadImage];
     }
     return self;
 }
@@ -56,8 +54,7 @@
     }
 }
 
-- (void) setIsImageLoaded: (BOOL) b
-{
+- (void)setIsImageLoaded: (BOOL) b {
     self.imgLoaded = b;
 }
 
@@ -65,49 +62,36 @@
 {
     NSMutableArray *arr = [[NSMutableArray alloc] init];
         
-    for (User *u in _infos)
-    {
-        if (u.socket == connection.socket)
-        {
+    for (User *u in _infos) {
+        if (u.socket == connection.socket) {
             [arr addObject:u];
         }
     }
-        
-    for (User *u in arr)
+
+	for (User *u in arr) {
         [_infos removeObject: u];
+	}
 
 	arr = nil;
 }
 
-- (void) flush
-{
+- (void) flush {
     [_infos removeAllObjects];
 }
 
-- (void) loadImage
-{
+- (void) loadImage {
 	NSURL *url = [NSURL URLWithString: [NSString stringWithFormat:@"http://cdn.local.epitech.net/userprofil/profilview/%@.jpg", _login]];
 	__weak typeof(self)weakSelf = self;
 	[UIImage loadFromURL:url callback:^(UIImage *image) {
 		if (image)
 		{
-			weakSelf.img = image;
+			weakSelf.img = [image copy];
 			weakSelf.imgLoaded = YES;
-		}
-		else
-		{
-			NSString *imageFilePath = [[NSBundle mainBundle] pathForResource:@"no" ofType:@"jpg"];
-			if (imageFilePath)
-			{
-				weakSelf.img = [[UIImage alloc] initWithContentsOfFile: imageFilePath];
-				weakSelf.imgLoaded = YES;
-			}
 		}
 	}];
 }
 
-- (BOOL) isImageLoaded
-{
+- (BOOL) isImageLoaded {
     return self.imgLoaded;
 }
 

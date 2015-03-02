@@ -59,38 +59,30 @@ static NetsoulProtocol *sharePointer = nil;
     return sharePointer;
 }
 
-- (id) initWithPort: (int) port andAddress:(NSString *) address
-{
-    if (self = [super init])
-    {
+- (id)initWithPort:(int)port andAddress:(NSString *)address {
+    if (self = [super init]) {
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         _socket =  [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue: mainQueue];
         NSError *error;
-        if (![_socket connectToHost: address onPort: port error: &error])
-        {
-            //NSLog(@"Error connecting: %@", error);
+        if (![_socket connectToHost: address onPort: port error: &error]) {
+            NSLog(@"Error connecting__1: %@", error);
         }
-        else
-        {
-           // NSLog(@"Connected !");
+        else {
+			NSLog(@"Connected__1 !");
         }
         
     }
     return self;
 }
 
-- (void) resetSocketWithPort:(int)port andAdress: (NSString *) address;
-{
+- (void)resetSocketWithPort:(int)port andAdress: (NSString *) address; {
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     _socket =  [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue: mainQueue];
     NSError *error;
-	NSLog(@"HERE");
-    if (![_socket connectToHost: address onPort: port error: &error])
-    {
+    if (![_socket connectToHost: address onPort: port error: &error]) {
         NSLog(@"Error connecting: %@", error);
     }
-    else
-    {
+    else {
         NSLog(@"Connected !");
     }
 }
@@ -196,19 +188,18 @@ static NetsoulProtocol *sharePointer = nil;
 }
 
 #pragma  TODO DO_CONNECT_METH
-- (void) connect
+- (void)connect
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 
     NSString *port = [prefs stringForKey: @"port"];
     NSString *server = [prefs stringForKey: @"server"];
     
-    [self resetSocketWithPort: [port intValue] andAdress: server];
+    [self resetSocketWithPort:[port intValue] andAdress:server];
 }
 
 #pragma  TODO DO_DISCONNECT_METH
-- (void) disconnect
-{
+- (void)disconnect {
     [_socket disconnect];
     loginNetsouled = @"";
     
@@ -317,7 +308,7 @@ static NetsoulProtocol *sharePointer = nil;
     [_socket readDataWithTimeout: -1 tag: 42];
 }
 
-- (void) whoUsers: (NSArray *) users
+- (void)whoUsers:(NSArray *)users
 {
     NSString *varUser = @"";
     if ([users count] > 0)
@@ -376,8 +367,7 @@ static NetsoulProtocol *sharePointer = nil;
     [_socket writeData: [@"auth_ag ext_user none none\n" dataUsingEncoding:NSUTF8StringEncoding] withTimeout: -1 tag: AUTORISE_CO];
 }
 
-- (void) receivedAuthToken: (NSString *) token
-{
+- (void)receivedAuthToken: (NSString *) token {
     NSArray *array = [token componentsSeparatedByString: @" "];
     //NSLog(@"receivedAuthToken: %@", array);
     
